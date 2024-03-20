@@ -1,5 +1,6 @@
-
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+<p align="center">
+    <img src="https://github.com/juliaathar/VitalHub_Grupo_08/assets/125266093/c11c1f81-e862-4673-8120-704e9493a2d8" alt="VitalHub Logo"  width="400">
+</p>
 
 
 #
