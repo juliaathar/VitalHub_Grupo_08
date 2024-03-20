@@ -10,7 +10,12 @@ O projeto "VitalHub" é um aplicativo desenvolvido para integrar médicos, pacie
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+<p float="left">
+ <img src="https://github.com/gabrielarosa1309/VitalHub/assets/125273752/c354a9b4-908d-4a0c-b445-1646f073bc7c" width="200" />
+ <img src="https://github.com/gabrielarosa1309/VitalHub/assets/125273752/5d1a5a54-97ec-442a-9dc6-dbf42ba826c8" width="200" />
+ <img src="https://github.com/gabrielarosa1309/VitalHub/assets/125273752/c108d248-bd9b-4606-89f2-cb9151ca2cc4" width="200" />
+ <img src="https://github.com/gabrielarosa1309/VitalHub/assets/125273752/44b1772e-eb88-4f52-bd90-1cd403c2d756" width="200" /> 
+</p>
 
 ## Documentação de cores
 
