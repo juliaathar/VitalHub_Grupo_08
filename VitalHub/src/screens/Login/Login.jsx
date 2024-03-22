@@ -6,7 +6,7 @@ import { Input } from "../../components/Input/Style"
 import { Title } from "../../components/Title/Style"
 import { Logo } from "../../components/Logo/Style"
 import { useState } from "react"
-import { TouchableOpacity } from "react-native"
+import { Alert, TouchableOpacity } from "react-native"
 
 import api from "../../service/service"
 
@@ -16,17 +16,21 @@ export const Login = ({ navigation }) => {
     const [senha, setSenha] = useState('')
 
     async function Login() {
-        //chamar api de login
-        //console.log("response:")
-
-        const response = await api.post('/Login', {
-            email: email,
-            senha: senha
-        });
-
-        console.log(response)
-        //navigation.replace("Main")
+        try {
+            const response = await api.post('http://172.16.39.82:4466/api/Login', {
+                email: email,
+                senha: senha
+            });
+    
+            console.log(response.status);
+            Alert.alert(response.status);
+            // navigation.replace("Main");
+        } catch (error) {
+            console.error('Erro ao fazer login:', error.response.data);
+            Alert.alert('Erro ao fazer login', error.response.data.message || 'Verifique seus dados e tente novamente.');
+        }
     }
+   
 
     return (
         <Container>
