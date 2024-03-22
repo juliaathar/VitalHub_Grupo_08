@@ -14,9 +14,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-
-      //ip da máquina que proverá o servidor pra consumo da api no mobile
-      "applicationUrl": "http://172.16.39.82",
+      "applicationUrl": "http://192.168.19.111:4466",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
