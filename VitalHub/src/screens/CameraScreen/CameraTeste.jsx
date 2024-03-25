@@ -7,7 +7,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { View } from 'react-native';
 
-export const CameraTeste = ({ navigation }) => {
+export const CameraScreen = ({ navigation }) => {
     const [type, setType] = useState(CameraType.back);
     const [flash, setFlash] = useState(FlashMode.off)
     const [capturedPhoto, setCapturedPhoto] = useState(null);
@@ -24,11 +24,6 @@ export const CameraTeste = ({ navigation }) => {
             requestPermission(status === 'granted')
         })();
     }, []);
-
-    if (!permission) {
-        //Camera permissions are still loading
-        return <View />;
-    }
 
     if (!permission.granted) {
         // Camera permissions are not granted yet

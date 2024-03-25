@@ -14,7 +14,7 @@ import { Navegacao } from './src/screens/Navegacao/Navegacao';
 import { Perfil } from './src/screens/Perfil/Perfil';
 import { Login } from './src/screens/Login/Login';
 import { LocalMap } from './src/screens/LocalMap/LocalMap';
-import { CameraTeste } from './src/screens/CameraTeste/CameraTeste';
+import { CameraScreen } from './src/screens/CameraScreen/CameraScreen';
 import { Main } from './src/screens/Main/Main';
 
 //notificacoes
@@ -188,9 +188,9 @@ export default function App() {
         />
 
         <Stack.Screen
-          name='CameraTeste'
-          component={CameraTeste}
-          options={{ title: 'CameraTeste' }}
+          name='CameraScreen'
+          component={CameraScreen}
+          options={{ title: 'CameraScreen' }}
         />
 
       </Stack.Navigator>

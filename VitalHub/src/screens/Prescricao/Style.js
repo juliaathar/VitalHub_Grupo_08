@@ -55,6 +55,11 @@ export const DecorLine = styled.View`
 `
 
 export const ImageTaked = styled.Image`
+    width: 100%;
+    height: 120px;
+`
+
+export const ImageTouch = styled.TouchableOpacity`
     width: 50%;
     height: 120px;
     margin-right: 10px;

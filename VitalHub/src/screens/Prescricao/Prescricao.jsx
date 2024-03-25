@@ -1,4 +1,4 @@
-import { CancelarButton, CancelarLink, DecorLine, FormPhoto, ImageTaked, OptionLine, PhotoButton, PhotoField, PhotosList, TextButton } from "./Style"
+import { CancelarButton, CancelarLink, DecorLine, FormPhoto, ImageTaked, ImageTouch, OptionLine, PhotoButton, PhotoField, PhotosList, TextButton } from "./Style"
 import { FormField } from "../../components/FormField/FormField"
 import { ScrollForm } from "../../components/ScrollForm/Style"
 import { Container } from "../../components/Container/Style"
@@ -17,6 +17,7 @@ import { Text } from "react-native"
 export const Prescricao = ({ navigation, route }) => {
     const { photoUri } = route.params || {};
     const [modalPhoto, setModalPhoto] = useState(false);
+    const [modalUri, setModalUri] = useState('');
     const [photoTaked, setPhotoTaked] = useState(false)
     const [photos, setPhotos] = useState([]);
 
@@ -58,15 +59,13 @@ export const Prescricao = ({ navigation, route }) => {
                                     data={photos}
                                     keyExtractor={(item) => item.id}
                                     renderItem={({ item }) =>
-                                        <ImageTaked
-                                            source={{ uri: `${item.uri}` }}
-                                        />
+                                        <ImageTouch onPress={(setModalPhoto(true), setModalUri(item.uri))}>
+                                            <ImageTaked
+                                                source={{ uri: `${item.uri}` }}
+                                            />
+                                        </ImageTouch>
                                     }
                                 />
-
-                                // <ImageTaked
-                                //     source={{ uri: `${photoUri}` }}
-                                // />
                             ) : (
                                 <Text style={{ fontFamily: "MontserratAlternates_500Medium", padding: 20 }}>Nenhuma foto informada</Text>
                             )}
@@ -96,7 +95,7 @@ export const Prescricao = ({ navigation, route }) => {
 
             <PhotoTaked
                 RequestSave={""}
-                uriPhoto={""}
+                uriPhoto={modalUri}
                 visible={modalPhoto}
                 onRequestClose={() => setModalPhoto(false)}
             />
