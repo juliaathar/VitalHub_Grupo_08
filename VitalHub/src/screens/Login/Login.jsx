@@ -1,19 +1,20 @@
 import { ContentAccount, TextAccount, TextAccountLink } from "../../components/ContentAccount/Style"
 import { GoogleButton, NormalButton } from "../../components/Button/Buttons"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { Container } from "../../components/Container/Style"
 import { LinkMedium } from "../../components/Links/Style"
+import { Alert, TouchableOpacity } from "react-native"
 import { Input } from "../../components/Input/Style"
 import { Title } from "../../components/Title/Style"
 import { Logo } from "../../components/Logo/Style"
 import { useState } from "react"
-import { Alert, TouchableOpacity } from "react-native"
 
 import api from "../../service/service"
 
 export const Login = ({ navigation }) => {
 
-    const [email, setEmail] = useState('')
-    const [senha, setSenha] = useState('')
+    const [email, setEmail] = useState('julia@gmail.com');
+    const [senha, setSenha] = useState('julia');
 
     async function Login() {
         try {
@@ -21,10 +22,10 @@ export const Login = ({ navigation }) => {
                 email: email,
                 senha: senha
             });
-    
-            console.log(response.status);
-            Alert.alert(response.status);
-            // navigation.replace("Main");
+
+            await AsyncStorage.setItem('token', JSON.stringify(response.data));
+
+            navigation.replace("Main");
         } catch (error) {
             console.error('Erro ao fazer login:', error.response.data);
             Alert.alert('Erro ao fazer login', error.response.data.message || 'Verifique seus dados e tente novamente.');

@@ -1,6 +1,6 @@
+import { GoogleButton, NormalButton } from "../../components/Button/Buttons"
 import { FormField } from "../../components/FormField/FormField"
 import { ScrollForm } from "../../components/ScrollForm/Style"
-import { GoogleButton, NormalButton } from "../../components/Button/Buttons"
 import { Container } from "../../components/Container/Style"
 import { Paragraph } from "../../components/Paragraph/Style"
 import { ProfilePic } from "../../components/Profile/Style"
@@ -33,7 +33,7 @@ export const Perfil = ({ navigation }) => {
 
                     <NormalButton title={"Salvar"} onPress={() => { setFormEdit(false) }} fieldWidth={90} />
                     <NormalButton title={"editar"} onPress={() => { setFormEdit(true) }} fieldWidth={90} />
-                    <GoogleButton title={"Voltar"} onPress={() => navigation.replace("Main")} fieldWidth={80} />
+                    <GoogleButton title={"Sair do app"} onPress={() => navigation.replace("Main")} fieldWidth={70} />
 
                 </View>
             </ScrollForm>
