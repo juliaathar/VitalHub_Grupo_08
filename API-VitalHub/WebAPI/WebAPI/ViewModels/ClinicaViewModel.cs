@@ -2,17 +2,24 @@
 {
     public class ClinicaViewModel
     {
-        public string? Email;
+        public string? Email { get; set; }
 
-        public string? NomeFantasia;
+        public string? NomeFantasia { get; set; }
 
-        public string? Cnpj;
+        public string? Cnpj { get; set; }
 
-        public string? RazaoSocial;
+        public string? RazaoSocial { get; set; }
 
-        public decimal? Latitude;
+        public decimal? Latitude { get; set; }
 
-        public decimal? Logitude;
+        public decimal? Longitude { get; set; }
+
+        public string? Cep { get; set; }
+
+        public string? Logradouro { get; set; }
+
+        public int? Numero { get; set; }
+
 
     }
 }

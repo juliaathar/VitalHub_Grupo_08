@@ -32,10 +32,30 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Cadastrar(ClinicaViewModel clinicaModel)
+        public IActionResult Post(ClinicaViewModel clinicaModel)
         {
             Clinica clinica = new Clinica();
 
+            clinica.NomeFantasia = clinicaModel.NomeFantasia;
+            clinica.Cnpj = clinicaModel.Cnpj;
+            clinica.RazaoSocial = clinicaModel.RazaoSocial;
+            clinica.Email = clinicaModel.Email;
+            clinica.Latitude = clinicaModel.Latitude;
+            clinica.Longitude = clinicaModel.Longitude;
+
+
+            _clinicaRepository.Cadastrar(clinica);
+
+            return StatusCode(201);
+
         }
+
+        [HttpGet]
+        public IActionResult Get()
+        {
+             List<Clinica> clinicas = _clinicaRepository.ListarTodos();
+            return StatusCode(200, clinicas);
+        }
+
     }
 }
