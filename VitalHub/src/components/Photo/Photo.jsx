@@ -2,6 +2,7 @@ import { ButtonText, CloseButton, Line, ModalPhoto, PhotoFile, SaveButton } from
 
 
 export const PhotoTaked = ({
+    titleButton = "",
     uriPhoto = "",
     visible = false,
     onRequestClose,
@@ -21,7 +22,7 @@ export const PhotoTaked = ({
                 </CloseButton>
 
                 <SaveButton onPress={RequestSave}>
-                    <ButtonText>Salvar</ButtonText>
+                    <ButtonText>{titleButton}</ButtonText>
                 </SaveButton>
             </Line>
 

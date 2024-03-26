@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import * as MediaLibrary from 'expo-media-library'
 import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
-import { View } from 'react-native';
+import { Button, Text, View } from 'react-native';
 
 export const CameraScreen = ({ navigation }) => {
     const [type, setType] = useState(CameraType.back);
@@ -25,7 +25,7 @@ export const CameraScreen = ({ navigation }) => {
         })();
     }, []);
 
-    if (!permission.granted) {
+    if (!permission) {
         // Camera permissions are not granted yet
         return (
             <View>
@@ -91,6 +91,7 @@ export const CameraScreen = ({ navigation }) => {
             </CameraBody>
 
             <PhotoTaked
+                titleButton='Salvar'
                 RequestSave={savePicture}
                 uriPhoto={capturedPhoto}
                 visible={modalPhoto}

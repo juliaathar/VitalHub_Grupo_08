@@ -12,6 +12,7 @@ import { Title } from "../../components/Title/Style"
 import { TouchableOpacity } from "react-native"
 import { useEffect, useState } from "react"
 import { Text } from "react-native"
+import { PhotoTaked } from "../../components/Photo/Photo"
 
 
 export const Prescricao = ({ navigation, route }) => {
@@ -59,7 +60,7 @@ export const Prescricao = ({ navigation, route }) => {
                                     data={photos}
                                     keyExtractor={(item) => item.id}
                                     renderItem={({ item }) =>
-                                        <ImageTouch onPress={(setModalPhoto(true), setModalUri(item.uri))}>
+                                        <ImageTouch onPress={() => (setModalPhoto(true), setModalUri(item.uri))}>
                                             <ImageTaked
                                                 source={{ uri: `${item.uri}` }}
                                             />
@@ -73,7 +74,7 @@ export const Prescricao = ({ navigation, route }) => {
                     </FormPhoto>
 
                     <OptionLine>
-                        <PhotoButton onPress={() => navigation.navigate('CameraTeste')}>
+                        <PhotoButton onPress={() => navigation.navigate('CameraScreen')}>
                             <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
                             <TextButton>Enviar</TextButton>
                         </PhotoButton>
@@ -83,7 +84,7 @@ export const Prescricao = ({ navigation, route }) => {
                         </CancelarButton>
                     </OptionLine>
 
-                    <DecorLine></DecorLine>
+                    <DecorLine/>
 
                     <FormField fieldWidth={90} labelText="" fieldValue={"Resultado do exame de sangue : tudo normal"} />
 
@@ -94,7 +95,8 @@ export const Prescricao = ({ navigation, route }) => {
             </ScrollForm>
 
             <PhotoTaked
-                RequestSave={""}
+                titleButton="Deletar"
+                RequestSave={() => setModalPhoto(false)}
                 uriPhoto={modalUri}
                 visible={modalPhoto}
                 onRequestClose={() => setModalPhoto(false)}

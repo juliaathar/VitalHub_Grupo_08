@@ -57,8 +57,6 @@ export const CalendarApp = ({
                 <SelectBoxTitle>Selecione um horário disponível</SelectBoxTitle>
                 <SelectDropdown
                     data={horarios}
-                    // defaultValueByIndex={1}
-                    // defaultValue={'Egypt'}
                     onSelect={(selectedItem, index) => {
                         console.log(selectedItem, index);
                     }}

@@ -23,7 +23,7 @@ export const Login = ({ navigation }) => {
                 senha: senha
             });
 
-            await AsyncStorage.setItem('token', JSON.stringify(response.data));
+            await AsyncStorage.setItem('token', JSON.stringify(response.data)); //costumava ter .data depois de response
 
             navigation.replace("Main");
         } catch (error) {

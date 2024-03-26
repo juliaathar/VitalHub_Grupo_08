@@ -6,7 +6,7 @@ import { OptionButtons } from "../../components/OptionButtons/OptionButtons"
 import { CalendarHome } from "../../components/CalendarHome/CalendarHome"
 import { DoctorModal } from "../../components/DoctorModal/DoctorModal"
 import { Container } from "../../components/Container/Style"
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { CardList, ContainerBox, NewConsul } from "./Style"
 import { Header } from "../../components/Header/Header"
 import { useState } from "react"

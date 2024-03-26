@@ -32,7 +32,7 @@ export const Header = ({ navigation }) => {
 
                 </BoxUser>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("NotificacoesConfig")}>
                     <MaterialCommunityIcons name="bell" size={25} color="white" />
                 </TouchableOpacity>
             </Line>

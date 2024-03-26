@@ -10,7 +10,6 @@ import { Prontuario } from './src/screens/Prontuario_Medico/Prontuario'
 import { CriarConta } from './src/screens/CriarConta/CriarConta';
 import { Home } from './src/screens/Home/Home';
 import { Prescricao } from './src/screens/Prescricao/Prescricao';
-import { Navegacao } from './src/screens/Navegacao/Navegacao';
 import { Perfil } from './src/screens/Perfil/Perfil';
 import { Login } from './src/screens/Login/Login';
 import { LocalMap } from './src/screens/LocalMap/LocalMap';
@@ -51,6 +50,7 @@ import {
   MontserratAlternates_600SemiBold,
   MontserratAlternates_500Medium
 } from '@expo-google-fonts/montserrat-alternates';
+import { NotificacoesConfig } from './src/screens/NotificacoesConfig/NotificacoesConfig';
 
 export default function App() {
 
@@ -112,15 +112,6 @@ export default function App() {
           options={{ title: 'Main' }}
         />
 
-        {/* <Stack.Screen
-          //nome tela
-          name='Navegacao'
-          //componente que sera chamado
-          component={Navegacao}
-          //titulo da tela
-          options={{ title: 'Navegacao' }}
-        /> */}
-
         <Stack.Screen
           name='RecuperarSenha'
           component={RecuperarSenha}
@@ -150,12 +141,6 @@ export default function App() {
           component={Perfil}
           options={{ title: 'Perfil' }}
         />
-
-        {/* <Stack.Screen
-          name='Home_Medico'
-          component={Home_Medico}
-          options={{ title: 'Home_Medico' }}
-        /> */}
 
         <Stack.Screen
           name='Home'
@@ -191,6 +176,12 @@ export default function App() {
           name='CameraScreen'
           component={CameraScreen}
           options={{ title: 'CameraScreen' }}
+        />
+
+        <Stack.Screen
+          name='NotificacoesConfig'
+          component={NotificacoesConfig}
+          options={{title: 'NotificacoesConfig'}}
         />
 
       </Stack.Navigator>
