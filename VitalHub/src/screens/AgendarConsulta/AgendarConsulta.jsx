@@ -7,32 +7,58 @@ import { Title } from "../../components/Title/Style"
 import { CardList } from "../Home/Style"
 import { TouchableOpacity } from "react-native"
 import { Body, RenderInside } from "./Style"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { CalendarApp } from "../../components/CalendarApp/CalendarApp"
 import { ConsultationModal } from "../../components/ConsultationModal/ConsultationModal"
+import api from "../../service/service"
 
 export const AgendarConsulta = ({ navigation }) => {
+    const [medicosLista, setMedicosLista] = useState(null)
+    const [clinicasLista, setClinicasLista] = useState(null)
 
     const [status, setStatus] = useState("clínica");
-
-    const [clinicaSelected, setClinicaSelected] = useState("");
     const [medicoSelected, setMedicoSelected] = useState("");
-
+    const [clinicaSelected, setClinicaSelected] = useState("");
     const [consulModal, setConsulModal] = useState(false); //mudar para false
 
-    const clinicas = [
-        { id: 1, nomeClinica: "Clínica Natureh", endereco: "São Paulo, SP", nota: "4,5", dias: "Seg-Sex" },
-        { id: 2, nomeClinica: "Diamond Pró-Mulher", endereco: "São Paulo, SP", nota: "4,8", dias: "Seg-Sex" },
-        { id: 3, nomeClinica: "Clinica Villa Lobos", endereco: "Taboão, SP", nota: "4,2", dias: "Seg-Sab" },
-        { id: 4, nomeClinica: "SP Oncologia Clínica", endereco: "Taboão, SP", nota: "4,2", dias: "Seg-Sab" }
-    ]
 
-    const medicos = [
-        { id: 1, nomeMedico: "Dra Alessandra", especialidade: "Demartologa, Esteticista" },
-        { id: 2, nomeMedico: "Dr Kumushiro", especialidade: "Cirurgião, Cardiologista" },
-        { id: 3, nomeMedico: "Dr Rodrigo Santos", especialidade: "Clínico, Pediatra" },
-        { id: 4, nomeMedico: "Dr Jerfesson", especialidade: "Fisioterapia" }
-    ]
+   
+
+    // const clinicas = [
+    //     { id: 1, nomeClinica: "Clínica Natureh", endereco: "São Paulo, SP", nota: "4,5", dias: "Seg-Sex" },
+    //     { id: 2, nomeClinica: "Diamond Pró-Mulher", endereco: "São Paulo, SP", nota: "4,8", dias: "Seg-Sex" },
+    //     { id: 3, nomeClinica: "Clinica Villa Lobos", endereco: "Taboão, SP", nota: "4,2", dias: "Seg-Sab" },
+    //     { id: 4, nomeClinica: "SP Oncologia Clínica", endereco: "Taboão, SP", nota: "4,2", dias: "Seg-Sab" }
+    // ]
+
+
+    //traz os medicos da api
+    async function ListarMedicos() {
+        //Instanciar
+        await api.get("http://172.16.39.82:4466/api/Medicos")
+        .then(async (response) => {
+            setMedicosLista(response.data)
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
+    //traz as clinicas da api
+    async function ListarClinicas() {
+        await api.get("http://172.16.39.82:4466/api/Clinica/ListarTodas")
+        .then(async (response) => {
+            setClinicasLista(response.data)
+        }).catch(error => {
+            console.log(error);
+        })
+    }
+
+
+
+    useEffect(() => {
+        ListarMedicos()
+        ListarClinicas()
+    }, [])
 
     return (
         <>
@@ -44,48 +70,38 @@ export const AgendarConsulta = ({ navigation }) => {
                         {status === "clínica" ?
                             (
                                 <CardList
-                                    data={clinicas}
+                                    data={clinicasLista}
                                     keyExtractor={(item) => item.id}
-                                    renderItem={({ item }) =>
+                                    renderItem={ ({ item }) =>
                                         <ClinicCard
-                                            nomeClinica={item.nomeClinica}
-                                            nota={item.nota}
-                                            dias={item.dias}
-                                            local={item.endereco}
+                                            nomeClinica={item.nomeFantasia}
+                                            nota={""}
+                                            dias={""}
+                                            local={item.endereco.logradouro}
                                             //funções
                                             actived={clinicaSelected == item.id}
                                             onPress={() => clinicaSelected == item.id ? setClinicaSelected(item.id) : setClinicaSelected(item.id)}
-                                        />}
+                                        />
+                                    }
                                 />
                             ) : status === "médico" ? (
                                 <CardList
-                                    data={medicos}
+                                    data={medicosLista}
                                     keyExtractor={(item) => item.id}
-                                    renderItem={({ item }) =>
+                                    renderItem={ ({ item }) =>
                                         <MedCard
-                                            nome={item.nomeMedico}
-                                            especialidade={item.especialidade}
+                                            medicos={item}
                                             //funções
                                             actived={medicoSelected == item.id}
                                             onPress={() => medicoSelected == item.id ? setMedicoSelected(item.id) : setMedicoSelected(item.id)}
-                                        />}
+                                        />
+                                    }
                                 />
                             ) : (
                                 <CalendarApp />
 
                             )
                         }
-
-                        {/* <ClinicCard
-                        actived={clinicaSelected}
-                        onPress={() => clinicaSelected ? setClinicaSelected(false) : setClinicaSelected(true)}
-                    /> */}
-
-                        {/* <MedCard
-                        actived={medicoSelected}
-                        onPress={() => medicoSelected ? setMedicoSelected(false) : setMedicoSelected(true)}
-                    /> */}
-
                     </RenderInside>
 
                     <NormalButton
@@ -96,9 +112,11 @@ export const AgendarConsulta = ({ navigation }) => {
                                     setStatus("clínica")
                                     break;
                                 case "clínica":
+                                    clinicaSelected === "" ? setStatus("clínica") :
                                     setStatus("médico")
                                     break;
                                 case "médico":
+                                    medicoSelected === "" ? setStatus("médico") :
                                     setStatus("data")
                                     break;
                                 case "data":

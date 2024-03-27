@@ -11,6 +11,8 @@ export const NotificacoesConfig = () => {
     const [statusNoti, setStatusNoti] = useState("futuras")
     const [bellConfig, setBellConfig] = useState('todas')
 
+    //provisorio
+
     return (
         <Container>
             {/* <StatusBar hidden={true} /> */}
