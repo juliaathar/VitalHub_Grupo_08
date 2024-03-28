@@ -4,7 +4,7 @@ import { Paragraph } from "../../components/Paragraph/Style"
 import { LinkMedium } from "../../components/Links/Style"
 import { Title } from "../../components/Title/Style"
 import { Text, TouchableOpacity } from "react-native"
-import { InfoBody, Line, Map } from "./Style"
+import { InfoBody, Line, Map, MapContainer } from "./Style"
 import {
   requestForegroundPermissionsAsync, //solicita o acesso
   getCurrentPositionAsync, //recebe a localizacao atual
@@ -79,61 +79,63 @@ export const LocalMap = ({ navigation }) => {
 
   return (
     <Container>
-      {initialPosition !== null ? (
-        <Map
-          ref={mapReference}
-          //marcar o ponto de inicio
-          initialRegion={{
-            latitude: initialPosition.coords.latitude,
-            longitude: initialPosition.coords.longitude,
-            latitudeDelta: 0.005,
-            longitudeDelta: 0.005
-          }}
-          customMapStyle={grayMapStyle}
-          provider={PROVIDER_GOOGLE}
-        >
-
-          <Marker
-            //meu marcador
-            coordinate={{
+      <MapContainer>
+        {initialPosition !== null ? (
+          <Map
+            ref={mapReference}
+            //marcar o ponto de inicio
+            initialRegion={{
               latitude: initialPosition.coords.latitude,
-              longitude: initialPosition.coords.longitude
-            }}
-            title="Posicao atual"
-            description="Estou aqui"
-            pinColor="cyan"
-          />
-
-          {/* trajeto do maps */}
-          <MapViewDirections
-            origin={initialPosition.coords}
-            destination={{
-              latitude: -23.8329,
-              longitude: -45.3662,
+              longitude: initialPosition.coords.longitude,
               latitudeDelta: 0.005,
               longitudeDelta: 0.005
             }}
-            apikey={mapskey}
-            strokeWidth={3}
-            strokeColor="blue"
-          />
+            customMapStyle={grayMapStyle}
+            provider={PROVIDER_GOOGLE}
+          >
 
-          <Marker
-            //meu destino
-            coordinate={{
-              latitude: -23.8329,
-              longitude: -45.3662
-            }}
-            title="Posicao atual"
-            description="Estou aqui"
-            pinColor="red"
-          />
+            <Marker
+              //meu marcador
+              coordinate={{
+                latitude: initialPosition.coords.latitude,
+                longitude: initialPosition.coords.longitude
+              }}
+              title="Posicao atual"
+              description="Estou aqui"
+              pinColor="cyan"
+            />
 
-        </Map>
+            {/* trajeto do maps */}
+            <MapViewDirections
+              origin={initialPosition.coords}
+              destination={{
+                latitude: -23.8329,
+                longitude: -45.3662,
+                latitudeDelta: 0.005,
+                longitudeDelta: 0.005
+              }}
+              apikey={mapskey}
+              strokeWidth={3}
+              strokeColor="blue"
+            />
 
-      ) : (
-        <Text>Nao encontrado</Text>
-      )}
+            <Marker
+              //meu destino
+              coordinate={{
+                latitude: -23.8329,
+                longitude: -45.3662
+              }}
+              title="Posicao atual"
+              description="Estou aqui"
+              pinColor="red"
+            />
+
+          </Map>
+
+        ) : (
+          <Text>Nao encontrado</Text>
+        )}
+      </MapContainer>
       <InfoBody>
         <Title>Clínica Natureh</Title>
         <Paragraph>São Paulo, SP</Paragraph>

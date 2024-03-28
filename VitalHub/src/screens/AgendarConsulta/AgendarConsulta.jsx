@@ -24,12 +24,12 @@ export const AgendarConsulta = ({ navigation }) => {
 
    
 
-    // const clinicas = [
-    //     { id: 1, nomeClinica: "Clínica Natureh", endereco: "São Paulo, SP", nota: "4,5", dias: "Seg-Sex" },
-    //     { id: 2, nomeClinica: "Diamond Pró-Mulher", endereco: "São Paulo, SP", nota: "4,8", dias: "Seg-Sex" },
-    //     { id: 3, nomeClinica: "Clinica Villa Lobos", endereco: "Taboão, SP", nota: "4,2", dias: "Seg-Sab" },
-    //     { id: 4, nomeClinica: "SP Oncologia Clínica", endereco: "Taboão, SP", nota: "4,2", dias: "Seg-Sab" }
-    // ]
+    const clinicas = [
+        { id: 1, nomeClinica: "Clínica Natureh", endereco: "São Paulo, SP", nota: "4,5", dias: "Seg-Sex" },
+        { id: 2, nomeClinica: "Diamond Pró-Mulher", endereco: "São Paulo, SP", nota: "4,8", dias: "Seg-Sex" },
+        { id: 3, nomeClinica: "Clinica Villa Lobos", endereco: "Taboão, SP", nota: "4,2", dias: "Seg-Sab" },
+        { id: 4, nomeClinica: "SP Oncologia Clínica", endereco: "Taboão, SP", nota: "4,2", dias: "Seg-Sab" }
+    ]
 
 
     //traz os medicos da api
@@ -80,7 +80,7 @@ export const AgendarConsulta = ({ navigation }) => {
                                             local={item.endereco.logradouro}
                                             //funções
                                             actived={clinicaSelected == item.id}
-                                            onPress={() => clinicaSelected == item.id ? setClinicaSelected(item.id) : setClinicaSelected(item.id)}
+                                            onPress={() => setClinicaSelected(item.id)}
                                         />
                                     }
                                 />
@@ -93,7 +93,7 @@ export const AgendarConsulta = ({ navigation }) => {
                                             medicos={item}
                                             //funções
                                             actived={medicoSelected == item.id}
-                                            onPress={() => medicoSelected == item.id ? setMedicoSelected(item.id) : setMedicoSelected(item.id)}
+                                            onPress={() => setMedicoSelected(item.id)}
                                         />
                                     }
                                 />

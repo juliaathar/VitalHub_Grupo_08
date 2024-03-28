@@ -76,7 +76,7 @@ export const Home = ({ navigation }) => {
         console.log(token)
         setNome(token.name)
         setProfile(token.role)
-        //setProfile("Paciente")
+        setProfile("Paciente")
     }
 
     //atualiza a pagina de acordo com o login
@@ -164,7 +164,7 @@ export const Home = ({ navigation }) => {
                                     situacao={item.Situacao}
                                     onPressCancel={() => setModalCancel(true)}
                                     onPressCard={() => { setModalDoctor(true); setIdEncontrado(item); }}
-                                /> : <></>}
+                                /> : null}
                         />
 
                     ) : statusLista == "realizado" ? (
@@ -184,7 +184,7 @@ export const Home = ({ navigation }) => {
                                         )
                                     }}
 
-                                /> : <></>}
+                                /> : null}
                         />
 
                     ) : (
@@ -196,7 +196,7 @@ export const Home = ({ navigation }) => {
                                 <ConsultationData
                                     nome={item.Nome}
                                     situacao={item.Situacao}
-                                /> : <></>}
+                                /> : null}
                         />
                     )
                 }

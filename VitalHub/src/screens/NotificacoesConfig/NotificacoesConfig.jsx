@@ -5,13 +5,22 @@ import { CardList, ContainerBox } from "../Home/Style"
 import { StatusBar } from "react-native"
 import { LinearBox } from "./Style"
 import { useState } from "react"
+import { NotificationCard } from "../../components/NotiifcationCard/NotificationCard";
 
 
 export const NotificacoesConfig = () => {
-    const [statusNoti, setStatusNoti] = useState("futuras")
+    const [statusNoti, setStatusNoti] = useState("lembretes")
     const [bellConfig, setBellConfig] = useState('todas')
 
     //provisorio
+    const dados = [
+        { id: 1, title: "Consulta", text: "Julia consulta", type: "atualizacoes" },
+        { id: 2, title: "Consulta", text: "Pedro consulta", type: "lembretes" },
+        { id: 3, title: "Resultado", text: "Gabriel resultado", type: "antigas" },
+        { id: 4, title: "Cancelada", text: "Pedro Cancelada", type: "antigas" },
+        { id: 5, title: "Consulta", text: "Macedo Consulta", type: "atualizacoes" },
+        { id: 6, title: "Cancelada", text: "Julia Cancelada", type: "lembretes" }
+    ]
 
     return (
         <Container>
@@ -36,9 +45,9 @@ export const NotificacoesConfig = () => {
             {/* opcoes de filtro de lista de notificicacoes */}
             <ContainerBox>
                 <OptionButtons
-                    textButton={"Futuras"}
-                    actived={statusNoti === "futuras"}
-                    onPress={() => setStatusNoti("futuras")}
+                    textButton={"Lembretes"}
+                    actived={statusNoti === "lembretes"}
+                    onPress={() => setStatusNoti("lembretes")}
                 />
 
                 <OptionButtons
@@ -55,13 +64,40 @@ export const NotificacoesConfig = () => {
             </ContainerBox>
 
             {/* lista de notificacoes */}
-            {statusNoti == "futuras" ? (
-                <CardList/>
-            ) : statusNoti == "atualizacoes" ? (
-                <CardList/>
-            ) : (
-                <CardList/>
-            )}
+            {
+                statusNoti == "lembretes" ? (
+                    <CardList
+                        data={dados}
+                        keyExtrator={(item) => item.id}
+                        renderItem={({ item }) => item.type === "lembretes" ?
+                            <NotificationCard
+                                title={item.title}
+                                text={item.text}
+                            /> : null}
+                    />
+                ) : statusNoti == "atualizacoes" ? (
+                    <CardList
+                        data={dados}
+                        keyExtrator={(item) => item.id}
+                        renderItem={({ item }) => item.type === "atualizacoes" ?
+                            <NotificationCard
+                                title={item.title}
+                                text={item.text}
+                            /> : null}
+                    />
+                ) : (
+                    <CardList
+                        data={dados}
+                        keyExtrator={(item) => item.id}
+                        renderItem={({ item }) => item.type === "antigas" ?
+                            <NotificationCard
+                                title={item.title}
+                                text={item.text}
+                                erased={true}
+                            /> : null}
+                    />
+                )
+            }
         </Container>
     )
 }

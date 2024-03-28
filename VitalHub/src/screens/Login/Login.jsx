@@ -18,12 +18,12 @@ export const Login = ({ navigation }) => {
 
     async function Login() {
         try {
-            const response = await api.post('http://172.16.39.82:4466/api/Login', {
-                email: email,
-                senha: senha
-            });
+            // const response = await api.post('http://172.16.39.82:4466/api/Login', {
+            //     email: email,
+            //     senha: senha
+            // });
 
-            await AsyncStorage.setItem('token', JSON.stringify(response.data)); //costumava ter .data depois de response
+            // await AsyncStorage.setItem('token', JSON.stringify(response.data)); //costumava ter .data depois de response
 
             navigation.replace("Main");
         } catch (error) {
