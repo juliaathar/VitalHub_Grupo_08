@@ -1,29 +1,16 @@
 import { Calendar, LocaleConfig } from "react-native-calendars";
-import SelectDropdown from 'react-native-select-dropdown'
 import { StyleSheet } from "react-native-web";
 import { AntDesign } from '@expo/vector-icons';
 import { useState } from "react";
 import { SelectBox, SelectBoxTitle } from "./Style";
+import SelectDropdown from 'react-native-select-dropdown'
 
 
 export const CalendarApp = ({
 
 }) => {
     LocaleConfig.locales['br'] = {
-        monthNames: [
-            'Janeiro',
-            'Fevereiro',
-            'Março',
-            'Abril',
-            'Maio',
-            'Junho',
-            'Julho',
-            'Agosto',
-            'Setembro',
-            'Outubro',
-            'Novembro',
-            'Dezembro'
-        ],
+        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
         monthNamesShort: ['Jan.', 'Fev.', 'Mar', 'Abril', 'Mai', 'Jun', 'Jul.', 'Ago', 'Set.', 'Out.', 'Nov.', 'Dez.'],
         dayNames: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sabado'],
         dayNamesShort: ['Dom.', 'Seg.', 'Ter.', 'Qua.', 'Qui.', 'Sex.', 'Sab.'],

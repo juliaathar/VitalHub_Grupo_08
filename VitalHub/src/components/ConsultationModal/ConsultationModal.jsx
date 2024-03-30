@@ -8,7 +8,8 @@ import { Paragraph } from "../Paragraph/Style"
 export const ConsultationModal = ({
     onRequestClose,
     visible,
-    navigation
+    navigation,
+    dados
 }) => {
     return (
         <ModalForm
