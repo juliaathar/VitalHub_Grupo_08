@@ -173,7 +173,7 @@ export const Home = ({ navigation }) => {
                             data={dados}
                             keyExtractor={(item) => item.id}
                             renderItem={({ item }) => item.Situacao === "realizado" ?
-                                <ConsultationData
+                                <ConsultationData   
                                     nome={item.Nome}
                                     situacao={item.Situacao}
                                     onPressAppoiment={() => {
