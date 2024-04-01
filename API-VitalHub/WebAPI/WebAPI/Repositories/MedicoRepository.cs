@@ -51,7 +51,7 @@ namespace WebAPI.Repositories
 
         public List<Medico> ListarTodos()
         {
-            return ctx.Medicos.ToList();
+            return ctx.Medicos.Include(m => m.MedicosClinicas).ThenInclude(mc => mc.Clinica).ToList();
         }
     }
 }

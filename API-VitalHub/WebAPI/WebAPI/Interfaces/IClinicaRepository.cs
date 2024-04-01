@@ -9,7 +9,6 @@ namespace WebAPI.Interfaces
         public List<Clinica> ListarTodos();
         public List<Clinica> ListarPorEspecialidade(Guid especialidadeIds);
 
-
         public Clinica BuscarPorId(int id);
     }
 }
