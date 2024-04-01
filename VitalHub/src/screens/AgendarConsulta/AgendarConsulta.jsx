@@ -15,13 +15,15 @@ import { useEffect, useState } from "react"
 import { CardList } from "../Home/Style"
 import api from "../../service/service"
 
-export const AgendarConsulta = ({ navigation }) => {
+export const AgendarConsulta = ({ navigation, route }) => {
     //status da pagina
     const [status, setStatus] = useState("clínica");
+    const {nivel, localidade} = route.params || {};
 
     //chamados pela API
     const [medicosLista, setMedicosLista] = useState(null)
     const [clinicasLista, setClinicasLista] = useState(null)
+    const [dados, setDados] = useState([])
 
     //front-end
     const [medicoSelected, setMedicoSelected] = useState("");//id do medico selecionado
@@ -63,6 +65,18 @@ export const AgendarConsulta = ({ navigation }) => {
             })
     }
 
+    function CompilarDados() {
+
+        const dados = {
+            data: diaSelected,
+            nomeMedico: medicoSelected.idNavigation.nome,
+            especialidade: medicoSelected.especialidade.especialidade1,
+            nivel: nivel,
+            localidade: localidade
+        }
+        setDados(dados)
+    }
+
 
     //atualiza as chamadas
     useEffect(() => {
@@ -102,8 +116,8 @@ export const AgendarConsulta = ({ navigation }) => {
                                         <MedCard
                                             medicos={item}
                                             //funções
-                                            actived={medicoSelected == item.id}
-                                            onPress={() => setMedicoSelected(item.id)}
+                                            actived={medicoSelected.id == item.id}
+                                            onPress={() => setMedicoSelected(item)}
                                         />
                                     }
                                 />
@@ -166,7 +180,7 @@ export const AgendarConsulta = ({ navigation }) => {
                                         setStatus("data")
                                     break;
                                 case "data":
-                                    setConsulModal(true)
+                                    (setConsulModal(true), CompilarDados())
                                     break;
                                 default:
                                     setStatus("data")
@@ -203,6 +217,7 @@ export const AgendarConsulta = ({ navigation }) => {
                 visible={consulModal}
                 onRequestClose={() => setConsulModal(false)}
                 navigation={navigation}
+                dados={dados}
             />
         </>
     )

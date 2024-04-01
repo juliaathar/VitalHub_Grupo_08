@@ -24,20 +24,20 @@ export const ConsultationModal = ({
             <ModalBody>
                 <BoxData>
                     <BoxTitle>Data da consulta</BoxTitle>
-                    <BoxText>1 de Novembro de 2023</BoxText>
+                    <BoxText>{dados.data}</BoxText>
                 </BoxData>
                 <BoxData>
                     <BoxTitle>Médico(a) da consulta</BoxTitle>
-                    <BoxText>Dra Alessandra</BoxText>
-                    <BoxText>Demartologa, Esteticista</BoxText>
+                    <BoxText>{dados.nomeMedico}</BoxText>
+                    <BoxText>{dados.especialidade}</BoxText>
                 </BoxData>
                 <BoxData>
                     <BoxTitle>Local da consulta</BoxTitle>
-                    <BoxText>São Paulo, SP</BoxText>
+                    <BoxText>{dados.localidade}</BoxText>
                 </BoxData>
                 <BoxData>
                     <BoxTitle>Tipo da consulta</BoxTitle>
-                    <BoxText>Rotina</BoxText>
+                    <BoxText>{dados.nivel}</BoxText>
                 </BoxData>
             </ModalBody>
 
