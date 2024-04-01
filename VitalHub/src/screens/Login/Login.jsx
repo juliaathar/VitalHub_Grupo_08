@@ -1,32 +1,37 @@
 import { ContentAccount, TextAccount, TextAccountLink } from "../../components/ContentAccount/Style"
 import { GoogleButton, NormalButton } from "../../components/Button/Buttons"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { Container } from "../../components/Container/Style"
 import { LinkMedium } from "../../components/Links/Style"
+import { Alert, TouchableOpacity } from "react-native"
 import { Input } from "../../components/Input/Style"
 import { Title } from "../../components/Title/Style"
 import { Logo } from "../../components/Logo/Style"
 import { useState } from "react"
-import { TouchableOpacity } from "react-native"
 
 import api from "../../service/service"
 
 export const Login = ({ navigation }) => {
 
-    const [email, setEmail] = useState('')
-    const [senha, setSenha] = useState('')
+    const [email, setEmail] = useState('julia@gmail.com');
+    const [senha, setSenha] = useState('julia');
 
     async function Login() {
-        //chamar api de login
-        //console.log("response:")
+        try {
+            // const response = await api.post('http://172.16.39.82:4466/api/Login', {
+            //     email: email,
+            //     senha: senha
+            // });
 
-        const response = await api.post('/Login', {
-            email: email,
-            senha: senha
-        });
+            // await AsyncStorage.setItem('token', JSON.stringify(response.data)); //costumava ter .data depois de response
 
-        console.log(response)
-        //navigation.replace("Main")
+            navigation.replace("Main");
+        } catch (error) {
+            console.error('Erro ao fazer login:', error.response.data);
+            Alert.alert('Erro ao fazer login', error.response.data.message || 'Verifique seus dados e tente novamente.');
+        }
     }
+   
 
     return (
         <Container>

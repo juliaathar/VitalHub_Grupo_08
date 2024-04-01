@@ -1,30 +1,40 @@
-import { CancelarButton, CancelarLink, DecorLine, FormPhoto, ImageTaked, OptionLine, PhotoButton, PhotoField, TextButton } from "./Style"
+import { CancelarButton, CancelarLink, DecorLine, FormPhoto, ImageTaked, ImageTouch, OptionLine, PhotoButton, PhotoField, PhotosList, TextButton } from "./Style"
 import { FormField } from "../../components/FormField/FormField"
 import { ScrollForm } from "../../components/ScrollForm/Style"
 import { Container } from "../../components/Container/Style"
 import { Paragraph } from "../../components/Paragraph/Style"
 import { ProfilePic } from "../../components/Profile/Style"
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Label } from "../../components/FormField/Style"
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { Line } from "../../components/DoctorModal/Style"
 import { LinkMedium } from "../../components/Links/Style"
+import { Label } from "../../components/FormField/Style"
 import { Title } from "../../components/Title/Style"
 import { TouchableOpacity } from "react-native"
+import { useEffect, useState } from "react"
 import { Text } from "react-native"
-import { useState } from "react"
+import { PhotoTaked } from "../../components/Photo/Photo"
 
 
 export const Prescricao = ({ navigation, route }) => {
     const { photoUri } = route.params || {};
-    console.log(photoUri);
+    const [modalPhoto, setModalPhoto] = useState(false);
+    const [modalUri, setModalUri] = useState('');
     const [photoTaked, setPhotoTaked] = useState(false)
+    const [photos, setPhotos] = useState([]);
 
-    if (photoUri) {
-        setPhotoTaked(true);
-    }
+    useEffect(() => {
+        if (photoUri !== undefined) {
+
+            setPhotos(prevPhotos => [...prevPhotos, { uri: photoUri, id: photoUri }]);
+
+        }
+        if (photoUri) {
+            setPhotoTaked(true);
+        }
+    }, [photoUri]);
 
     return (
-        <Container>
+        <>
             <ScrollForm>
                 <ProfilePic source={require("../../assets/profile.png")} />
 
@@ -45,8 +55,17 @@ export const Prescricao = ({ navigation, route }) => {
 
                         <PhotoField>
                             {photoTaked ? (
-                                <ImageTaked
-                                    source={{ uri: `${photoUri}` }}
+                                <PhotosList
+                                    numColumns={2}
+                                    data={photos}
+                                    keyExtractor={(item) => item.id}
+                                    renderItem={({ item }) =>
+                                        <ImageTouch onPress={() => (setModalPhoto(true), setModalUri(item.uri))}>
+                                            <ImageTaked
+                                                source={{ uri: `${item.uri}` }}
+                                            />
+                                        </ImageTouch>
+                                    }
                                 />
                             ) : (
                                 <Text style={{ fontFamily: "MontserratAlternates_500Medium", padding: 20 }}>Nenhuma foto informada</Text>
@@ -55,7 +74,7 @@ export const Prescricao = ({ navigation, route }) => {
                     </FormPhoto>
 
                     <OptionLine>
-                        <PhotoButton onPress={() => navigation.navigate('CameraTeste')}>
+                        <PhotoButton onPress={() => navigation.navigate('CameraScreen')}>
                             <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
                             <TextButton>Enviar</TextButton>
                         </PhotoButton>
@@ -65,7 +84,7 @@ export const Prescricao = ({ navigation, route }) => {
                         </CancelarButton>
                     </OptionLine>
 
-                    <DecorLine></DecorLine>
+                    <DecorLine/>
 
                     <FormField fieldWidth={90} labelText="" fieldValue={"Resultado do exame de sangue : tudo normal"} />
 
@@ -74,6 +93,14 @@ export const Prescricao = ({ navigation, route }) => {
                     </TouchableOpacity>
                 </Container>
             </ScrollForm>
-        </Container>
+
+            <PhotoTaked
+                titleButton="Deletar"
+                RequestSave={() => setModalPhoto(false)}
+                uriPhoto={modalUri}
+                visible={modalPhoto}
+                onRequestClose={() => setModalPhoto(false)}
+            />
+        </>
     )
 }

@@ -1,37 +1,31 @@
+import { ButtonCamera, ButtonContainer, CameraBody, ButtonCameraOthers, ButtonCameraCenter } from './Style';
 import { Camera, CameraType, FlashMode } from 'expo-camera';
-import { FontAwesome } from '@expo/vector-icons';
-import * as Permissions from 'expo-permissions'
-import * as MediaLibrary from 'expo-media-library'
-import { useEffect, useRef, useState } from 'react';
-
-import { ButtonCamera, ButtonContainer, CameraBody } from './Style';
-import { View } from 'react-native';
 import { PhotoTaked } from '../../components/Photo/Photo';
+import { useEffect, useRef, useState } from 'react';
+import * as MediaLibrary from 'expo-media-library'
+import { FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import { Button, Text, View } from 'react-native';
 
-export const CameraTeste = ({ navigation}) => {
+export const CameraScreen = ({ navigation }) => {
     const [type, setType] = useState(CameraType.back);
     const [flash, setFlash] = useState(FlashMode.off)
     const [capturedPhoto, setCapturedPhoto] = useState(null);
     const [permission, requestPermission] = Camera.useCameraPermissions();
     const [modalPhoto, setModalPhoto] = useState(false);
     const camRef = useRef(null);
-    
+
 
     useEffect(() => {
         (async () => {
             const { status } = await Camera.requestCameraPermissionsAsync();
 
-            const { status : mediaStatus } = await MediaLibrary.requestPermissionsAsync();
+            const { status: mediaStatus } = await MediaLibrary.requestPermissionsAsync();
             requestPermission(status === 'granted')
         })();
     }, []);
 
     if (!permission) {
-        //Camera permissions are still loading
-        return <View />;
-    }
-
-    if (!permission.granted) {
         // Camera permissions are not granted yet
         return (
             <View>
@@ -59,40 +53,45 @@ export const CameraTeste = ({ navigation}) => {
     }
     async function savePicture() {
         const asset = await MediaLibrary.createAssetAsync(capturedPhoto)
-        .then(() => {
-            navigation.navigate('Prescricao', {photoUri : capturedPhoto})
-        })
-        .catch(error => {
-            console.log("error", error)
-        })
+            .then(() => {
+                navigation.navigate('Prescricao', { photoUri: capturedPhoto })
+            })
+            .catch(error => {
+                console.log("error", error)
+            })
     }
 
 
     return (
         <>
-            <CameraBody 
-                type={type} 
-                flashMode={flash} 
-                ref={camRef} 
+            <CameraBody
+                type={type}
+                flashMode={flash}
+                ref={camRef}
                 ratio='16:9'
             >
 
                 <ButtonContainer>
-                    <ButtonCamera onPress={toggleCameraType}>
+                    <ButtonCameraOthers onPress={toggleCameraType}>
                         <FontAwesome name="refresh" size={23} color="white" />
-                    </ButtonCamera>
+                    </ButtonCameraOthers>
 
                     <ButtonCamera onPress={takePicture}>
-                        <FontAwesome name='camera' size={23} color="white" />
+                        <ButtonCameraCenter/>
                     </ButtonCamera>
 
-                    <ButtonCamera onPress={flashActive}>
-                        <FontAwesome name="bolt" size={23} color={flash === "on" ? 'green' : 'white'}/>
-                    </ButtonCamera>
+                    <ButtonCameraOthers onPress={flashActive}>
+                        {flash === "on" ? (
+                            <Ionicons name="flash" size={24} color="yellow" />
+                        ) : (
+                            <Ionicons name="flash-off" size={24} color="white" />
+                        )}
+                    </ButtonCameraOthers>
                 </ButtonContainer>
             </CameraBody>
 
             <PhotoTaked
+                titleButton='Salvar'
                 RequestSave={savePicture}
                 uriPhoto={capturedPhoto}
                 visible={modalPhoto}

@@ -6,14 +6,15 @@ import { OptionButtons } from "../../components/OptionButtons/OptionButtons"
 import { CalendarHome } from "../../components/CalendarHome/CalendarHome"
 import { DoctorModal } from "../../components/DoctorModal/DoctorModal"
 import { Container } from "../../components/Container/Style"
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { CardList, ContainerBox, NewConsul } from "./Style"
 import { Header } from "../../components/Header/Header"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 //notificacoes
 //importa a notificacao
 import * as Notifications from "expo-notifications"
+import { userDecodeToken } from "../../utils/Auth"
 //solicitar a permissao
 Notifications.requestPermissionsAsync()
 //definir como as notificacoes devem ser tratadas
@@ -34,6 +35,7 @@ Notifications.setNotificationHandler({
 export const Home = ({ navigation }) => {
     const [statusLista, setStatusLista] = useState("pendente");
     const [profile, setProfile] = useState('Paciente')
+    const [nome,setNome] = useState("")
 
     const [modalCancel, setModalCancel] = useState(false);
     const [modalNewConsul, setModalNewConsul] = useState(false);
@@ -68,6 +70,19 @@ export const Home = ({ navigation }) => {
             trigger: null
         })
     }
+
+    async function profileLoad() {
+        const token = await userDecodeToken();
+        console.log(token)
+        setNome(token.name)
+        setProfile(token.role)
+        setProfile("Paciente")
+    }
+
+    //atualiza a pagina de acordo com o login
+    useEffect(() => {
+        profileLoad();
+    },[])
 
     const dados = [
         {
@@ -112,6 +127,7 @@ export const Home = ({ navigation }) => {
             <Container>
                 <Header
                     navigation={navigation}
+                    name={nome}
                 />
 
                 <CalendarHome />
@@ -148,7 +164,7 @@ export const Home = ({ navigation }) => {
                                     situacao={item.Situacao}
                                     onPressCancel={() => setModalCancel(true)}
                                     onPressCard={() => { setModalDoctor(true); setIdEncontrado(item); }}
-                                /> : <></>}
+                                /> : null}
                         />
 
                     ) : statusLista == "realizado" ? (
@@ -168,7 +184,7 @@ export const Home = ({ navigation }) => {
                                         )
                                     }}
 
-                                /> : <></>}
+                                /> : null}
                         />
 
                     ) : (
@@ -180,7 +196,7 @@ export const Home = ({ navigation }) => {
                                 <ConsultationData
                                     nome={item.Nome}
                                     situacao={item.Situacao}
-                                /> : <></>}
+                                /> : null}
                         />
                     )
                 }

@@ -38,7 +38,6 @@ export const FormPhoto = styled.View`
     width: 90%;
     margin-top: 20px;
     height: max-content;
-    //border: 1px;
 `
 export const PhotoField = styled.View`
     border-radius: 5px;
@@ -56,8 +55,20 @@ export const DecorLine = styled.View`
 `
 
 export const ImageTaked = styled.Image`
-    border-radius: 5px;
     width: 100%;
-    height: 320px;
-    border: 1px;
+    height: 120px;
+`
+
+export const ImageTouch = styled.TouchableOpacity`
+    width: 50%;
+    height: 120px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+`
+
+export const PhotosList = styled.FlatList`
+    width: 100%;
+    gap: 10px;
+    //padding: 10px;
+    height: fit-content;
 `
