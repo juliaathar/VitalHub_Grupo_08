@@ -3,7 +3,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 
 export const ConsultationData = ({
-    situacao = "pendente",
+    situacao = "",
     nome = "Beta Tester",
     idade = 20,
     tipoConsulta = "Rotina",
@@ -35,17 +35,17 @@ export const ConsultationData = ({
                     <CardOptions>
                         <Hour
                             situacao={situacao}
-                            color={situacao == "pendente" ? "E8FCFD" : "F1F0F5"}
+                            color={situacao == "Pendente" ? "E8FCFD" : "F1F0F5"}
                         >
                             {
-                                situacao == "pendente" ? (
+                                situacao == "Pendente" ? (
                                     <MaterialIcons
                                         situacao={situacao}
                                         name="watch-later"
                                         size={14}
                                         color="#49B3BA"
                                     />
-                                ) : situacao == "cancelado" ? (
+                                ) : situacao == "Cancelado" ? (
                                     <MaterialIcons
                                         situacao={situacao}
                                         name="watch-later"
@@ -63,13 +63,13 @@ export const ConsultationData = ({
                             }
 
 
-                            <Appointment color={situacao == "pendente" ? "49B3BA" : "4E4B59"}> {hora} </Appointment>
+                            <Appointment color={situacao == "Pendente" ? "49B3BA" : "4E4B59"}> {hora} </Appointment>
                         </Hour>
 
                         {
-                            situacao == "cancelado" ? (
+                            situacao == "Cancelado" ? (
                                 <></>
-                            ) : situacao == "pendente" ? (
+                            ) : situacao == "Pendente" ? (
 
                                 <Option 
                                     onPress={onPressCancel}
