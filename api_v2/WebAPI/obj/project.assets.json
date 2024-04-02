@@ -3352,11 +3352,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\47447272809\\Desktop\\API-VitalHub\\WebAPI\\WebAPI\\WebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\47447272809\\Desktop\\VitalHub_Grupo_08\\api_v2\\WebAPI\\WebAPI.csproj",
       "projectName": "WebAPI",
-      "projectPath": "C:\\Users\\47447272809\\Desktop\\API-VitalHub\\WebAPI\\WebAPI\\WebAPI.csproj",
+      "projectPath": "C:\\Users\\47447272809\\Desktop\\VitalHub_Grupo_08\\api_v2\\WebAPI\\WebAPI.csproj",
       "packagesPath": "C:\\Users\\47447272809\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\47447272809\\Desktop\\API-VitalHub\\WebAPI\\WebAPI\\obj\\",
+      "outputPath": "C:\\Users\\47447272809\\Desktop\\VitalHub_Grupo_08\\api_v2\\WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\47447272809\\AppData\\Roaming\\NuGet\\NuGet.Config",
