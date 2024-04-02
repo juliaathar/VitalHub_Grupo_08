@@ -6,11 +6,26 @@ import { Paragraph } from "../../components/Paragraph/Style"
 import { ProfilePic } from "../../components/Profile/Style"
 import { Title } from "../../components/Title/Style"
 import { View } from "react-native"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { userDecodeToken } from "../../utils/Auth"
 
 export const Perfil = ({ navigation }) => {
 
     const [formEdit, setFormEdit] = useState(false);
+
+    async function profileLoad() {
+        const token = await userDecodeToken();
+        console.log(token)
+        setNome(token.name)
+        setProfile(token.role)
+        setProfile("Paciente")
+    }
+
+    //atualiza a pagina de acordo com o login
+    useEffect(() => {
+        profileLoad();
+    },[])
 
 
     return (
@@ -19,7 +34,7 @@ export const Perfil = ({ navigation }) => {
                 <ProfilePic source={require("../../assets/profile.png")} />
                 <View style={{ alignItems: "center" }}>
 
-                    <Title>Nome do paciente</Title>
+                    <Title>{user.nome}</Title>
                     <Paragraph>paciente@gmail.com</Paragraph>
 
                     <FormField fieldWidth={90} editable={formEdit} labelText="Data de nascimento" />
