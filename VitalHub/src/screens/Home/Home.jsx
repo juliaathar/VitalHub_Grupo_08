@@ -37,7 +37,7 @@ export const Home = ({ navigation }) => {
     const [statusLista, setStatusLista] = useState("pendente");
     const [profile, setProfile] = useState('Paciente')
     const [nome,setNome] = useState("")
-    const [diaSelecionado, setDiaSelecionado] = useState(moment().format())
+    const [diaSelecionado, setDiaSelecionado] = useState(moment().format(""))
 
     const [modalCancel, setModalCancel] = useState(false);
     const [modalNewConsul, setModalNewConsul] = useState(false);
@@ -140,7 +140,7 @@ export const Home = ({ navigation }) => {
                     <OptionButtons
                         textButton={"Agendadas"}
                         actived={statusLista === "pendente"}
-                        onPress={() => setStatusLista("pendente")}
+                        onPress={() => {setStatusLista("pendente"), console.log(diaSelecionado);}}
                     />
 
                     <OptionButtons
