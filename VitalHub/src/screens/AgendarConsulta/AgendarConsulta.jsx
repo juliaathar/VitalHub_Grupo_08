@@ -1,25 +1,29 @@
+import { ConsultationModal } from "../../components/ConsultationModal/ConsultationModal"
+import { Body, RenderInside, SelectBox, SelectBoxTitle } from "./Style"
 import { ClinicCard } from "../../components/ClinicCard/ClinicCard"
+import { Calendar, LocaleConfig } from "react-native-calendars";
 import { NormalButton } from "../../components/Button/Buttons"
 import { Container } from "../../components/Container/Style"
 import { MedCard } from "../../components/MedCard/MedCard"
+import SelectDropdown from "react-native-select-dropdown"
 import { LinkMedium } from "../../components/Links/Style"
 import { Title } from "../../components/Title/Style"
-import { CardList } from "../Home/Style"
+import { AntDesign } from '@expo/vector-icons';
 import { TouchableOpacity } from "react-native"
-import { Body, RenderInside, SelectBox, SelectBoxTitle } from "./Style"
-import { useEffect, useState } from "react"
-import { CalendarApp } from "../../components/CalendarApp/CalendarApp"
-import { ConsultationModal } from "../../components/ConsultationModal/ConsultationModal"
-import api from "../../service/service"
 import { StyleSheet } from "react-native-web";
+import { useEffect, useState } from "react"
+import { CardList } from "../Home/Style"
+import api from "../../service/service"
 
-export const AgendarConsulta = ({ navigation }) => {
+export const AgendarConsulta = ({ navigation, route }) => {
     //status da pagina
     const [status, setStatus] = useState("clínica");
+    const {nivel, localidade} = route.params || {};
 
     //chamados pela API
     const [medicosLista, setMedicosLista] = useState(null)
     const [clinicasLista, setClinicasLista] = useState(null)
+    const [dados, setDados] = useState([])
 
     //front-end
     const [medicoSelected, setMedicoSelected] = useState("");//id do medico selecionado
@@ -28,9 +32,17 @@ export const AgendarConsulta = ({ navigation }) => {
     //calendario e select
     const [diaSelected, setDiaSelected] = useState("");//id do dia selecionada
     const horarios = ["11:00", "12:00", "13:00", "14:00", "15:00"] //provisorio
-
+    
+    LocaleConfig.locales['br'] = {
+        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+        monthNamesShort: ['Jan.', 'Fev.', 'Mar', 'Abril', 'Mai', 'Jun', 'Jul.', 'Ago', 'Set.', 'Out.', 'Nov.', 'Dez.'],
+        dayNames: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sabado'],
+        dayNamesShort: ['Dom.', 'Seg.', 'Ter.', 'Qua.', 'Qui.', 'Sex.', 'Sab.'],
+        today: "Hoje"
+    };
+    LocaleConfig.defaultLocale = 'br';
+    
     const [consulModal, setConsulModal] = useState(false); //mudar para false
-
 
     //traz os medicos da api
     async function ListarMedicos() {
@@ -51,6 +63,18 @@ export const AgendarConsulta = ({ navigation }) => {
             }).catch(error => {
                 console.log(error);
             })
+    }
+
+    function CompilarDados() {
+
+        const dados = {
+            data: diaSelected,
+            nomeMedico: medicoSelected.idNavigation.nome,
+            especialidade: medicoSelected.especialidade.especialidade1,
+            nivel: nivel,
+            localidade: localidade
+        }
+        setDados(dados)
     }
 
 
@@ -92,8 +116,8 @@ export const AgendarConsulta = ({ navigation }) => {
                                         <MedCard
                                             medicos={item}
                                             //funções
-                                            actived={medicoSelected == item.id}
-                                            onPress={() => setMedicoSelected(item.id)}
+                                            actived={medicoSelected.id == item.id}
+                                            onPress={() => setMedicoSelected(item)}
                                         />
                                     }
                                 />
@@ -156,7 +180,7 @@ export const AgendarConsulta = ({ navigation }) => {
                                         setStatus("data")
                                     break;
                                 case "data":
-                                    setConsulModal(true)
+                                    (setConsulModal(true), CompilarDados())
                                     break;
                                 default:
                                     setStatus("data")
@@ -176,7 +200,7 @@ export const AgendarConsulta = ({ navigation }) => {
                                     setStatus("clínica")
                                     break;
                                 case "clínica":
-                                    { navigation.replace('Home') }
+                                    { navigation.replace('Main') }
                                     break;
                                 default:
                                     setStatus("clínica")
@@ -193,6 +217,7 @@ export const AgendarConsulta = ({ navigation }) => {
                 visible={consulModal}
                 onRequestClose={() => setConsulModal(false)}
                 navigation={navigation}
+                dados={dados}
             />
         </>
     )

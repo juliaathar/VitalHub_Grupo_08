@@ -8,7 +8,7 @@ import { Logo } from '../../components/Logo/Style';
 import { Title } from '../../components/Title/Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../../service/service';
-import{LinkMedium} from '../../components/Links/Style'
+import { LinkMedium } from '../../components/Links/Style';
 
 export const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -29,13 +29,13 @@ export const Login = ({ navigation }) => {
       }
     } catch (error) {
       console.error('Erro ao fazer login:', error);
-
-      setDesativado(true);
-
-      setTimeout(() => {
-        setDesativado(false);
-      }, 3000);
     }
+
+    setDesativado(true);
+
+    setTimeout(() => {
+      setDesativado(false);
+    }, 3000);
   };
 
   return (

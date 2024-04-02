@@ -15,6 +15,7 @@ import { useEffect, useState } from "react"
 //importa a notificacao
 import * as Notifications from "expo-notifications"
 import { userDecodeToken } from "../../utils/Auth"
+import moment from "moment"
 //solicitar a permissao
 Notifications.requestPermissionsAsync()
 //definir como as notificacoes devem ser tratadas
@@ -36,6 +37,7 @@ export const Home = ({ navigation }) => {
     const [statusLista, setStatusLista] = useState("pendente");
     const [profile, setProfile] = useState('Paciente')
     const [nome,setNome] = useState("")
+    const [diaSelecionado, setDiaSelecionado] = useState(moment().format())
 
     const [modalCancel, setModalCancel] = useState(false);
     const [modalNewConsul, setModalNewConsul] = useState(false);
@@ -130,7 +132,9 @@ export const Home = ({ navigation }) => {
                     name={nome}
                 />
 
-                <CalendarHome />
+                <CalendarHome
+                    setDiaSelecionado={setDiaSelecionado}
+                />
 
                 <ContainerBox>
                     <OptionButtons

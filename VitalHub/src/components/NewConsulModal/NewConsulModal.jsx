@@ -19,7 +19,10 @@ export const NewConsulModal = ({
     navigation
 }) => {
 
-    const [status, setStatus] = useState()
+    const [nivel, setNivel] = useState()
+    const [localidade, setLocalidade] = useState()
+
+
     const select = [
         "Cardiologista",
         "Ginecologista",
@@ -42,18 +45,18 @@ export const NewConsulModal = ({
                     <ContainerChoice>
                         <FormChoice
                             textButton={"Rotina"}
-                            actived={status === "Rotina"}
-                            onPress={() => setStatus("Rotina")}
+                            actived={nivel === "Rotina"}
+                            onPress={() => setNivel("Rotina")}
                         />
                         <FormChoice
                             textButton={"Exame"}
-                            actived={status === "Exame"}
-                            onPress={() => setStatus("Exame")}
+                            actived={nivel === "Exame"}
+                            onPress={() => setNivel("Exame")}
                         />
                         <FormChoice
                             textButton={"Urgência"}
-                            actived={status === "Urgência"}
-                            onPress={() => setStatus("Urgência")}
+                            actived={nivel === "Urgência"}
+                            onPress={() => setNivel("Urgência")}
                         />
                     </ContainerChoice>
                 </ConsulLevel>
@@ -64,6 +67,8 @@ export const NewConsulModal = ({
                         editable={true}
                         placeholder={"Informe a localização"}
                         labelText="Informe a localização desejada"
+                        onChangeText={newValue => setLocalidade(newValue)}
+                        fieldValue={localidade}
                     />
                 </ConsulLocal>
 
@@ -96,7 +101,7 @@ export const NewConsulModal = ({
                 <NormalButton
                     fieldWidth={90}
                     title={"continuar"}
-                    onPress={() => navigation.navigate('AgendarConsulta')}
+                    onPress={() => navigation.navigate('AgendarConsulta', {nivel: nivel, localidade: localidade})}
                 />
 
                 <TouchableOpacity onPress={onRequestClose}>
