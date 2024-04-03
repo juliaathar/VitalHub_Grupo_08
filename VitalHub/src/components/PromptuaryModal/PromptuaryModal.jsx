@@ -10,11 +10,16 @@ export const PromptuaryModal = ({
     visible,
     onRequestClose,
     imgLink,
-    navigation
+    navigation,
+
+    consulta,
+    role
 }) => {
+
     async function Protuario() {
         navigation.navigate('Prontuario')
     }
+
     return (
         <ModalBody
             isVisible={visible}
@@ -29,9 +34,13 @@ export const PromptuaryModal = ({
                     <Email>{email}</Email>
                 </PatientData>
 
-                <NormalButton fieldWidth={90} title={"inserir prontuario"} onPress={() => {Protuario()}}/>
+                <NormalButton 
+                    fieldWidth={90} 
+                    title={"inserir prontuario"} 
+                    onPress={() => {Protuario()}}
+                />
 
-                <TouchableOpacity onPress={onRequestClose}>
+                <TouchableOpacity onPress={onRequestClose} style={{marginBottom: 15}}>
                     <LinkMedium>Cancelar</LinkMedium>
                 </TouchableOpacity>
             </CenterContainer>

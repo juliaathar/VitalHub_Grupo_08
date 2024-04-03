@@ -37,7 +37,6 @@ Notifications.setNotificationHandler({
 export const Home = ({ navigation }) => {
     const [statusLista, setStatusLista] = useState("pendente");
     const [profile, setProfile] = useState('Paciente')
-    const [nome, setNome] = useState("")
     const [diaSelecionado, setDiaSelecionado] = useState(moment().format("YYYY-DD-MM"))
 
     const [modalCancel, setModalCancel] = useState(false);
@@ -46,6 +45,7 @@ export const Home = ({ navigation }) => {
     const [modalPromptuary, setModalPromptuary] = useState(false);
 
     const [idEncontrado, setIdEncontrado] = useState("");
+
     const [consultas, setConsultas] = useState([])
     //notificacoes
     //funcao para lidar con a chamada da notificacao
@@ -78,7 +78,6 @@ export const Home = ({ navigation }) => {
         const token = await userDecodeToken();
         console.log(token)
 
-        setNome(token.name)
         setProfile(token)
         setDiaSelecionado(moment().format("YYYY-MM-DD"))
     }
@@ -90,11 +89,25 @@ export const Home = ({ navigation }) => {
             .then(response => {
                 setConsultas(response.data);
                 console.log("consultas, exito:");
-                console.log(response.data);
+                //console.log(response.data);
             }).catch(error => {
-                console.log("consultas, erro:");
-                console.log(error);
+                console.log("consultas, erro: " + error);
+                //console.log(error);
             })
+    }
+
+    function MostrarModal(modal, consulta) {
+        if (modal == "cancelar") {
+            setModalCancel(true)
+        } else if (modal == "doutor") {
+            setModalPromptuary(true)
+        } else if (modal == "local") {
+            setModalDoctor(true)
+        }
+        
+        setIdEncontrado(consulta)
+        console.log("Teste: " + modal);
+        console.log(idEncontrado);
     }
 
     //atualiza a pagina de acordo com o login
@@ -148,10 +161,10 @@ export const Home = ({ navigation }) => {
                                     nome={item.paciente.idNavigation.nome}
                                     idade={moment(item.paciente.dataNascimento, "YYYYMMDD").fromNow().slice(0, 2)}
                                     tipoConsulta={item.prioridade.prioridade}
-                                    onPressCancel={() => setModalCancel(true)}
+                                    onPressCancel={() => MostrarModal("cancelar", item)}
                                     onPressCard={() => {
                                         profile.role === "Paciente" ? (
-                                            (setModalDoctor(true), setIdEncontrado(item.medicoClinica))
+                                            MostrarModal("local", item)
                                         ) : (
                                             null
                                         )
@@ -174,7 +187,7 @@ export const Home = ({ navigation }) => {
                                         profile.role === "Paciente" ? (
                                             navigation.navigate('Prescricao')
                                         ) : (
-                                            setModalPromptuary(true), setIdEncontrado(item)
+                                            MostrarModal("doutor", item)
                                         )
                                     }}
 
@@ -234,10 +247,8 @@ export const Home = ({ navigation }) => {
                 visible={modalPromptuary}
                 onRequestClose={() => { setModalPromptuary(false) }}
                 navigation={navigation}
-
-                name={idEncontrado.Nome}
-                age={idEncontrado.Idade}
-                email={idEncontrado.Email}
+                consulta={idEncontrado}
+                role={profile.role}
             />
         </>
     )

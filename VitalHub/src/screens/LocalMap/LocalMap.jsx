@@ -19,7 +19,11 @@ import { mapskey } from "../../utils/mapsApiKey"
 
 
 
-export const LocalMap = ({ navigation }) => {
+export const LocalMap = ({ navigation, route }) => {
+  useEffect(() => {
+    console.log(route);
+  }, [route.params])
+
   const [initialPosition, setInitialPosition] = useState(null)
   const [finalPosition, setFinalPosition] = useState({
     latitude: -23.8329,
