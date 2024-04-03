@@ -50,7 +50,7 @@ export const Perfil = ({ navigation }) => {
                 <View style={{ alignItems: "center" }}>
 
                     <Title>{user.idNavigation.nome}</Title>
-                    <Paragraph>{user.idNavigation.email}</Paragraph>
+                    <Paragraph>teste</Paragraph>
 
                     <FormField fieldWidth={90} editable={formEdit} labelText="Data de nascimento" />
                     <FormField fieldWidth={90} editable={formEdit} labelText="CPF" />
