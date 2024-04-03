@@ -15,6 +15,36 @@ export const Perfil = ({ navigation }) => {
 
     const [formEdit, setFormEdit] = useState(false);
 
+    const [user, setUser] = useState();
+
+    async function loadProfile() {
+        try {
+            const token = await userDecodeToken();
+
+            const id = token.user;
+            // console.log(id);
+            if (token.role === 'Paciente') {
+                info = await api.get(`http://172.16.39.82:4466/api/Medicos/BuscarPorID?id=${id}`);
+            } else if (token.role === 'Médico') {
+                info = await api.get(`http://172.16.39.82:4466/api/Medicos/BuscarPorID?id=${id}`);
+            }
+            // console.log('Dados obtidos da API:', info)
+            if (info) { setUser(info.data); }
+    
+        }
+         catch (error) {
+            return console.log(`erro ${error}`);
+        }
+    } 
+
+    useEffect(() => {
+
+        loadProfile();
+
+    }, []);
+
+
+
     return (
         <Container>
             <ScrollForm>
