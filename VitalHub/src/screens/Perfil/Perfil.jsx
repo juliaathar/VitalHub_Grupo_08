@@ -9,23 +9,38 @@ import { View } from "react-native"
 import { useEffect, useState } from "react"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { userDecodeToken } from "../../utils/Auth"
+import api from "../../service/service"
 
 export const Perfil = ({ navigation }) => {
 
     const [formEdit, setFormEdit] = useState(false);
+    const [user, setUser] = useState();
 
-    async function profileLoad() {
-        const token = await userDecodeToken();
-        console.log(token)
-        setNome(token.name)
-        setProfile(token.role)
-        setProfile("Paciente")
-    }
+    async function loadProfile() {
+        try {
+            const token = await userDecodeToken();
 
-    //atualiza a pagina de acordo com o login
+            const id = token.user;
+            // console.log(id);
+            if (token.role === 'Paciente') {
+                info = await api.get(`http://172.16.39.82:4466/api/Medicos/BuscarPorID?id=${id}`);
+            } else if (token.role === 'Médico') {
+                info = await api.get(`http://172.16.39.82:4466/api/Medicos/BuscarPorID?id=${id}`);
+            }
+            // console.log('Dados obtidos da API:', info)
+            if (info) { setUser(info.data); }
+    
+        }
+         catch (error) {
+            return console.log(`erro ${error}`);
+        }
+    } 
+
     useEffect(() => {
-        profileLoad();
-    },[])
+
+        loadProfile();
+
+    }, []);
 
 
     return (
@@ -34,8 +49,8 @@ export const Perfil = ({ navigation }) => {
                 <ProfilePic source={require("../../assets/profile.png")} />
                 <View style={{ alignItems: "center" }}>
 
-                    <Title>{user.nome}</Title>
-                    <Paragraph>paciente@gmail.com</Paragraph>
+                    <Title>{user.idNavigation.nome}</Title>
+                    <Paragraph>{user.idNavigation.email}</Paragraph>
 
                     <FormField fieldWidth={90} editable={formEdit} labelText="Data de nascimento" />
                     <FormField fieldWidth={90} editable={formEdit} labelText="CPF" />
