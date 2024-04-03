@@ -13,6 +13,22 @@ export const ConsultationData = ({
     onPressCard
     
 }) => {
+
+    function wordBreak(nome, max = 18) {
+        if (nome.length > max) {
+            return nome.slice(0, max) + "...";
+        }
+        return nome;
+    }
+    function Consulta(tipo) {
+        tipoConsulta = "Indefinido"
+
+        if (tipo <= 2) {
+            tipo == 0 ? tipoConsulta = "Rotina" : tipo == 1 ?  tipoConsulta = "Exame" : tipoConsulta = "Urgência";
+        }
+        return tipoConsulta;
+    }
+
     return (
         <CardBoby 
             onPress={onPressCard}
@@ -24,11 +40,11 @@ export const ConsultationData = ({
 
                 <CardInfo>
                     <InfoBox>
-                        <Name>{nome}</Name>
+                        <Name>{wordBreak(nome)}</Name>
                         <Data>
                             <Age>{idade} anos</Age>
                             <Fontisto name="ellipse" size={7} color="#D9D9D9"/>
-                            <TypeConsul>{tipoConsulta}</TypeConsul>
+                            <TypeConsul>{Consulta(tipoConsulta)}</TypeConsul>
                         </Data>
                     </InfoBox>
 

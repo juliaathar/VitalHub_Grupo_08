@@ -1,0 +1,133 @@
+[
+    {
+        "dataConsulta": "2024-01-04T12:00:00",
+        "descricao": "Nada",
+        "diagnostico": "Frescura",
+        "exames": [],
+        "id": "ccd72450-048c-4bc2-a721-9ff76ef5ecf5",
+        "medicoClinica": {
+            "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
+            "consulta": [Array
+            ],
+            "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+            "medico": [Object
+            ],
+            "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07"
+        },
+        "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+        "paciente": {
+            "consulta": [Array
+            ],
+            "cpf": "56611743146",
+            "dataNascimento": "1990-03-27T00:00:00",
+            "enderecoId": "20ccc2cb-899d-4988-a33d-c3f899ebad36",
+            "id": "1ff90d23-2a22-40f9-88b5-fb24e8ec089a",
+            "idNavigation": [Object
+            ],
+            "rg": "364985021"
+        },
+        "pacienteId": "1ff90d23-2a22-40f9-88b5-fb24e8ec089a",
+        "prioridade": {
+            "consulta": [Array
+            ],
+            "id": "add341be-8e85-40f1-bca3-71c72a1585d3",
+            "prioridade": 1
+        },
+        "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+        "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+        "situacao": {
+            "consulta": [Array
+            ],
+            "id": "62b453de-2709-4243-b249-e57863ccecbe",
+            "situacao": "Realizado"
+        },
+        "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe"
+    },
+    {
+        "dataConsulta": "2024-01-04T12:00:00",
+        "descricao": "Nada",
+        "diagnostico": "Frescura",
+        "exames": [],
+        "id": "482f0d30-c6b4-4d59-a302-c2b465a1170c",
+        "medicoClinica": {
+            "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
+            "consulta": [Array
+            ],
+            "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+            "medico": [Object
+            ],
+            "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07"
+        },
+        "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+        "paciente": {
+            "consulta": [Array
+            ],
+            "cpf": "56611743146",
+            "dataNascimento": "1990-03-27T00:00:00",
+            "enderecoId": "20ccc2cb-899d-4988-a33d-c3f899ebad36",
+            "id": "1ff90d23-2a22-40f9-88b5-fb24e8ec089a",
+            "idNavigation": [Object
+            ],
+            "rg": "364985021"
+        },
+        "pacienteId": "1ff90d23-2a22-40f9-88b5-fb24e8ec089a",
+        "prioridade": {
+            "consulta": [Array
+            ],
+            "id": "add341be-8e85-40f1-bca3-71c72a1-71c72a1585d3",
+            "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+            "situacao": {
+                "consulta": [Array
+                ],
+                "id": "791b5f13-eeca-71c72a1585d3",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "situacao": {
+                    "consulta": [Array
+                    ],
+                    "id": "791b5f13-etuacaoId": "791b5f13-eeca-4229-b751-712e702d8837"
+                },
+                {
+                    "dataConsulta": "2024-01-04T12:00:00",
+                    "descricao": "Nada",
+                    "diagnostico": "Frescura",
+                    "exames": [],
+                    "id": "45a8b1b5-caaf-4045-ab3e-ec82af9e594a",
+                    "medicoClinica": {
+                        "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
+                        "consulta": [Array
+                        ],
+                        "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                        "medico": [Object
+                        ],
+                        "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07"
+                    },
+                    "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                    "paciente": {
+                        "consulta": [Array
+                        ],
+                        "cpf": "56611743146",
+                        "dataNascimento": "1990-03-27T00:00:00",
+                        "enderecoId": "20ccc2cb-899d-4988-a33d-c3f899ebad36",
+                        "id": "1ff90d23-2a22-40f9-88b5-fb24e8ec089a",
+                        "idNavigation": [Object
+                        ],
+                        "rg": "364985021"
+                    },
+                    "pacienteId": "1ff90d23-2a22-40f9-88b5-fb24e8ec089a",
+                    "prioridade": {
+                        "consulta": [Array
+                        ],
+                        "id": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                        "prioridade": 1
+                    },
+                    "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                    "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                    "situacao": {
+                        "consulta": [Array
+                        ],
+                        "id": "46a56a8b-d8a9-4e53-a6a6-7850ac222142",
+                        "situacao": "Cancelado"
+                    },
+                    "situacaoId": "46a56a8b-d8a9-4e53-a6a6-7850ac222142"
+                }
+            ]

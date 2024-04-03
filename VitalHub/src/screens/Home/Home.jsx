@@ -37,7 +37,7 @@ Notifications.setNotificationHandler({
 export const Home = ({ navigation }) => {
     const [statusLista, setStatusLista] = useState("pendente");
     const [profile, setProfile] = useState('Paciente')
-    const [nome,setNome] = useState("")
+    const [nome, setNome] = useState("")
     const [diaSelecionado, setDiaSelecionado] = useState(moment().format("YYYY-DD-MM"))
 
     const [modalCancel, setModalCancel] = useState(false);
@@ -87,20 +87,20 @@ export const Home = ({ navigation }) => {
         const url = (profile.role == "Médico" ? "Medicos" : "Pacientes")
 
         await api.get(`/${url}/BuscarPorData?data=${diaSelecionado}&id=${profile.user}`)
-        .then( response => {
-            setConsultas(response.data);
-            console.log("consultas, exito:");
-            console.log(response.data);
-        }).catch(error => {
-            console.log("consultas, erro:");
-            console.log(error);
-        })
+            .then(response => {
+                setConsultas(response.data);
+                console.log("consultas, exito:");
+                console.log(response.data);
+            }).catch(error => {
+                console.log("consultas, erro:");
+                console.log(error);
+            })
     }
 
     //atualiza a pagina de acordo com o login
     useEffect(() => {
         profileLoad();
-    },[])
+    }, [])
     useEffect(() => {
         ListarConsulta();
     }, [diaSelecionado])
@@ -139,15 +139,23 @@ export const Home = ({ navigation }) => {
 
                 {
                     statusLista == "pendente" ? (
-
                         <CardList
                             data={consultas}
                             keyExtractor={(item) => item.id}
                             renderItem={({ item }) => item.situacao.situacao === "Pendente" ?
                                 <ConsultationData
                                     situacao={item.situacao.situacao}
+                                    nome={item.paciente.idNavigation.nome}
+                                    idade={moment(item.paciente.dataNascimento, "YYYYMMDD").fromNow().slice(0, 2)}
+                                    tipoConsulta={item.prioridade.prioridade}
                                     onPressCancel={() => setModalCancel(true)}
-                                    onPressCard={() => { setModalDoctor(true); setIdEncontrado(item); }}
+                                    onPressCard={() => {
+                                        profile.role === "Paciente" ? (
+                                            (setModalDoctor(true), setIdEncontrado(item.medicoClinica))
+                                        ) : (
+                                            null
+                                        )
+                                    }}
                                 /> : null}
                         />
 
@@ -157,8 +165,11 @@ export const Home = ({ navigation }) => {
                             data={consultas}
                             keyExtractor={(item) => item.id}
                             renderItem={({ item }) => item.situacao.situacao === "Realizado" ?
-                                <ConsultationData   
+                                <ConsultationData
                                     situacao={item.situacao.situacao}
+                                    nome={item.paciente.idNavigation.nome}
+                                    idade={moment(item.paciente.dataNascimento, "YYYYMMDD").fromNow().slice(0, 2)}
+                                    tipoConsulta={item.prioridade.prioridade}
                                     onPressAppoiment={() => {
                                         profile.role === "Paciente" ? (
                                             navigation.navigate('Prescricao')
@@ -175,10 +186,12 @@ export const Home = ({ navigation }) => {
                         <CardList
                             data={consultas}
                             keyExtractor={(item) => item.id}
-                            situacao={item.situacao.situacao}
                             renderItem={({ item }) => item.situacao.situacao === "Cancelado" ?
                                 <ConsultationData
                                     situacao={item.situacao.situacao}
+                                    nome={item.paciente.idNavigation.nome}
+                                    idade={moment(item.paciente.dataNascimento, "YYYYMMDD").fromNow().slice(0, 2)}
+                                    tipoConsulta={item.prioridade.prioridade}
                                 /> : null}
                         />
                     )

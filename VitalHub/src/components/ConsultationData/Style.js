@@ -23,6 +23,7 @@ export const CardContainer = styled.View`
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
+    //border: 1px;
 `
 
 //imagem de perfil
@@ -36,12 +37,14 @@ export const ImageUserCard = styled.Image`
 export const CardInfo = styled.View`
     width: 200px;
     height: 80px;
+    //border: 1px;
 `
 
 //Nome e dados
 export const InfoBox = styled.View`
     width: 100%;
     flex: 0.6;
+    //border: 1px;
 `
 
 //Hora e opcoes
