@@ -7,7 +7,7 @@ import SelectDropdown from 'react-native-select-dropdown'
 
 
 export const CalendarApp = ({
-
+    setDiaSelected
 }) => {
     LocaleConfig.locales['br'] = {
         monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
@@ -35,6 +35,7 @@ export const CalendarApp = ({
                 //style={{marginBottom: 10}}
                 onDayPress={day => {
                     setSelected(day.dateString);
+                    setDiaSelected(day.dateString);
                 }}
                 markedDates={{
                     [selected]: { selected: true, disableTouchEvent: true, selectedDotColor: 'orange' }

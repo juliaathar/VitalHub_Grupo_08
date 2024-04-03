@@ -10,6 +10,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { CardList, ContainerBox, NewConsul } from "./Style"
 import { Header } from "../../components/Header/Header"
 import { useEffect, useState } from "react"
+import api from "../../service/service"
 
 //notificacoes
 //importa a notificacao
@@ -37,7 +38,7 @@ export const Home = ({ navigation }) => {
     const [statusLista, setStatusLista] = useState("pendente");
     const [profile, setProfile] = useState('Paciente')
     const [nome,setNome] = useState("")
-    const [diaSelecionado, setDiaSelecionado] = useState(moment().format(""))
+    const [diaSelecionado, setDiaSelecionado] = useState(moment().format("YYYY-DD-MM"))
 
     const [modalCancel, setModalCancel] = useState(false);
     const [modalNewConsul, setModalNewConsul] = useState(false);
@@ -45,7 +46,7 @@ export const Home = ({ navigation }) => {
     const [modalPromptuary, setModalPromptuary] = useState(false);
 
     const [idEncontrado, setIdEncontrado] = useState("");
-
+    const [consultas, setConsultas] = useState([])
     //notificacoes
     //funcao para lidar con a chamada da notificacao
     const handleNotifications = async () => {
@@ -76,60 +77,40 @@ export const Home = ({ navigation }) => {
     async function profileLoad() {
         const token = await userDecodeToken();
         console.log(token)
+
         setNome(token.name)
-        setProfile(token.role)
-        setProfile("Paciente")
+        setProfile(token)
+        setDiaSelecionado(moment().format("YYYY-MM-DD"))
+    }
+
+    async function ListarConsulta() {
+        const url = (profile.role == "Médico" ? "Medicos" : "Pacientes")
+
+        await api.get(`/${url}/BuscarPorData?data=${diaSelecionado}&id=${profile.user}`)
+        .then( response => {
+            setConsultas(response.data);
+            console.log("consultas, exito:");
+            console.log(response.data);
+        }).catch(error => {
+            console.log("consultas, erro:");
+            console.log(error);
+        })
     }
 
     //atualiza a pagina de acordo com o login
     useEffect(() => {
         profileLoad();
     },[])
-
-    const dados = [
-        {
-            id: 1,
-            Nome: "Dr.1",
-            Idade: 35,
-            Email: "teste1@senai.com",
-            Situacao: "pendente"
-        },
-        {
-            id: 2,
-            Nome: "Dr.2",
-            Idade: 44,
-            Email: "student@hotmail.com",
-            Situacao: "realizado"
-        },
-        {
-            id: 3,
-            Nome: "Dr.3",
-            Idade: 37,
-            Email: "master3@gmal.com",
-            Situacao: "pendente"
-        },
-        {
-            id: 4,
-            Nome: "Dr.4",
-            Idade: 28,
-            Email: "student@hotmail.com",
-            Situacao: "cancelado"
-        },
-        {
-            id: 5,
-            Nome: "Dr.5",
-            Idade: 55,
-            Email: "student@hotmail.com",
-            Situacao: "realizado"
-        },
-    ]
+    useEffect(() => {
+        ListarConsulta();
+    }, [diaSelecionado])
 
     return (
         <>
             <Container>
                 <Header
                     navigation={navigation}
-                    name={nome}
+                    name={profile.name}
                 />
 
                 <CalendarHome
@@ -140,7 +121,7 @@ export const Home = ({ navigation }) => {
                     <OptionButtons
                         textButton={"Agendadas"}
                         actived={statusLista === "pendente"}
-                        onPress={() => {setStatusLista("pendente"), console.log(diaSelecionado);}}
+                        onPress={() => setStatusLista("pendente")}
                     />
 
                     <OptionButtons
@@ -160,12 +141,11 @@ export const Home = ({ navigation }) => {
                     statusLista == "pendente" ? (
 
                         <CardList
-                            data={dados}
+                            data={consultas}
                             keyExtractor={(item) => item.id}
-                            renderItem={({ item }) => item.Situacao === "pendente" ?
+                            renderItem={({ item }) => item.situacao.situacao === "Pendente" ?
                                 <ConsultationData
-                                    nome={item.Nome}
-                                    situacao={item.Situacao}
+                                    situacao={item.situacao.situacao}
                                     onPressCancel={() => setModalCancel(true)}
                                     onPressCard={() => { setModalDoctor(true); setIdEncontrado(item); }}
                                 /> : null}
@@ -174,14 +154,13 @@ export const Home = ({ navigation }) => {
                     ) : statusLista == "realizado" ? (
 
                         <CardList
-                            data={dados}
+                            data={consultas}
                             keyExtractor={(item) => item.id}
-                            renderItem={({ item }) => item.Situacao === "realizado" ?
+                            renderItem={({ item }) => item.situacao.situacao === "Realizado" ?
                                 <ConsultationData   
-                                    nome={item.Nome}
-                                    situacao={item.Situacao}
+                                    situacao={item.situacao.situacao}
                                     onPressAppoiment={() => {
-                                        profile === "Paciente" ? (
+                                        profile.role === "Paciente" ? (
                                             navigation.navigate('Prescricao')
                                         ) : (
                                             setModalPromptuary(true), setIdEncontrado(item)
@@ -194,12 +173,12 @@ export const Home = ({ navigation }) => {
                     ) : (
 
                         <CardList
-                            data={dados}
+                            data={consultas}
                             keyExtractor={(item) => item.id}
-                            renderItem={({ item }) => item.Situacao === "cancelado" ?
+                            situacao={item.situacao.situacao}
+                            renderItem={({ item }) => item.situacao.situacao === "Cancelado" ?
                                 <ConsultationData
-                                    nome={item.Nome}
-                                    situacao={item.Situacao}
+                                    situacao={item.situacao.situacao}
                                 /> : null}
                         />
                     )
@@ -207,7 +186,7 @@ export const Home = ({ navigation }) => {
 
                 {/* adicionar consulta */}
 
-                {profile === "Paciente" ? (
+                {profile.role === "Paciente" ? (
                     <NewConsul onPress={() => setModalNewConsul(true)}>
                         <MaterialCommunityIcons name="stethoscope" size={32} color="#FBFBFB" />
                     </NewConsul>
