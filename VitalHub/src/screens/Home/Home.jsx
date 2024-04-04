@@ -37,7 +37,6 @@ Notifications.setNotificationHandler({
 export const Home = ({ navigation }) => {
     const [statusLista, setStatusLista] = useState("pendente");
     const [profile, setProfile] = useState('Paciente')
-    const [nome,setNome] = useState("")
     const [diaSelecionado, setDiaSelecionado] = useState(moment().format("YYYY-DD-MM"))
 
     const [modalCancel, setModalCancel] = useState(false);
@@ -46,6 +45,7 @@ export const Home = ({ navigation }) => {
     const [modalPromptuary, setModalPromptuary] = useState(false);
 
     const [idEncontrado, setIdEncontrado] = useState("");
+
     const [consultas, setConsultas] = useState([])
     //notificacoes
     //funcao para lidar con a chamada da notificacao
@@ -78,7 +78,6 @@ export const Home = ({ navigation }) => {
         const token = await userDecodeToken();
         console.log(token)
 
-        setNome(token.name)
         setProfile(token)
         setDiaSelecionado(moment().format("YYYY-MM-DD"))
     }
@@ -87,20 +86,34 @@ export const Home = ({ navigation }) => {
         const url = (profile.role == "Médico" ? "Medicos" : "Pacientes")
 
         await api.get(`/${url}/BuscarPorData?data=${diaSelecionado}&id=${profile.user}`)
-        .then( response => {
-            setConsultas(response.data);
-            console.log("consultas, exito:");
-            console.log(response.data);
-        }).catch(error => {
-            console.log("consultas, erro:");
-            console.log(error);
-        })
+            .then(response => {
+                setConsultas(response.data);
+                console.log("consultas, exito:");
+                //console.log(response.data);
+            }).catch(error => {
+                console.log("consultas, erro: " + error);
+                //console.log(error);
+            })
+    }
+
+    function MostrarModal(modal, consulta) {
+        if (modal == "cancelar") {
+            setModalCancel(true)
+        } else if (modal == "doutor") {
+            setModalPromptuary(true)
+        } else if (modal == "local") {
+            setModalDoctor(true)
+        }
+        
+        setIdEncontrado(consulta)
+        console.log("Teste: " + modal);
+        console.log(idEncontrado);
     }
 
     //atualiza a pagina de acordo com o login
     useEffect(() => {
         profileLoad();
-    },[])
+    }, [])
     useEffect(() => {
         ListarConsulta();
     }, [diaSelecionado])
@@ -139,15 +152,23 @@ export const Home = ({ navigation }) => {
 
                 {
                     statusLista == "pendente" ? (
-
                         <CardList
                             data={consultas}
                             keyExtractor={(item) => item.id}
                             renderItem={({ item }) => item.situacao.situacao === "Pendente" ?
                                 <ConsultationData
                                     situacao={item.situacao.situacao}
-                                    onPressCancel={() => setModalCancel(true)}
-                                    onPressCard={() => { setModalDoctor(true); setIdEncontrado(item); }}
+                                    nome={item.paciente.idNavigation.nome}
+                                    idade={moment(item.paciente.dataNascimento, "YYYYMMDD").fromNow().slice(0, 2)}
+                                    tipoConsulta={item.prioridade.prioridade}
+                                    onPressCancel={() => MostrarModal("cancelar", item)}
+                                    onPressCard={() => {
+                                        profile.role === "Paciente" ? (
+                                            MostrarModal("local", item)
+                                        ) : (
+                                            null
+                                        )
+                                    }}
                                 /> : null}
                         />
 
@@ -157,13 +178,16 @@ export const Home = ({ navigation }) => {
                             data={consultas}
                             keyExtractor={(item) => item.id}
                             renderItem={({ item }) => item.situacao.situacao === "Realizado" ?
-                                <ConsultationData   
+                                <ConsultationData
                                     situacao={item.situacao.situacao}
+                                    nome={item.paciente.idNavigation.nome}
+                                    idade={moment(item.paciente.dataNascimento, "YYYYMMDD").fromNow().slice(0, 2)}
+                                    tipoConsulta={item.prioridade.prioridade}
                                     onPressAppoiment={() => {
                                         profile.role === "Paciente" ? (
                                             navigation.navigate('Prescricao')
                                         ) : (
-                                            setModalPromptuary(true), setIdEncontrado(item)
+                                            MostrarModal("doutor", item)
                                         )
                                     }}
 
@@ -175,10 +199,12 @@ export const Home = ({ navigation }) => {
                         <CardList
                             data={consultas}
                             keyExtractor={(item) => item.id}
-                            situacao={item.situacao.situacao}
                             renderItem={({ item }) => item.situacao.situacao === "Cancelado" ?
                                 <ConsultationData
                                     situacao={item.situacao.situacao}
+                                    nome={item.paciente.idNavigation.nome}
+                                    idade={moment(item.paciente.dataNascimento, "YYYYMMDD").fromNow().slice(0, 2)}
+                                    tipoConsulta={item.prioridade.prioridade}
                                 /> : null}
                         />
                     )
@@ -221,10 +247,8 @@ export const Home = ({ navigation }) => {
                 visible={modalPromptuary}
                 onRequestClose={() => { setModalPromptuary(false) }}
                 navigation={navigation}
-
-                name={idEncontrado.Nome}
-                age={idEncontrado.Idade}
-                email={idEncontrado.Email}
+                consulta={idEncontrado}
+                role={profile.role}
             />
         </>
     )
