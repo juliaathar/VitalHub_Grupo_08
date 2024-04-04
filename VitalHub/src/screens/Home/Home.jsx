@@ -62,7 +62,7 @@ export const Home = ({ navigation }) => {
 
         //obter o token de enviou de notificacao
         const token = await Notifications.getExpoPushTokenAsync()
-        console.log(token);
+        //console.log(token);
 
         //agendar uma notificacao parar ser exibida apos 5 segundos
         await Notifications.scheduleNotificationAsync({
@@ -76,7 +76,7 @@ export const Home = ({ navigation }) => {
 
     async function profileLoad() {
         const token = await userDecodeToken();
-        console.log(token)
+        //console.log(token)
 
         setProfile(token)
         setDiaSelecionado(moment().format("YYYY-MM-DD"))
@@ -89,7 +89,7 @@ export const Home = ({ navigation }) => {
             .then(response => {
                 setConsultas(response.data);
                 console.log("consultas, exito:");
-                //console.log(response.data);
+                console.log(response.data);
             }).catch(error => {
                 console.log("consultas, erro: " + error);
                 //console.log(error);
@@ -166,7 +166,7 @@ export const Home = ({ navigation }) => {
                                         profile.role === "Paciente" ? (
                                             MostrarModal("local", item)
                                         ) : (
-                                            null
+                                            MostrarModal("local", item) //provisorio
                                         )
                                     }}
                                 /> : null}
@@ -237,6 +237,7 @@ export const Home = ({ navigation }) => {
                 onRequestClose={() => setModalDoctor(false)}
                 doctorName={idEncontrado.Nome}
                 navigation={navigation}
+                consulta={idEncontrado}
             />
             <NewConsulModal
                 visible={modalNewConsul}

@@ -1,10 +1,15 @@
 import { FormField } from "../../components/FormField/FormField"
 import { Container } from "../../components/Container/Style"
+import MapViewDirections from 'react-native-maps-directions';
 import { Paragraph } from "../../components/Paragraph/Style"
+import { InfoBody, Line, Map, MapContainer } from "./Style"
+import { Marker, PROVIDER_GOOGLE } from "react-native-maps"
 import { LinkMedium } from "../../components/Links/Style"
 import { Title } from "../../components/Title/Style"
 import { Text, TouchableOpacity } from "react-native"
-import { InfoBody, Line, Map, MapContainer } from "./Style"
+import { useEffect, useRef, useState } from "react"
+import { mapskey } from "../../utils/mapsApiKey"
+import api from "../../service/service"
 import {
   requestForegroundPermissionsAsync, //solicita o acesso
   getCurrentPositionAsync, //recebe a localizacao atual
@@ -12,24 +17,30 @@ import {
   LocationAccuracy,
   Accuracy
 } from "expo-location"
-import { useEffect, useRef, useState } from "react"
-import { Marker, PROVIDER_GOOGLE } from "react-native-maps"
-import MapViewDirections from 'react-native-maps-directions';
-import { mapskey } from "../../utils/mapsApiKey"
-
 
 
 export const LocalMap = ({ navigation, route }) => {
+  //rota
+  const { clinicaId } = route.params || {};
   useEffect(() => {
-    console.log(route);
+    BuscarClinica();
   }, [route.params])
 
+  //mapa
   const [initialPosition, setInitialPosition] = useState(null)
-  const [finalPosition, setFinalPosition] = useState({
-    latitude: -23.8329,
-    longitude: -45.3662
-  })
+  const [finalPosition, setFinalPosition] = useState({})
   const mapReference = useRef(null)
+
+  async function BuscarClinica() {
+    const response = await api.get(`/Clinica/BuscarPorId?id=${clinicaId}`);
+
+    const latitude = response.data.endereco.latitude
+    const longitude = response.data.endereco.longitude
+
+    console.log(latitude);
+    console.log(longitude);
+    setFinalPosition({ latitude: latitude, longitude: longitude })
+  }
 
   //captura a posicao e salva as coordenadas
   useEffect(() => {
@@ -78,6 +89,11 @@ export const LocalMap = ({ navigation, route }) => {
           animated: true
         }
       )
+
+      // console.log(
+      //   { latitude: initialPosition.coords.latitude, longitude: initialPosition.coords.longitude },
+      //   { latitude: finalPosition.latitude, longitude: finalPosition.longitude }
+      // )
     }
   }
 
@@ -113,8 +129,8 @@ export const LocalMap = ({ navigation, route }) => {
             <MapViewDirections
               origin={initialPosition.coords}
               destination={{
-                latitude: -23.8329,
-                longitude: -45.3662,
+                latitude: finalPosition.latitude,
+                longitude: finalPosition.longitude,
                 latitudeDelta: 0.005,
                 longitudeDelta: 0.005
               }}
@@ -126,11 +142,11 @@ export const LocalMap = ({ navigation, route }) => {
             <Marker
               //meu destino
               coordinate={{
-                latitude: -23.8329,
-                longitude: -45.3662
+                latitude: finalPosition.latitude,
+                longitude: finalPosition.longitude
               }}
               title="Posicao atual"
-              description="Estou aqui"
+              description="Quero ir"
               pinColor="red"
             />
 

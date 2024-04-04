@@ -11,8 +11,18 @@ export const DoctorModal = ({
     especialidade,
     codigo,
     visible,
-    navigation
+    navigation,
+
+    consulta,
+    role
 }) => {
+
+    async function LocalMapTela(consulta) {
+        console.log("consulta modal prescricao");
+        //console.log(consulta);
+        navigation.navigate('LocalMap', {clinicaId: consulta.medicoClinica.clinicaId})
+    }
+
     return (
         <BodyModal
             isVisible={visible}
@@ -22,7 +32,7 @@ export const DoctorModal = ({
                 <DocImg source={{ uri: "https://github.com/LeonKene-hub.png" }} />
                 
 
-                <Title style={{marginTop: 15}}>{doctorName}</Title>
+                <Title style={{marginTop: 15}}>{"doctorName"}</Title>
 
                 <Line>
                     <Paragraph>{"especialidade"}</Paragraph>
@@ -32,7 +42,7 @@ export const DoctorModal = ({
                 <NormalButton 
                     title={"ver local da consulta"}
                     fieldWidth={90}
-                    onPress={() => navigation.navigate('LocalMap')}
+                    onPress={() => (LocalMapTela(consulta))}
                 />
 
                 <TouchableOpacity onPress={onRequestClose} style={{marginBottom: 15}}>
