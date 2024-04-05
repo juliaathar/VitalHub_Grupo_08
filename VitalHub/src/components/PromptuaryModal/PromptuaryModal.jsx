@@ -16,7 +16,9 @@ export const PromptuaryModal = ({
     role
 }) => {
 
-    async function Protuario() {
+    async function Protuario(consulta) {
+        console.log("consulta modal prescricao");
+        console.log(consulta);
         navigation.navigate('Prontuario')
     }
 
@@ -37,7 +39,7 @@ export const PromptuaryModal = ({
                 <NormalButton 
                     fieldWidth={90} 
                     title={"inserir prontuario"} 
-                    onPress={() => {Protuario()}}
+                    onPress={() => {Protuario(consulta)}}
                 />
 
                 <TouchableOpacity onPress={onRequestClose} style={{marginBottom: 15}}>
