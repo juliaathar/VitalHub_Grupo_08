@@ -1,269 +1,61 @@
 {
-    "config": {
-        "adapter": [
-            "xhr",
-            "http"
+    "dataConsulta": "2024-01-04T12:00:00",
+    "descricao": "Nada",
+    "diagnostico": "Frescura",
+    "exames": [],
+    "id": "482f0d30-c6b4-4d59-a302-c2b465a1170c",
+    "medicoClinica": {
+        "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
+        "consulta": [
+            [Object],
+            [Object]
         ],
-        "baseURL": "http://172.16.39.82:4466/api",
-        "data": undefined,
-        "env": {
-            "Blob": [Function Blob
-            ],
-            "FormData": [Function FormData
-            ]
+        "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+        "medico": {
+            "crm": "123123123",
+            "enderecoId": "085598ed-3703-49ba-bbd6-7d8e27258d0b",
+            "especialidadeId": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+            "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+            "idNavigation": [Object],
+            "medicosClinicas": [Array]
         },
-        "headers": [Object
-        ],
-        "maxBodyLength": -1,
-        "maxContentLength": -1,
-        "method": "get",
-        "timeout": 0,
-        "transformRequest": [
-            [Function transformRequest
-            ]
-        ],
-        "transformResponse": [
-            [Function transformResponse
-            ]
-        ],
-        "transitional": {
-            "clarifyTimeoutError": false,
-            "forcedJSONParsing": true,
-            "silentJSONParsing": true
-        },
-        "url": "/Clinica/BuscarPorId?id=4b4aaadf-daad-4ec0-8934-40e511824f91",
-        "validateStatus": [Function validateStatus
-        ],
-        "xsrfCookieName": "XSRF-TOKEN",
-        "xsrfHeaderName": "X-XSRF-TOKEN"
+        "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07"
     },
-    "data": {
-        "endereco": {
-            "cep": "22222222",
-            "clinicas": [Array
-            ],
-            "id": "783b3757-a82f-40ba-8dc3-43a4c519be57",
-            "latitude": 78.3738,
-            "logradouro": "Rua Niteroi",
-            "longitude": -45.787878,
-            "medicos": [Array
-            ],
-            "numero": 12,
-            "pacientes": [Array
-            ]
+    "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+    "paciente": {
+        "consulta": [
+            [Object],
+            [Object]
+        ],
+        "cpf": "56611743146",
+        "dataNascimento": "1990-03-27T00:00:00",
+        "enderecoId": "20ccc2cb-899d-4988-a33d-c3f899ebad36",
+        "id": "1ff90d23-2a22-40f9-88b5-fb24e8ec089a",
+        "idNavigation": {
+            "email": "marcelo@gmail.com",
+            "foto": "semfoto",
+            "id": "1ff90d23-2a22-40f9-88b5-fb24e8ec089a",
+            "nome": "Marcelo Caio Paulo Sales",
+            "senha": "$2a$11$fVd6DzfvDJVx/79oDpJKyuFNJpUfTre.hdmJvIlyHl0UutXOuPRP.",
+            "tipoUsuarioId": "5ff2df57-1b92-49d0-a516-f2b1172a0edc"
         },
-        "id": "4b4aaadf-daad-4ec0-8934-40e511824f91",
-        "medicosClinicas": [],
-        "nomeFantasia": "VitalHub"
+        "rg": "364985021"
     },
-    "headers": {
-        "content-length": "291",
-        "content-type": "application/json; charset=utf-8",
-        "date": "Thu, 04 Apr 2024 12:13:12 GMT",
-        "server": "Kestrel"
+    "pacienteId": "1ff90d23-2a22-40f9-88b5-fb24e8ec089a",
+    "prioridade": {
+        "consulta": [
+            [Object],
+            [Object]
+        ],
+        "id": "add341be-8e85-40f1-bca3-71c72a1585d3",
+        "prioridade": 1
     },
-    "request": {
-        "DONE": 4,
-        "HEADERS_RECEIVED": 2,
-        "LOADING": 3,
-        "OPENED": 1,
-        "UNSENT": 0,
-        "_aborted": false,
-        "_cachedResponse": undefined,
-        "_hasError": false,
-        "_headers": {
-            "accept": "application/json, text/plain, */*"
-        },
-        "_incrementalEvents": false,
-        "_lowerCaseResponseHeaders": {
-            "content-length": "291",
-            "content-type": "application/json; charset=utf-8",
-            "date": "Thu, 04 Apr 2024 12:13:12 GMT",
-            "server": "Kestrel"
-        },
-        "_method": "GET",
-        "_perfKey": "network_XMLHttpRequest_http://172.16.39.82:4466/api/Clinica/BuscarPorId?id=4b4aaadf-daad-4ec0-8934-40e511824f91",
-        "_performanceLogger": {
-            "_closed": false,
-            "_extras": [Object
-            ],
-            "_isGlobalLogger": true,
-            "_pointExtras": [Object
-            ],
-            "_points": [Object
-            ],
-            "_timespans": [Object
-            ]
-        },
-        "_requestId": null,
-        "_response": "{\"id\":\"4b4aaadf-daad-4ec0-8934-40e511824f91\",\"nomeFantasia\":\"VitalHub\",\"endereco\":{\"id\":\"783b3757-a82f-40ba-8dc3-43a4c519be57\",\"cep\":\"22222222\",\"logradouro\":\"Rua Niteroi\",\"numero\":12,\"longitude\":-45.787878,\"latitude\":78.373800,\"clinicas\":[],\"medicos\":[],\"pacientes\":[]},\"medicosClinicas\":[]}",
-        "_responseType": "",
-        "_sent": true,
-        "_subscriptions": [],
-        "_timedOut": false,
-        "_trackingName": "unknown",
-        "_url": "http://172.16.39.82:4466/api/Clinica/BuscarPorId?id=4b4aaadf-daad-4ec0-8934-40e511824f91",
-        "readyState": 4,
-        "responseHeaders": {
-            "Content-Length": "291",
-            "Content-Type": "application/json; charset=utf-8",
-            "Date": "Thu, 04 Apr 2024 12:13:12 GMT",
-            "Server": "Kestrel"
-        },
-        "responseURL": "http://172.16.39.82:4466/api/Clinica/BuscarPorId?id=4b4aaadf-daad-4ec0-8934-40e511824f91",
-        "status": 200,
-        "timeout": 0,
-        "upload": {},
-        "withCredentials": true
+    "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+    "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+    "situacao": {
+        "consulta": [],
+        "id": "791b5f13-eeca-4229-b751-712e702d8837",
+        "situacao": "Pendente"
     },
-    "status": 200,
-    "statusText": undefined
+    "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837"
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-[
-    {
-        "dataConsulta": "2024-01-04T12:00:00",
-        "descricao": "Nada",
-        "diagnostico": "Frescura",
-        "exames": [],
-        "id": "ccd72450-048c-4bc2-a721-9ff76ef5ecf5",
-        "medicoClinica": {
-            "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
-            "consulta": [Array
-            ],
-            "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
-            "medico": [Object
-            ],
-            "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07"
-        },
-        "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
-        "paciente": {
-            "consulta": [Array
-            ],
-            "cpf": "56611743146",
-            "dataNascimento": "1990-03-27T00:00:00",
-            "enderecoId": "20ccc2cb-899d-4988-a33d-c3f899ebad36",
-            "id": "1ff90d23-2a22-40f9-88b5-fb24e8ec089a",
-            "idNavigation": [Object
-            ],
-            "rg": "364985021"
-        },
-        "pacienteId": "1ff90d23-2a22-40f9-88b5-fb24e8ec089a",
-        "prioridade": {
-            "consulta": [Array
-            ],
-            "id": "add341be-8e85-40f1-bca3-71c72a1585d3",
-            "prioridade": 1
-        },
-        "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
-        "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
-        "situacao": {
-            "consulta": [Array
-            ],
-            "id": "62b453de-2709-4243-b249-e57863ccecbe",
-            "situacao": "Realizado"
-        },
-        "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe"
-    },
-    {
-        "dataConsulta": "2024-01-04T12:00:00",
-        "descricao": "Nada",
-        "diagnostico": "Frescura",
-        "exames": [],
-        "id": "482f0d30-c6b4-4d59-a302-c2b465a1170c",
-        "medicoClinica": {
-            "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
-            "consulta": [Array
-            ],
-            "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
-            "medico": [Object
-            ],
-            "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07"
-        },
-        "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
-        "paciente": {
-            "consulta": [Array
-            ],
-            "cpf": "56611743146",
-            "dataNascimento": "1990-03-27T00:00:00",
-            "enderecoId": "20ccc2cb-899d-4988-a33d-c3f899ebad36",
-            "id": "1ff90d23-2a22-40f9-88b5-fb24e8ec089a",
-            "idNavigation": [Object
-            ],
-            "rg": "364985021"
-        },
-        "pacienteId": "1ff90d23-2a22-40f9-88b5-fb24e8ec089a",
-        "prioridade": {
-            "consulta": [Array
-            ],
-            "id": "add341be-8e85-40f1-bca3-71c72a1585d3",
-            "prioridade": 1
-        },
-        "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
-        "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
-        "situacao": {
-            "consulta": [Array
-            ],
-            "id": "791b5f13-eeca-4229-b751-712e702d8837",
-            "situacao": "Pendente"
-        },
-        "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837"
-    },
-    {
-        "dataConsulta": "2024-01-04T12:00:00",
-        "descricao": "Nada",
-        "diagnostico": "Frescura",
-        "exames": [],
-        "id": "45a8b1b5-caaf-4045-ab3e-ec82af9e594a",
-        "medicoClinica": {
-            "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
-            "consulta": [Array
-            ],
-            "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
-            "medico": [Object
-            ],
-            "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07"
-        },
-        "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
-        "paciente": {
-            "consulta": [Array
-            ],
-            "cpf": "56611743146",
-            "dataNascimento": "1990-03-27T00:00:00",
-            "enderecoId": "20ccc2cb-899d-4988-a33d-c3f899ebad36",
-            "id": "1ff90d23-2a22-40f9-88b5-fb24e8ec089a",
-            "idNavigation": [Object
-            ],
-            "rg": "364985021"
-        },
-        "pacienteId": "1ff90d23-2a22-40f9-88b5-fb24e8ec089a",
-        "prioridade": {
-            "consulta": [Array
-            ],
-            "id": "add341be-8e85-40f1-bca3-71c72a1585d3",
-            "prioridade": 1
-        },
-        "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
-        "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
-        "situacao": {
-            "consulta": [Array
-            ],
-            "id": "46a56a8b-d8a9-4e53-a6a6-7850ac222142",
-            "situacao": "Cancelado"
-        },
-        "situacaoId": "46a56a8b-d8a9-4e53-a6a6-7850ac222142"
-    }
-]

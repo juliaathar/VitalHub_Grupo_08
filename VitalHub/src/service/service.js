@@ -5,8 +5,8 @@ const portaApi = '4466';
 
 //declarar ip da maquina:
 
-//meu ip 172.16.39.81
-//Julia`s ip 172.16.39.82
+//Pedro ip 172.16.39.81
+//Julia ip 172.16.39.82
 
 const ip = '172.16.39.82';
 
