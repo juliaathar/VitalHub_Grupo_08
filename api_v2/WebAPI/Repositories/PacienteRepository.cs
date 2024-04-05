@@ -50,7 +50,7 @@ namespace WebAPI.Repositories
         {
            return ctx.Consultas
                 .Include(x => x.Situacao)
-
+                .Include(x => x.MedicoClinica!.Medico!.Especialidade)
                 //.Where(x  => x.PacienteId == idPaciente && x.DataConsulta == dataConsulta) 
                 .Where(x => x.PacienteId == idPaciente && EF.Functions.DateDiffDay(x.DataConsulta, dataConsulta) == 0)
                 .ToList();
