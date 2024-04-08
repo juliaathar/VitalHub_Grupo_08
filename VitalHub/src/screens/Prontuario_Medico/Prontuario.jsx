@@ -8,14 +8,15 @@ import { LinkMedium } from "../../components/Links/Style"
 import { TouchableOpacity, View } from "react-native"
 import { Title } from "../../components/Title/Style"
 import { useState } from "react"
+import api from "../../service/service"
 
-export const Prontuario = ({ navigation }) => {
+export const Prontuario = ({ navigation, route }) => {
+    const { consulta } = route.params || {};
 
-    const [formEdit, setFormEdit] = useState(true);
-    const [descricao, setDescricao] = useState("");
-    const [diagnostico, setDiagnostico] = useState("");
-    const [prescricao, setPrescricao] = useState("");
-
+    const [formEdit, setFormEdit] = useState(false);
+    const [descricao, setDescricao] = useState(consulta.descricao);
+    const [diagnostico, setDiagnostico] = useState(consulta.diagnostico);
+    const [prescricao, setPrescricao] = useState(consulta.receita.medicamento);
 
     return (
         <Container>
