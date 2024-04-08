@@ -9,6 +9,7 @@ import { View } from "react-native"
 import { useEffect, useState } from "react"
 import { userDecodeToken } from "../../utils/Auth"
 import api from "../../service/service"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const Perfil = ({ navigation }) => {
 
@@ -34,14 +35,28 @@ export const Perfil = ({ navigation }) => {
             }
             // console.log('Dados obtidos da API:', info)
             if (info) { setUser(info.data) }
-            console.log(user);
-            console.log('ersrerserser');
 
         }
         catch (error) {
             return console.log(`erro ${error}`);
         }
     }
+
+
+    const handleLogout = async () => {
+        try {
+            if (tokenUser) {
+                console.log(tokenUser);
+                await AsyncStorage.removeItem('tokenUser')
+                console.log(tokenUser);
+                
+                navigation.replace('Login');
+            }
+        } catch (error) {
+            console.error('Erro ao fazer login:', error);
+        }
+    };
+
 
     useEffect(() => {
 
@@ -75,7 +90,7 @@ export const Perfil = ({ navigation }) => {
                             <FormField fieldWidth={90} editable={formEdit} labelText="Endereco" fieldValue={user?.endereco.logradouro} />
                         </>
                     )}
-                    
+
                     <View style={{ width: "90%", justifyContent: "space-between", flexDirection: "row" }}>
                         <FormField fieldWidth={45} editable={formEdit} labelText="Cep" fieldValue={user?.endereco.cep} />
                         <FormField fieldWidth={45} editable={formEdit} labelText="Cidade" fieldValue={user?.endereco.cidade} />
@@ -83,7 +98,7 @@ export const Perfil = ({ navigation }) => {
 
                     <NormalButton title={"Salvar"} onPress={() => { setFormEdit(false) }} fieldWidth={90} />
                     <NormalButton title={"editar"} onPress={() => { setFormEdit(true) }} fieldWidth={90} />
-                    <GoogleButton title={"Sair do app"} onPress={() => navigation.replace("Main")} fieldWidth={70} />
+                    <GoogleButton title={"Sair do app"} onPress={handleLogout} fieldWidth={70} />
 
                 </View>
             </ScrollForm>
