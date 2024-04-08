@@ -121,6 +121,10 @@ public partial class VitalContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Longitude).HasColumnType("decimal(9, 6)");
+            entity.Property(e => e.Cidade)
+           .HasColumnName("Cidade")
+           .HasMaxLength(50)
+           .IsUnicode(false);
         });
 
         modelBuilder.Entity<Especialidade>(entity =>
