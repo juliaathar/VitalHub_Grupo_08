@@ -1,3 +1,4 @@
+import { ActivityIndicator, Text, TouchableOpacity } from "react-native"
 import { FormField } from "../../components/FormField/FormField"
 import { Container } from "../../components/Container/Style"
 import MapViewDirections from 'react-native-maps-directions';
@@ -6,7 +7,6 @@ import { InfoBody, Line, Map, MapContainer } from "./Style"
 import { Marker, PROVIDER_GOOGLE } from "react-native-maps"
 import { LinkMedium } from "../../components/Links/Style"
 import { Title } from "../../components/Title/Style"
-import { ActivityIndicator, Text, TouchableOpacity } from "react-native"
 import { useEffect, useRef, useState } from "react"
 import { mapskey } from "../../utils/mapsApiKey"
 import api from "../../service/service"
@@ -28,17 +28,24 @@ export const LocalMap = ({ navigation, route }) => {
 
   //mapa
   const [initialPosition, setInitialPosition] = useState(null)
-  const [finalPosition, setFinalPosition] = useState({})
+  const [finalPosition, setFinalPosition] = useState(null)
+
   const [endereco, setEndereco] = useState({})
   const mapReference = useRef(null)
 
   async function BuscarClinica() {
     const response = await api.get(`/Clinica/BuscarPorId?id=${clinicaId}`)
+    console.log("=============== Funcao de trazer dados da clinica: ===============");
 
-    setEndereco(response.data.endereco)
     //{cep, clinicas[],id,latitude,logradouro,longitude,medicos[],numero,pacientes[]}
+    
+    //setFinalPosition({ latitude: response.data.endereco.latitude, longitude: response.data.endereco.longitude })
+    setEndereco(response.data.endereco)
     console.log(endereco);
-    setFinalPosition({ latitude: response.data.endereco.latitude, longitude: response.data.endereco.longitude })
+
+    setFinalPosition({latitude: -23.8007, longitude: -46.0209,}) //--provisorio para testes-- //
+    console.log(finalPosition.latitude);
+    console.log(finalPosition.longitude);
   }
 
   //captura a posicao e salva as coordenadas
@@ -56,10 +63,9 @@ export const LocalMap = ({ navigation, route }) => {
         pitch: 60,
         center: responde.coords
       })
-
       // console.log(responde)
     })
-  }, [1000])
+  }, [1500])
 
   useEffect(() => {
     RecarregarVisualizacao()
@@ -76,7 +82,7 @@ export const LocalMap = ({ navigation, route }) => {
 
 
   async function RecarregarVisualizacao() {
-    if (mapReference.current && initialPosition) {
+    if (mapReference.current && initialPosition && finalPosition) {
       await mapReference.current.fitToCoordinates(
         [
           { latitude: initialPosition.coords.latitude, longitude: initialPosition.coords.longitude },
@@ -93,7 +99,7 @@ export const LocalMap = ({ navigation, route }) => {
   return (
     <Container>
       <MapContainer>
-        {finalPosition !== null ? (
+        {initialPosition && finalPosition !== null ? (
           <Map
             ref={mapReference}
             //marcar o ponto de inicio
@@ -122,6 +128,7 @@ export const LocalMap = ({ navigation, route }) => {
             <MapViewDirections
               origin={initialPosition.coords}
               destination={{
+                //bertioga -23.8007, -46.0209
                 latitude: finalPosition.latitude,
                 longitude: finalPosition.longitude,
                 latitudeDelta: 0.005,
@@ -154,16 +161,19 @@ export const LocalMap = ({ navigation, route }) => {
 
         <FormField
           labelText="Endereço"
+          fieldValue={endereco.logradouro}
           fieldWidth={90}
         />
 
         <Line>
           <FormField
             labelText="Número"
+            fieldValue={`${endereco.numero}`}
             fieldWidth={45}
           />
           <FormField
-            labelText="Bairro"
+            labelText="Cidade"
+            fieldValue={endereco.cidade}
             fieldWidth={45}
           />
         </Line>

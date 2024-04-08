@@ -2,46 +2,69 @@ import { Age, CenterContainer, Email, ModalBody, PatientData, PatientName, Perfi
 import { TouchableOpacity } from "react-native"
 import { NormalButton } from "../Button/Buttons"
 import { LinkMedium } from "../Links/Style"
+import { useEffect, useState } from "react"
+import moment from "moment"
 
 export const PromptuaryModal = ({
     visible,
     onRequestClose,
     navigation,
-
     consulta,
-    role
 }) => {
+    const [nome, setNome] = useState("");
+    const [email, setEmail] = useState("");
+    const [idade, setIdade] = useState("");
+    const [confirm, setConfirm] = useState(false)
 
+    async function setValores() {
+        setNome(consulta.paciente.idNavigation.nome);
+        setEmail(consulta.paciente.idNavigation.email);
+        setIdade(consulta.paciente.dataNascimento)
+    }
     async function Prontuario() {
         console.log("consulta modal prescricao");
         console.log(consulta);
-        navigation.navigate('Prontuario')
+        navigation.navigate('Prontuario', { consulta: consulta })
     }
 
+    useEffect(() => {
+        if (consulta != null) {
+            setValores();
+            setConfirm(true)
+        }
+    }, [consulta]);
+
     return (
-        <ModalBody
-            isVisible={visible}
-        >
-            <CenterContainer>
-                <PerfilImg source={{ uri: "https://github.com/LeonKene-hub.png" }}/>
+        <>
+            {confirm ? (
+                <ModalBody
+                    isVisible={visible}
+                >
+                    <CenterContainer>
+                        <PerfilImg source={{ uri: "https://github.com/LeonKene-hub.png" }} />
 
-                <PatientName>{"nome"}</PatientName>
+                        <PatientName>{nome}</PatientName>
 
-                <PatientData>
-                    <Age>{"idade"} anos</Age>
-                    <Email>{"email"}</Email>
-                </PatientData>
+                        <PatientData>
+                            <Age>{moment(idade, "YYYYMMDD").fromNow().slice(0, 2)} anos</Age>
+                            <Email>{email}</Email>
+                        </PatientData>
 
-                <NormalButton 
-                    fieldWidth={90} 
-                    title={"inserir prontuario"} 
-                    onPress={() => {Prontuario()}}
-                />
+                        <NormalButton
+                            fieldWidth={90}
+                            title={"inserir prontuario"}
+                            onPress={() => { Prontuario() }}
+                        />
 
-                <TouchableOpacity onPress={onRequestClose} style={{marginBottom: 15}}>
-                    <LinkMedium>Cancelar</LinkMedium>
-                </TouchableOpacity>
-            </CenterContainer>
-        </ModalBody>
+                        <TouchableOpacity onPress={onRequestClose} style={{ marginBottom: 15 }}>
+                            <LinkMedium>Cancelar</LinkMedium>
+                        </TouchableOpacity>
+                    </CenterContainer>
+                </ModalBody>
+
+            ) : (
+                null
+            )}
+        </>
     )
 }

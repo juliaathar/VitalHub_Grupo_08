@@ -18,7 +18,7 @@ export const DoctorModal = ({
 }) => {
     const [nome, setNome] = useState()
     const [crm, setCrm] = useState()
-    const [medico, setMedico] = useState()
+    const [confirm, setConfirm] = useState(false)
 
     async function medicoInfo() {
         setNome(consulta.medicoClinica.medico.idNavigation.nome)
@@ -31,34 +31,41 @@ export const DoctorModal = ({
     }
 
     useEffect(() => {
-        medicoInfo();
+        if (consulta) {
+            medicoInfo();
+            setConfirm(true)
+        }
     }, [consulta])
 
     return (
-        <BodyModal
-            isVisible={visible}
-            animationOutTiming={0}
-        >
-            <Center>
-                <DocImg source={{ uri: "https://github.com/LeonKene-hub.png" }} />
+        <>
+            {confirm ? (
+                <BodyModal
+                    isVisible={visible}
+                    animationOutTiming={0}
+                >
+                    <Center>
+                        <DocImg source={{ uri: "https://github.com/LeonKene-hub.png" }} />
 
-                <Title style={{ marginTop: 15 }}>{nome}</Title>
+                        <Title style={{ marginTop: 15 }}>{nome}</Title>
 
-                <Line>
-                    <Paragraph>{"especialidade"}</Paragraph>
-                    <Paragraph>{crm}</Paragraph>
-                </Line>
+                        <Line>
+                            <Paragraph>{"especialidade"}</Paragraph>
+                            <Paragraph>{crm}</Paragraph>
+                        </Line>
 
-                <NormalButton
-                    title={"ver local da consulta"}
-                    fieldWidth={90}
-                    onPress={() => (LocalMapTela(consulta))}
-                />
+                        <NormalButton
+                            title={"ver local da consulta"}
+                            fieldWidth={90}
+                            onPress={() => (LocalMapTela(consulta))}
+                        />
 
-                <TouchableOpacity onPress={onRequestClose} style={{ marginBottom: 15 }}>
-                    <LinkMedium>Cancelar</LinkMedium>
-                </TouchableOpacity>
-            </Center>
-        </BodyModal>
+                        <TouchableOpacity onPress={onRequestClose} style={{ marginBottom: 15 }}>
+                            <LinkMedium>Cancelar</LinkMedium>
+                        </TouchableOpacity>
+                    </Center>
+                </BodyModal>
+            ) : (null)}
+        </>
     )
 }

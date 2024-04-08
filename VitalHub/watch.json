@@ -1,61 +1,17 @@
 {
-    "dataConsulta": "2024-01-04T12:00:00",
-    "descricao": "Nada",
-    "diagnostico": "Frescura",
-    "exames": [],
-    "id": "482f0d30-c6b4-4d59-a302-c2b465a1170c",
-    "medicoClinica": {
-        "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
-        "consulta": [
-            [Object],
-            [Object]
-        ],
-        "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
-        "medico": {
-            "crm": "123123123",
-            "enderecoId": "085598ed-3703-49ba-bbd6-7d8e27258d0b",
-            "especialidadeId": "f737e0b7-3936-4346-a83b-94edaa3f7992",
-            "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
-            "idNavigation": [Object],
-            "medicosClinicas": [Array]
-        },
-        "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07"
+    "endereco": {
+        "cep": "22222222",
+        "cidade": "São Paulo",
+        "clinicas": [],
+        "id": "783b3757-a82f-40ba-8dc3-43a4c519be57",
+        "latitude": 78.3738,
+        "logradouro": "Rua Niteroi",
+        "longitude": -45.787878,
+        "medicos": [],
+        "numero": 12,
+        "pacientes": []
     },
-    "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
-    "paciente": {
-        "consulta": [
-            [Object],
-            [Object]
-        ],
-        "cpf": "56611743146",
-        "dataNascimento": "1990-03-27T00:00:00",
-        "enderecoId": "20ccc2cb-899d-4988-a33d-c3f899ebad36",
-        "id": "1ff90d23-2a22-40f9-88b5-fb24e8ec089a",
-        "idNavigation": {
-            "email": "marcelo@gmail.com",
-            "foto": "semfoto",
-            "id": "1ff90d23-2a22-40f9-88b5-fb24e8ec089a",
-            "nome": "Marcelo Caio Paulo Sales",
-            "senha": "$2a$11$fVd6DzfvDJVx/79oDpJKyuFNJpUfTre.hdmJvIlyHl0UutXOuPRP.",
-            "tipoUsuarioId": "5ff2df57-1b92-49d0-a516-f2b1172a0edc"
-        },
-        "rg": "364985021"
-    },
-    "pacienteId": "1ff90d23-2a22-40f9-88b5-fb24e8ec089a",
-    "prioridade": {
-        "consulta": [
-            [Object],
-            [Object]
-        ],
-        "id": "add341be-8e85-40f1-bca3-71c72a1585d3",
-        "prioridade": 1
-    },
-    "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
-    "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
-    "situacao": {
-        "consulta": [],
-        "id": "791b5f13-eeca-4229-b751-712e702d8837",
-        "situacao": "Pendente"
-    },
-    "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837"
+    "id": "4b4aaadf-daad-4ec0-8934-40e511824f91",
+    "medicosClinicas": [],
+    "nomeFantasia": "VitalHub"
 }
