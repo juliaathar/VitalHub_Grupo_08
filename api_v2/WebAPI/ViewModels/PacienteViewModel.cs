@@ -5,6 +5,7 @@ namespace WebAPI.ViewModels
     public class PacienteViewModel
     {
         public string? Rg { get; set; }
+        public Guid Id { get; set; }
 
         public string? Cpf { get; set; }
 

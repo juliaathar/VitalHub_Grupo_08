@@ -51,6 +51,7 @@ namespace WebAPI.Repositories
            return ctx.Consultas
                 .Include(x => x.Situacao)
                 .Include(x => x.MedicoClinica!.Medico!.Especialidade)
+                 .Include(x => x.Receita)
                 //.Where(x  => x.PacienteId == idPaciente && x.DataConsulta == dataConsulta) 
                 .Where(x => x.PacienteId == idPaciente && EF.Functions.DateDiffDay(x.DataConsulta, dataConsulta) == 0)
                 .ToList();
@@ -58,15 +59,13 @@ namespace WebAPI.Repositories
 
         public Paciente BuscarPorId(Guid Id)
         {
-            Paciente paciente = ctx.Pacientes.Include(p => p.IdNavigation).
-                FirstOrDefault(p => p.Id == Id);
-            //return ctx.Pacientes.
-            //    Include(x => x.IdNavigation).
-            //    Include(x => x.EnderecoId).
-            //    FirstOrDefault(x => x.Id == Id)!;
+            Paciente paciente = ctx.Pacientes
+                .Include(p => p.IdNavigation)
+                .FirstOrDefault(p => p.Id == Id);
 
             return paciente;
         }
+
 
         public List<Consulta> BuscarRealizadas(Guid Id)
         {

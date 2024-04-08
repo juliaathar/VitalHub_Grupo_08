@@ -90,6 +90,25 @@ namespace WebAPI.Controllers
             return Ok();
         }
 
+        [Authorize]
+        [HttpPut]
+        public IActionResult AtualizarPerfil(PacienteViewModel paciente)
+        {
+
+            try
+            {
+                Guid idUsuario = Guid.Parse(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
+                return Ok(pacienteRepository.AtualizarPerfil(idUsuario, paciente));
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+
         [HttpGet("BuscarPorData")]
         public IActionResult BuscarPorData(DateTime data, Guid id)
         {

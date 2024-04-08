@@ -36,6 +36,8 @@ export const Perfil = ({ navigation }) => {
             // console.log('Dados obtidos da API:', info)
             if (info) { setUser(info.data) }
 
+            console.log(user);
+
         }
         catch (error) {
             return console.log(`erro ${error}`);
@@ -52,10 +54,40 @@ export const Perfil = ({ navigation }) => {
                 
                 navigation.replace('Login');
             }
+
         } catch (error) {
             console.error('Erro ao fazer login:', error);
         }
     };
+
+    const updateUser = async () => {
+        try {
+            // Assuming your API expects a PUT request to update the user
+            // and the endpoint is something like /Pacientes/Update or /Medicos/Update
+            const endpoint = tokenUser.role === 'Paciente' ? '/Pacientes/Update' : '/Medicos/Update';
+            const updatedUser = {
+                // Include all the fields that can be updated
+                // For example:
+                dataNascimento: user.dataNascimento,
+                cpf: user.cpf,
+                endereco: user.endereco,
+                // Add other fields as necessary
+            };
+            const response = await api.put(endpoint, updatedUser);
+            if (response.status === 200) {
+                // Handle successful update, e.g., show a success message
+                console.log('User updated successfully');
+                // Optionally, reload the user profile to reflect the changes
+                loadProfile();
+            } else {
+                // Handle errors
+                console.log('Failed to update user');
+            }
+        } catch (error) {
+            console.error('Error updating user:', error);
+        }
+    };
+    
 
 
     useEffect(() => {
@@ -77,7 +109,7 @@ export const Perfil = ({ navigation }) => {
 
                     {tokenUser?.role === 'Paciente' && (
                         <>
-                            <FormField fieldWidth={90} editable={formEdit} labelText="Data de nascimento" />
+                            <FormField fieldWidth={90} editable={formEdit} labelText="Data de nascimento" fieldValue={user ? user.dataNascimento : ''} />
                             <FormField fieldWidth={90} editable={formEdit} labelText="CPF" />
                             <FormField fieldWidth={90} editable={formEdit} labelText="Endereco" />
                         </>
@@ -92,8 +124,8 @@ export const Perfil = ({ navigation }) => {
                     )}
 
                     <View style={{ width: "90%", justifyContent: "space-between", flexDirection: "row" }}>
-                        <FormField fieldWidth={45} editable={formEdit} labelText="Cep" fieldValue={user?.endereco.cep} />
-                        <FormField fieldWidth={45} editable={formEdit} labelText="Cidade" fieldValue={user?.endereco.cidade} />
+                        <FormField fieldWidth={45} editable={formEdit} labelText="Cep" fieldValue={user && user.endereco ? user.endereco.cep : ''} />
+                        <FormField fieldWidth={45} editable={formEdit} labelText="Cidade" fieldValue={user && user.endereco ? user.endereco.cidade: ''} />
                     </View>
 
                     <NormalButton title={"Salvar"} onPress={() => { setFormEdit(false) }} fieldWidth={90} />
