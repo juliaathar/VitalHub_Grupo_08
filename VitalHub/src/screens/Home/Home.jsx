@@ -89,7 +89,7 @@ export const Home = ({ navigation }) => {
             .then(response => {
                 setConsultas(response.data);
                 console.log("consultas, exito:");
-                console.log(response.data);
+                //console.log(response.data);
             }).catch(error => {
                 console.log("consultas, erro: " + error);
                 //console.log(error);
@@ -106,8 +106,8 @@ export const Home = ({ navigation }) => {
         }
         
         setIdEncontrado(consulta)
-        console.log("Teste: " + modal);
-        console.log(idEncontrado);
+        //console.log("Teste: " + modal);
+        //console.log(idEncontrado);
     }
 
     //atualiza a pagina de acordo com o login

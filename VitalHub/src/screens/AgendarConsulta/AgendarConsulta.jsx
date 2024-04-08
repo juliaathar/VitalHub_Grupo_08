@@ -1,14 +1,12 @@
 import { ConsultationModal } from "../../components/ConsultationModal/ConsultationModal"
 import { CalendarApp } from "../../components/CalendarApp/CalendarApp";
 import { ClinicCard } from "../../components/ClinicCard/ClinicCard"
-import { Calendar, LocaleConfig } from "react-native-calendars";
 import { NormalButton } from "../../components/Button/Buttons"
 import { Container } from "../../components/Container/Style"
 import { MedCard } from "../../components/MedCard/MedCard"
 import { LinkMedium } from "../../components/Links/Style"
 import { Title } from "../../components/Title/Style"
 import { TouchableOpacity } from "react-native"
-import { StyleSheet } from "react-native-web";
 import { Body, RenderInside } from "./Style"
 import { useEffect, useState } from "react"
 import { CardList } from "../Home/Style"
@@ -30,16 +28,6 @@ export const AgendarConsulta = ({ navigation, route }) => {
 
     //calendario e select
     const [diaSelected, setDiaSelected] = useState("");//id do dia selecionada
-    
-    LocaleConfig.locales['br'] = {
-        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-        monthNamesShort: ['Jan.', 'Fev.', 'Mar', 'Abril', 'Mai', 'Jun', 'Jul.', 'Ago', 'Set.', 'Out.', 'Nov.', 'Dez.'],
-        dayNames: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sabado'],
-        dayNamesShort: ['Dom.', 'Seg.', 'Ter.', 'Qua.', 'Qui.', 'Sex.', 'Sab.'],
-        today: "Hoje"
-    };
-    LocaleConfig.defaultLocale = 'br';
-    
     const [consulModal, setConsulModal] = useState(false); //mudar para false
 
     //traz os medicos da api
@@ -185,18 +173,3 @@ export const AgendarConsulta = ({ navigation, route }) => {
         </>
     )
 }
-const styles = StyleSheet.create({
-    dropdown1BtnStyle: {
-        width: '100%',
-        height: 55,
-        backgroundColor: '#FFF',
-        borderRadius: 8,
-        borderWidth: 2,
-        borderColor: '#60BFC5',
-        marginTop: 10
-    },
-    dropdown1BtnTxtStyle: { color: '#34898F', textAlign: 'left', fontFamily: 'MontserratAlternates_600SemiBold', fontSize: 14 },
-    dropdown1DropdownStyle: { backgroundColor: '#EFEFEF' },
-    dropdown1RowStyle: { backgroundColor: '#EFEFEF', borderBottomColor: '#60BFC5' },
-    dropdown1RowTxtStyle: { color: '#34898F', textAlign: 'center', fontSize: 20 },
-})

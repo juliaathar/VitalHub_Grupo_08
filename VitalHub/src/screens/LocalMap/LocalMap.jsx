@@ -61,9 +61,9 @@ export const LocalMap = ({ navigation, route }) => {
     })
   }, [1000])
 
-  // useEffect(() => {
-  //   RecarregarVisualizacao()
-  // }, [initialPosition])
+  useEffect(() => {
+    RecarregarVisualizacao()
+  }, [initialPosition])
 
 
   async function CapturarLocalizacao() {
@@ -75,20 +75,20 @@ export const LocalMap = ({ navigation, route }) => {
   }
 
 
-  // async function RecarregarVisualizacao() {
-  //   if (mapReference.current && initialPosition) {
-  //     await mapReference.current.fitToCoordinates(
-  //       [
-  //         { latitude: initialPosition.coords.latitude, longitude: initialPosition.coords.longitude },
-  //         { latitude: finalPosition.latitude, longitude: finalPosition.longitude }
-  //       ],
-  //       {
-  //         edgePadding: { top: 60, right: 60, bottom: 60, left: 60 },
-  //         animated: true
-  //       }
-  //     )
-  //   }
-  // }
+  async function RecarregarVisualizacao() {
+    if (mapReference.current && initialPosition) {
+      await mapReference.current.fitToCoordinates(
+        [
+          { latitude: initialPosition.coords.latitude, longitude: initialPosition.coords.longitude },
+          { latitude: finalPosition.latitude, longitude: finalPosition.longitude }
+        ],
+        {
+          edgePadding: { top: 60, right: 60, bottom: 60, left: 60 },
+          animated: true
+        }
+      )
+    }
+  }
 
   return (
     <Container>

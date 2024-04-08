@@ -1,22 +1,18 @@
+import { Age, CenterContainer, Email, ModalBody, PatientData, PatientName, PerfilImg } from "./Style"
 import { TouchableOpacity } from "react-native"
 import { NormalButton } from "../Button/Buttons"
 import { LinkMedium } from "../Links/Style"
-import { Age, CenterContainer, Email, ModalBody, PatientData, PatientName, PerfilImg } from "./Style"
 
 export const PromptuaryModal = ({
-    name,
-    age,
-    email,
     visible,
     onRequestClose,
-    imgLink,
     navigation,
 
     consulta,
     role
 }) => {
 
-    async function Protuario(consulta) {
+    async function Prontuario() {
         console.log("consulta modal prescricao");
         console.log(consulta);
         navigation.navigate('Prontuario')
@@ -29,17 +25,17 @@ export const PromptuaryModal = ({
             <CenterContainer>
                 <PerfilImg source={{ uri: "https://github.com/LeonKene-hub.png" }}/>
 
-                <PatientName>{name}</PatientName>
+                <PatientName>{"nome"}</PatientName>
 
                 <PatientData>
-                    <Age>{age} anos</Age>
-                    <Email>{email}</Email>
+                    <Age>{"idade"} anos</Age>
+                    <Email>{"email"}</Email>
                 </PatientData>
 
                 <NormalButton 
                     fieldWidth={90} 
                     title={"inserir prontuario"} 
-                    onPress={() => {Protuario(consulta)}}
+                    onPress={() => {Prontuario()}}
                 />
 
                 <TouchableOpacity onPress={onRequestClose} style={{marginBottom: 15}}>
