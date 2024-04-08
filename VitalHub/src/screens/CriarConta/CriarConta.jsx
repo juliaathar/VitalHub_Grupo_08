@@ -13,6 +13,7 @@ export const CriarConta = ({ navigation }) => {
     const [senha, setSenha] = useState()
     const [email, setEmail] = useState()
     const [nome, setNome] = useState()
+    const [confirm, setConfirm] = useState()
 
     async function cadastrarUsuario() {
         const cadastro = {
@@ -23,18 +24,20 @@ export const CriarConta = ({ navigation }) => {
         }
 
         try {
-            const response = await api.post("/Pacientes", cadastro);
+            if (senha === confirm) {
 
-            console.log(response.status);
-            if (response.status === 200) {
-                console.log("deu certo");
-                navigation.navigate('Login');
+                const response = await api.post("/Pacientes", cadastro);
+                console.log(response.status);
+                if (response.status === 200) {
+                    console.log("deu certo");
+                    navigation.navigate('Login');
+                }
             }
+
         } catch (error) {
             console.log(`erro ao cadastrar ${error}`);
         }
     }
-
 
 
     return (
@@ -48,7 +51,7 @@ export const CriarConta = ({ navigation }) => {
             <Input placeholder="Nome" value={nome} onChangeText={setNome} />
             <Input placeholder="E-mail" value={email} onChangeText={setEmail} />
             <Input placeholder="Senha" value={senha} onChangeText={setSenha} />
-            <Input placeholder="Confirmar Senha" />
+            <Input placeholder="Confirmar Senha" value={confirm} onChangeText={setConfirm} />
 
             <NormalButton title={"Cadastrar"} fieldWidth={90} onPress={cadastrarUsuario} />
 
