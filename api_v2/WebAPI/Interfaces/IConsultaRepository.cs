@@ -1,5 +1,6 @@
 ﻿using Microsoft.Identity.Client;
 using WebAPI.Domains;
+using WebAPI.ViewModels;
 
 namespace WebAPI.Interfaces
 {
@@ -9,8 +10,8 @@ namespace WebAPI.Interfaces
 
         public Consulta BuscarPorId(Guid id);
 
-        public void EditarStatus(Consulta consulta);
-        public void EditarProntuario(Consulta consulta);
+        public void EditarStatus(Guid idConsulta, Guid idSituacao);
+        public void EditarProntuario(PatchConsultaViewModel consultaViewModel, Guid idConsulta);
 
         public List<Consulta> ListarTodos();
         public List<Consulta> ListarPorMedico(Guid IdMedico);

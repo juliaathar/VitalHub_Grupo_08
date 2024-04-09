@@ -5,6 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using WebAPI.Domains;
 using WebAPI.Interfaces;
 using WebAPI.Repositories;
+using WebAPI.ViewModels;
 
 namespace WebAPI.Controllers
 {
@@ -46,17 +47,17 @@ namespace WebAPI.Controllers
             return StatusCode(201);
         }
 
-        [HttpPut("Status")]
-        public IActionResult EditarStatus(Consulta consulta)
+        [HttpPatch("Status")]
+        public IActionResult EditarStatus(Guid idConsulta, Guid idSituacao)
         {
-            consultaRepository.EditarStatus(consulta);
+            consultaRepository.EditarStatus(idConsulta, idSituacao);
             return Ok();
         }
 
-        [HttpPut("Prontuario")]
-        public IActionResult EditarProntuario(Consulta consulta)
+        [HttpPatch("Prontuario")]
+        public IActionResult EditarProntuario(PatchConsultaViewModel consultaViewModel, Guid idConsulta)
         {
-            consultaRepository.EditarProntuario(consulta);
+            consultaRepository.EditarProntuario(consultaViewModel, idConsulta);
             return Ok();
         }
     }

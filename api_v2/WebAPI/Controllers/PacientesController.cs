@@ -92,10 +92,10 @@ namespace WebAPI.Controllers
 
         [Authorize]
         [HttpPatch]
-        public IActionResult AtualizarPerfil(PatchPacienteViewModel pacientePatch)
+        public IActionResult AtualizarPerfil([FromBody] PatchPacienteViewModel pacientePatch)
         {
-            try { 
-            
+            try
+            {
                 Guid idUsuario = Guid.Parse(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
 
                 return Ok(pacienteRepository.AtualizarPerfil(idUsuario, pacientePatch));
@@ -105,6 +105,7 @@ namespace WebAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
 
 
         [HttpGet("BuscarPorData")]

@@ -33,7 +33,9 @@ namespace WebAPI.Repositories
                     if (pacientePatch.NovoEndereco.Numero != null)
                         pacienteBuscado.Endereco.Numero = pacientePatch.NovoEndereco.Numero;
 
-                    // Aqui você pode adicionar outras verificações de campos de endereço, se necessário
+                    if (pacientePatch.NovoEndereco.Cidade != null)
+                        pacienteBuscado.Endereco.Cidade = pacientePatch.NovoEndereco.Cidade;
+
                 }
 
                 ctx.Pacientes.Update(pacienteBuscado);
@@ -43,7 +45,6 @@ namespace WebAPI.Repositories
             }
             else
             {
-                // Aqui você pode tratar o caso em que nenhum paciente é encontrado com o ID fornecido
                 return null;
             }
         }

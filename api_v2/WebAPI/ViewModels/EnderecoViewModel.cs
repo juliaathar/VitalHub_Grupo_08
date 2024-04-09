@@ -12,6 +12,6 @@
 
         public decimal? Latitude { get; set; }
 
-        public string Cidade { get; set; }
+        public string? Cidade { get; set; }
     }
 }
