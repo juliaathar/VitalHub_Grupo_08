@@ -11,7 +11,8 @@ export const CancellationModal = ({
     paragraph,
     visible,
     onRequestClose,
-    onPress
+    onPress,
+    consulta
 }) => {
     return (
         <ModalBody
