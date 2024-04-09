@@ -106,8 +106,6 @@ export const Home = ({ navigation }) => {
         }
         
         setIdEncontrado(consulta)
-        //console.log("Teste: " + modal);
-        //console.log(idEncontrado);
     }
 
     //atualiza a pagina de acordo com o login
