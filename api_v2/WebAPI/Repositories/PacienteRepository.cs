@@ -11,30 +11,43 @@ namespace WebAPI.Repositories
     {
         VitalContext ctx = new VitalContext();
 
-        public Paciente AtualizarPerfil(Guid Id, PacienteViewModel paciente)
+        public Paciente AtualizarPerfil(Guid Id, PatchPacienteViewModel pacientePatch)
         {
-            Paciente pacienteBuscado = ctx.Pacientes.FirstOrDefault(x => x.Id == Id);
+            Paciente pacienteBuscado = ctx.Pacientes
+                .Include(p => p.Endereco) // Certifique-se de incluir o Endereço
+                .FirstOrDefault(x => x.Id == Id);
 
-            if (paciente.DataNascimento != null)
-                pacienteBuscado.DataNascimento = paciente.DataNascimento;
+            if (pacienteBuscado != null)
+            {
+                if (pacientePatch.DataNascimento != null)
+                    pacienteBuscado.DataNascimento = pacientePatch.DataNascimento;
 
-            if (paciente.Senha != null)
-                pacienteBuscado.IdNavigation.Senha = paciente.Senha;
+                if (pacientePatch.NovoEndereco != null)
+                {
+                    if (pacientePatch.NovoEndereco.Cep != null)
+                        pacienteBuscado.Endereco.Cep = pacientePatch.NovoEndereco.Cep;
 
-            if (paciente.Cep != null)
-                pacienteBuscado.Endereco.Cep = paciente.Cep;
+                    if (pacientePatch.NovoEndereco.Logradouro != null)
+                        pacienteBuscado.Endereco.Logradouro = pacientePatch.NovoEndereco.Logradouro;
 
-            if (paciente.Logradouro != null)
-                pacienteBuscado.Endereco.Logradouro = paciente.Logradouro;
+                    if (pacientePatch.NovoEndereco.Numero != null)
+                        pacienteBuscado.Endereco.Numero = pacientePatch.NovoEndereco.Numero;
 
-            if (paciente.Numero != null)
-                pacienteBuscado.Endereco.Numero = paciente.Numero;
+                    // Aqui você pode adicionar outras verificações de campos de endereço, se necessário
+                }
 
-            ctx.Pacientes.Update(pacienteBuscado);
-            ctx.SaveChanges();
+                ctx.Pacientes.Update(pacienteBuscado);
+                ctx.SaveChanges();
 
-            return pacienteBuscado;
+                return pacienteBuscado;
+            }
+            else
+            {
+                // Aqui você pode tratar o caso em que nenhum paciente é encontrado com o ID fornecido
+                return null;
+            }
         }
+
 
         public List<Consulta> BuscarAgendadas(Guid Id)
         {
