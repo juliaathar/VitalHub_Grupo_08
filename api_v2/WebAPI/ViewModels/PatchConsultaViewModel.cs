@@ -7,6 +7,5 @@ namespace WebAPI.ViewModels
         public string? Descricao { get; set; }
         public string? Diagnostico { get; set; }
         public virtual Receita? Receita { get; set; }
-
     }
 }

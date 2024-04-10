@@ -20,44 +20,25 @@ namespace WebAPI.Controllers
             pacienteRepository = new PacienteRepository();
         }
 
-        [Authorize]
-        [HttpGet("ConsultasAgendadas")]
-        public IActionResult BuscarAgendadas()
-        {
-            Guid idUsuario = Guid.Parse(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
-
-            return Ok(pacienteRepository.BuscarAgendadas(idUsuario));
-        }
-
-        [Authorize]
-        [HttpGet("ConsultasRealizadas")]
-        public IActionResult BuscarRealizadas()
-        {
-            Guid idUsuario = Guid.Parse(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
-
-            return Ok(pacienteRepository.BuscarRealizadas(idUsuario));
-        }
-
-        [Authorize]
-        [HttpGet("ConsultasCanceladas")]
-        public IActionResult BuscarCanceladas()
-        {
-            Guid idUsuario = Guid.Parse(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
-
-            return Ok(pacienteRepository.BuscarRealizadas(idUsuario));
-        }
-
         [HttpGet("PerfilLogado")]
-        public IActionResult BuscarLogado()
+        public IActionResult GetLogged()
         {
-            Guid idUsuario = Guid.Parse(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
+            try
+            {
+                Guid idUsuario = Guid.Parse(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
 
-            return Ok(pacienteRepository.BuscarPorId(idUsuario));
+                return Ok(pacienteRepository.BuscarPorId(idUsuario));
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         //[Authorize]
-        [HttpGet("BuscarPorID")]
-        public IActionResult BuscarPorID(Guid id)
+        [HttpGet("BuscarPorId")]
+        public IActionResult BuscarPorId(Guid id)
         {
             return Ok(pacienteRepository.BuscarPorId(id));
         }
@@ -84,21 +65,19 @@ namespace WebAPI.Controllers
             user.Paciente.Endereco.Logradouro = pacienteModel.Logradouro;
             user.Paciente.Endereco.Numero = pacienteModel.Numero;
             user.Paciente.Endereco.Cep = pacienteModel.Cep;
+            user.Paciente.Endereco.Cidade = pacienteModel.Cidade;
 
             pacienteRepository.Cadastrar(user);
 
             return Ok();
         }
 
-        [Authorize]
-        [HttpPatch]
-        public IActionResult AtualizarPerfil([FromBody] PatchPacienteViewModel pacientePatch)
+        [HttpGet("BuscarPorData")]
+        public IActionResult GetByDate(DateTime data, Guid id)
         {
             try
             {
-                Guid idUsuario = Guid.Parse(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
-
-                return Ok(pacienteRepository.AtualizarPerfil(idUsuario, pacientePatch));
+                return Ok(pacienteRepository.BuscarPorData(data, id));
             }
             catch (Exception ex)
             {
@@ -106,12 +85,17 @@ namespace WebAPI.Controllers
             }
         }
 
-
-
-        [HttpGet("BuscarPorData")]
-        public IActionResult BuscarPorData(DateTime data, Guid id)
+        [HttpPut]
+        public IActionResult UpdateProfile(Guid idUsuario, PatchPacienteViewModel paciente)
         {
-            return Ok(pacienteRepository.BuscarPorData(data,id));
+            try
+            {
+                return Ok(pacienteRepository.AtualizarPerfil(idUsuario, paciente));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

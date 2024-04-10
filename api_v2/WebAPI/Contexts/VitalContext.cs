@@ -145,9 +145,6 @@ public partial class VitalContext : DbContext
                 .HasColumnName("ID");
             entity.Property(e => e.ConsultaId).HasColumnName("ConsultaID");
             entity.Property(e => e.Descricao).HasColumnType("text");
-            entity.Property(e => e.Titulo)
-                .HasMaxLength(100)
-                .IsUnicode(false);
 
             entity.HasOne(d => d.Consulta).WithMany(p => p.Exames)
                 .HasForeignKey(d => d.ConsultaId)
@@ -244,7 +241,6 @@ public partial class VitalContext : DbContext
             entity.Property(e => e.Medicamento)
                 .HasMaxLength(100)
                 .IsUnicode(false);
-            entity.Property(e => e.Observacoes).HasColumnType("text");
         });
 
         modelBuilder.Entity<SituacaoConsulta>(entity =>
@@ -287,6 +283,7 @@ public partial class VitalContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.TipoUsuarioId).HasColumnName("TipoUsuarioID");
+            entity.Property(e => e.CodRecupSenha).HasColumnName("CodRecupSenha");
 
             entity.HasOne(d => d.TipoUsuario).WithMany(p => p.Usuarios)
                 .HasForeignKey(d => d.TipoUsuarioId)

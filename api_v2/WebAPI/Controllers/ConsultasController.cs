@@ -48,16 +48,16 @@ namespace WebAPI.Controllers
         }
 
         [HttpPatch("Status")]
-        public IActionResult EditarStatus(Guid idConsulta, Guid idSituacao)
+        public IActionResult EditarStatus(Guid idConsulta, string status)
         {
-            consultaRepository.EditarStatus(idConsulta, idSituacao);
+            consultaRepository.EditarStatus(idConsulta, status);
             return Ok();
         }
 
         [HttpPatch("Prontuario")]
-        public IActionResult EditarProntuario(PatchConsultaViewModel consultaViewModel, Guid idConsulta)
+        public IActionResult EditarProntuario(Consulta consulta)
         {
-            consultaRepository.EditarProntuario(consultaViewModel, idConsulta);
+            consultaRepository.EditarProntuario(consulta);
             return Ok();
         }
     }

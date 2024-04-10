@@ -49,48 +49,89 @@ namespace WebAPI.Repositories
             }
         }
 
-
         public List<Consulta> BuscarAgendadas(Guid Id)
         {
-            return ctx.Consultas.Include(x => x.Situacao).Where(x => x.PacienteId == Id && x.Situacao.Situacao == "Agendada").ToList();
+            try
+            {
+                return ctx.Consultas.Include(x => x.Situacao).Where(x => x.PacienteId == Id && x.Situacao!.Situacao == "Agendada").ToList();
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public List<Consulta> BuscarCanceladas(Guid Id)
         {
-            return ctx.Consultas.Include(x => x.Situacao).Where(x => x.PacienteId == Id && x.Situacao.Situacao == "Cancelada").ToList();
+            try
+            {
+                return ctx.Consultas.Include(x => x.Situacao).Where(x => x.PacienteId == Id && x.Situacao!.Situacao == "Cancelada").ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public List<Consulta> BuscarRealizadas(Guid Id)
+        {
+            try
+            {
+                return ctx.Consultas.Include(x => x.Situacao).Where(x => x.PacienteId == Id && x.Situacao!.Situacao == "Realizada").ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public List<Consulta> BuscarPorData(DateTime dataConsulta, Guid idPaciente)
         {
-           return ctx.Consultas
-                .Include(x => x.Situacao)
-                .Include(x => x.MedicoClinica!.Medico!.Especialidade)
-                 .Include(x => x.Receita)
-                //.Where(x  => x.PacienteId == idPaciente && x.DataConsulta == dataConsulta) 
-                .Where(x => x.PacienteId == idPaciente && EF.Functions.DateDiffDay(x.DataConsulta, dataConsulta) == 0)
-                .ToList();
+            try
+            {
+                return ctx.Consultas
+                 .Include(x => x.Situacao)
+                 .Include(x => x.Prioridade)
+                 .Include(x => x.MedicoClinica!.Medico!.IdNavigation)
+                 .Include(x => x.MedicoClinica!.Medico!.Especialidade)
+
+                 // diferença em dias entre a Data da Consulta e a dataConsulta é igual a 0.
+                 .Where(x => x.PacienteId == idPaciente && EF.Functions.DateDiffDay(x.DataConsulta, dataConsulta) == 0)
+                 .ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public Paciente BuscarPorId(Guid Id)
         {
-            Paciente paciente = ctx.Pacientes
-                .Include(p => p.IdNavigation)
-                .FirstOrDefault(p => p.Id == Id);
-
-            return paciente;
-        }
-
-
-        public List<Consulta> BuscarRealizadas(Guid Id)
-        {
-            return ctx.Consultas.Include(x => x.Situacao).Where(x => x.PacienteId == Id && x.Situacao.Situacao == "Realizada").ToList();
+            try
+            {
+                return ctx.Pacientes
+                .Include(x => x.IdNavigation)
+                .Include(x => x.Endereco)
+                .FirstOrDefault(x => x.Id == Id)!;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public void Cadastrar(Usuario user)
         {
-            user.Senha = Criptografia.GerarHash(user.Senha!);
-            ctx.Usuarios.Add(user);
-            ctx.SaveChanges();
+            try
+            {
+                user.Senha = Criptografia.GerarHash(user.Senha!);
+                ctx.Usuarios.Add(user);
+                ctx.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
