@@ -4,6 +4,7 @@ using Microsoft.Identity.Client;
 using WebAPI.Contexts;
 using WebAPI.Domains;
 using WebAPI.Interfaces;
+using WebAPI.ViewModels;
 
 namespace WebAPI.Repositories
 {
@@ -23,23 +24,26 @@ namespace WebAPI.Repositories
             ctx.SaveChanges();
         }
 
-        public void EditarProntuario(Consulta consulta)
+        public void EditarProntuario(PatchConsultaViewModel consultaViewModel, Guid idConsulta)
         {
-            Consulta buscada = ctx.Consultas.Find(consulta.Id)!;
+            Consulta buscada = ctx.Consultas.Find(idConsulta)!;
 
-            buscada.Descricao = consulta.Descricao;
-            buscada.Diagnostico = consulta.Diagnostico;
+            buscada.Descricao = consultaViewModel.Descricao;
+            buscada.Diagnostico = consultaViewModel.Diagnostico;
             ctx.Update(buscada);
             ctx.SaveChanges();
         }
 
-        public void EditarStatus(Consulta consulta)
+        public void EditarStatus(Guid idConsulta, Guid idSituacao)
         {
-            Consulta buscada = ctx.Consultas.Find(consulta.Id);
-            
-            buscada.SituacaoId = consulta.SituacaoId;
-            ctx.Update(buscada);
-            ctx.SaveChanges();
+            Consulta buscada = ctx.Consultas.Find(idConsulta);
+
+            if (buscada != null)
+            {
+                buscada.SituacaoId = idSituacao;
+                ctx.Update(buscada);
+                ctx.SaveChanges();
+            }
         }
 
 

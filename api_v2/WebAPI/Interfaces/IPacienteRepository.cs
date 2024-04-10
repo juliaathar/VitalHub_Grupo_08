@@ -10,7 +10,7 @@ namespace WebAPI.Interfaces
         public List<Consulta> BuscarRealizadas(Guid Id);
         public List<Consulta> BuscarCanceladas(Guid Id);
         public Paciente BuscarPorId(Guid Id);
-        public Paciente AtualizarPerfil(Guid id, PacienteViewModel paciente);
+        public Paciente AtualizarPerfil(Guid id, PatchPacienteViewModel pacientePatch);
 
         public List<Consulta> BuscarPorData(DateTime dataConsulta, Guid id);
     }
