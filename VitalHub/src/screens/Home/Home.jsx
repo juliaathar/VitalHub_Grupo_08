@@ -96,6 +96,17 @@ export const Home = ({ navigation }) => {
             })
     }
 
+    async function CancelarConsulta(item) {
+        await api.patch(`/Consultas/Status?idConsulta=${item.id}&idSituacao=46A56A8B-D8A9-4E53-A6A6-7850AC222142`)
+            .then(response => {
+                console.log(response.status);
+            })
+            .catch(error => {
+                console.log(`Erro em cancelar a consulta! : ${error}`);
+            })
+        setModalCancel(false)
+    }
+    
     function MostrarModal(modal, consulta) {
         if (modal == "cancelar") {
             setModalCancel(true)
@@ -158,6 +169,7 @@ export const Home = ({ navigation }) => {
                                     situacao={item.situacao.situacao}
                                     nome={item.paciente.idNavigation.nome}
                                     idade={moment(item.paciente.dataNascimento, "YYYYMMDD").fromNow().slice(0, 2)}
+                                    hora={(item.dataConsulta).slice(11,16)}
                                     tipoConsulta={item.prioridade.prioridade}
                                     onPressCancel={() => MostrarModal("cancelar", item)}
                                     onPressCard={() => {
@@ -180,6 +192,7 @@ export const Home = ({ navigation }) => {
                                     situacao={item.situacao.situacao}
                                     nome={item.paciente.idNavigation.nome}
                                     idade={moment(item.paciente.dataNascimento, "YYYYMMDD").fromNow().slice(0, 2)}
+                                    hora={(item.dataConsulta).slice(11,16)}
                                     tipoConsulta={item.prioridade.prioridade}
                                     onPressAppoiment={() => {
                                         profile.role === "Paciente" ? (
@@ -202,6 +215,7 @@ export const Home = ({ navigation }) => {
                                     situacao={item.situacao.situacao}
                                     nome={item.paciente.idNavigation.nome}
                                     idade={moment(item.paciente.dataNascimento, "YYYYMMDD").fromNow().slice(0, 2)}
+                                    hora={(item.dataConsulta).slice(11,16)}
                                     tipoConsulta={item.prioridade.prioridade}
                                 /> : null}
                         />
@@ -224,7 +238,8 @@ export const Home = ({ navigation }) => {
             <CancellationModal
                 visible={modalCancel}
                 onRequestClose={() => { setModalCancel(false) }}
-                onPress={handleNotifications}
+                onPress={() => CancelarConsulta(idEncontrado)}
+                consulta={idEncontrado}
 
                 tranparent={true}
                 title={"Cancelar consulta"}

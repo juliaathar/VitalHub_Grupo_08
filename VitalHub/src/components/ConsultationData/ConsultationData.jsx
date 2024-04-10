@@ -20,6 +20,7 @@ export const ConsultationData = ({
         }
         return nome;
     }
+    
     function Consulta(tipo) {
         tipoConsulta = "Indefinido"
 
