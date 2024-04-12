@@ -1,12 +1,12 @@
-﻿using WebAPI.Domains;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+using WebAPI.Domains;
 
 namespace WebAPI.ViewModels
 {
     public class PacienteViewModel
     {
         public string? Rg { get; set; }
-        public Guid Id { get; set; }
-
         public string? Cpf { get; set; }
 
         public DateTime? DataNascimento { get; set; }
@@ -26,9 +26,11 @@ namespace WebAPI.ViewModels
 
         public Guid IdTipoUsuario { get; set; }
 
+        [NotMapped]
+        [JsonIgnore]
+        public IFormFile? Arquivo { get; set; }
+
         public string? Foto { get; set; }
-
-
 
     }
 }

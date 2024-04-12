@@ -36,7 +36,7 @@ namespace WebAPI.Utils.Mail
                 MailRequest request = new MailRequest
                 {
                     ToEmail = email,
-                    Subject = "Bem-vindo(a) ao VitalHub",
+                    Subject = "Recupere sua senha",
                     Body = GetHtmlContentRecovery(codigo)
                 };
 
