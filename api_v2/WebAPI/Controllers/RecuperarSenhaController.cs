@@ -49,5 +49,34 @@ namespace WebAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpPost("ValidarCodigoRecuperarSenha")]
+        public async Task<IActionResult> ValidatePasswordRecoveryCode(string email, int codigo)
+        {
+            try
+            {
+                var user = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == email);
+
+                if (user == null)
+                {
+                    return NotFound("Usuario nao encontrado!");
+                }
+
+                if (user.CodRecupSenha != codigo)
+                {
+                    return BadRequest("Codigo de recuperacao invalido!");
+                }
+
+                user.CodRecupSenha = null;
+                await _context.SaveChangesAsync();
+
+                return Ok("Codigo de recuperacao esta correto!");
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+
     }
 }
