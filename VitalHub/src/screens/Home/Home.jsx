@@ -46,7 +46,7 @@ export const Home = ({ navigation }) => {
 
     const [idEncontrado, setIdEncontrado] = useState("");
 
-    const [consultas, setConsultas] = useState([])
+    const [consultas, setConsultas] = useState();
     //notificacoes
     //funcao para lidar con a chamada da notificacao
     const handleNotifications = async () => {
@@ -86,10 +86,10 @@ export const Home = ({ navigation }) => {
         const url = (profile.role == "Médico" ? "Medicos" : "Pacientes")
 
         await api.get(`/${url}/BuscarPorData?data=${diaSelecionado}&id=${profile.user}`)
-            .then(response => {
-                setConsultas(response.data);
-                console.log("consultas, exito:");
-                //console.log(response.data);
+            .then(async response => {
+                await setConsultas(response.data);
+                console.log(`consultas, exito: ${consultas}`);
+                console.log(response.data);
             }).catch(error => {
                 console.log("consultas, erro: " + error);
                 //console.log(error);
@@ -162,9 +162,9 @@ export const Home = ({ navigation }) => {
                 {
                     statusLista == "pendente" ? (
                         <CardList
-                            data={consultas}
+                            data={() => consultas}
                             keyExtractor={(item) => item.id}
-                            renderItem={({ item }) => item.situacao.situacao === "Pendente" ?
+                            renderItem={({ item }) => item.situacao.situacao === "Pendentes" ?
                                 <ConsultationData
                                     situacao={item.situacao.situacao}
                                     nome={item.paciente.idNavigation.nome}
