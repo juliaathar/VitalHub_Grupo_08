@@ -164,7 +164,7 @@ export const Home = ({ navigation }) => {
                         <CardList
                             data={() => consultas}
                             keyExtractor={(item) => item.id}
-                            renderItem={({ item }) => item.situacao.situacao === "Pendentes" ?
+                            renderItem={({ item }) => item.situacao.situacao === "Pendente" ?
                                 <ConsultationData
                                     situacao={item.situacao.situacao}
                                     nome={item.paciente.idNavigation.nome}

@@ -1,26 +1,29 @@
 {
-  "consulta": [],
-  "cpf": "42829518934",
-  "dataNascimento": "2004-04-11T00:00:00",
+  "crm": "123123123",
   "endereco": {
-    "cep": "69096153",
-    "cidade": "Manaus",
+    "cep": "73083420",
     "clinicas": [],
-    "id": "230e6fd9-3826-4764-bc29-734f5f3b346e",
-    "logradouro": "Rua 7",
+    "id": "085598ed-3703-49ba-bbd6-7d8e27258d0b",
+    "logradouro": "Quadra Quadra 3",
     "medicos": [],
-    "numero": 120,
+    "numero": 385,
     "pacientes": []
   },
-  "enderecoId": "230e6fd9-3826-4764-bc29-734f5f3b346e",
-  "id": "62c6a58b-1f59-48b9-ae71-87d16211d19b",
-  "idNavigation": {
-    "email": "leonkene18@gmail.com",
-    "foto": "semfoto",
-    "id": "62c6a58b-1f59-48b9-ae71-87d16211d19b",
-    "nome": "Pedro Henrique Alves Freita",
-    "senha": "$2a$11$CMNiwMO2IyMhGYLALxE.XeGCaPnRHoItDf8eN3ygBQ70kx4rv3LLO",
-    "tipoUsuarioId": "5ff2df57-1b92-49d0-a516-f2b1172a0edc"
+  "enderecoId": "085598ed-3703-49ba-bbd6-7d8e27258d0b",
+  "especialidade": {
+    "especialidade1": "Psiquiatra",
+    "id": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+    "medicos": []
   },
-  "rg": "183726042"
+  "especialidadeId": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+  "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+  "idNavigation": {
+    "email": "julia@gmail.com",
+    "foto": "semfoto",
+    "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+    "nome": "Júlia Aben-Athar",
+    "senha": "$2a$11$uGlXnnbmVZb4lPw.6t.zzuOggrmR.Zx.ZpUp7LUaL4YhFROA0dl6u",
+    "tipoUsuarioId": "4d3c8067-250d-48a2-980f-d7f0a454ee82"
+  },
+  "medicosClinicas": []
 }

@@ -24,9 +24,7 @@ export const Prescricao = ({ navigation, route }) => {
 
     useEffect(() => {
         if (photoUri !== undefined) {
-
             setPhotos(prevPhotos => [...prevPhotos, { uri: photoUri, id: photoUri }]);
-
         }
         if (photoUri) {
             setPhotoTaked(true);

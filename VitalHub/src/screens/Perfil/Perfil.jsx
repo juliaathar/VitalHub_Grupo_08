@@ -1,23 +1,25 @@
 import { GoogleButton, NormalButton } from "../../components/Button/Buttons"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FormField } from "../../components/FormField/FormField"
 import { ScrollForm } from "../../components/ScrollForm/Style"
 import { Container } from "../../components/Container/Style"
 import { Paragraph } from "../../components/Paragraph/Style"
 import { ProfilePic } from "../../components/Profile/Style"
 import { Title } from "../../components/Title/Style"
-import { View } from "react-native"
-import { useEffect, useState } from "react"
 import { userDecodeToken } from "../../utils/Auth"
+import { useEffect, useState } from "react"
 import api from "../../service/service"
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { View } from "react-native"
 import moment from "moment"
+
+import { MaterialCommunityIcons } from "@expo/vector-icons"
+import { ButtonCamera, ProfileContainer } from "./Style";
 
 export const Perfil = ({ navigation }) => {
 
     const [formEdit, setFormEdit] = useState(false);
 
     const [user, setUser] = useState();
-
     const [tokenUser, setTokenUser] = useState();
 
 
@@ -88,20 +90,23 @@ export const Perfil = ({ navigation }) => {
             console.error('Error updating user:', error);
         }
     };
-    
-//moment(user.dataNascimento, "YYYYMMDD").fromNow().slice(0, 2)
-//moment(user.dataNascimento, "DD/MM/YYYY").slice(0,10)
 
     useEffect(() => {
 
         loadProfile();
-
+        console.log(user);
     }, []);
 
     return (
         <Container>
             <ScrollForm>
-                <ProfilePic source={require("../../assets/profile.png")} />
+                <ProfileContainer>
+                    <ProfilePic source={require("../../assets/profile.png")} />
+
+                    <ButtonCamera onPress={() => navigation.navigate('CameraScreen', {SetMediaLabrary : true})}>
+                        <MaterialCommunityIcons name="camera-plus" size={20} color="#fbfbfb"/>
+                    </ButtonCamera>
+                </ProfileContainer>
                 <View style={{ alignItems: "center" }}>
 
                     <Title>{user?.idNavigation.nome}</Title>
@@ -119,7 +124,7 @@ export const Perfil = ({ navigation }) => {
 
                     {tokenUser?.role === 'Médico' && (
                         <>
-                            <FormField fieldWidth={90} editable={formEdit} labelText="Especialidade" fieldValue={user?.especialidade.especialidade1} />
+                            <FormField fieldWidth={90} editable={formEdit} labelText="Especialidade" fieldValue={user ? user.especialidade.especialidade1 : ``} />
                             <FormField fieldWidth={90} editable={formEdit} labelText="CRM" fieldValue={user?.crm} />
                             <FormField fieldWidth={90} editable={formEdit} labelText="Endereco" fieldValue={user?.endereco.logradouro} />
                         </>
@@ -127,7 +132,7 @@ export const Perfil = ({ navigation }) => {
 
                     <View style={{ width: "90%", justifyContent: "space-between", flexDirection: "row" }}>
                         <FormField fieldWidth={45} editable={formEdit} labelText="Cep" fieldValue={user && user.endereco ? user.endereco.cep : ''} />
-                        <FormField fieldWidth={45} editable={formEdit} labelText="Cidade" fieldValue={user && user.endereco ? user.endereco.cidade: ''} />
+                        <FormField fieldWidth={45} editable={formEdit} labelText="Cidade" fieldValue={user && user.endereco ? user.endereco.cidade : ''} />
                     </View>
 
                     <NormalButton title={"Salvar"} onPress={() => { setFormEdit(false) }} fieldWidth={90} />
