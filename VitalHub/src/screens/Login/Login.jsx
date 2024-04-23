@@ -11,8 +11,8 @@ import api from '../../service/service';
 import { LinkMedium } from '../../components/Links/Style';
 
 export const Login = ({ navigation }) => {
-  const [email, setEmail] = useState('joao@gmail.com');
-  const [senha, setSenha] = useState('joao123');
+  const [email, setEmail] = useState('leonkene18@gmail.com');
+  const [senha, setSenha] = useState('pedro123');
   const [desativado, setDesativado] = useState(false);
 
   const handleLogin = async () => {

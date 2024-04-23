@@ -1,30 +1,26 @@
 {
-  "dataConsulta": "2024-05-04T00:00:00",
-  "exames": [],
-  "id": "d7806c50-6fc6-4921-9185-77ee7220e32d",
-  "medicoClinica": {
-    "clinicaId": "d60f0c16-748d-4387-bc3a-794e23c86e0b",
-    "consulta": [Array
-    ],
-    "id": "5134b4a3-25d4-4d07-bcbb-357ec38c7146",
-    "medico": [Object
-    ],
-    "medicoId": "31f571c6-5fbe-462f-98fe-863e0362ec98"
+  "consulta": [],
+  "cpf": "42829518934",
+  "dataNascimento": "2004-04-11T00:00:00",
+  "endereco": {
+    "cep": "69096153",
+    "cidade": "Manaus",
+    "clinicas": [],
+    "id": "230e6fd9-3826-4764-bc29-734f5f3b346e",
+    "logradouro": "Rua 7",
+    "medicos": [],
+    "numero": 120,
+    "pacientes": []
   },
-  "medicoClinicaId": "5134b4a3-25d4-4d07-bcbb-357ec38c7146",
-  "pacienteId": "e95cc29e-b878-4250-a2f7-01663506eb63",
-  "prioridade": {
-    "consulta": [Array
-    ],
-    "id": "e2e3bdbb-5518-4e8f-96b4-26eb57f66350",
-    "prioridade": 1
+  "enderecoId": "230e6fd9-3826-4764-bc29-734f5f3b346e",
+  "id": "62c6a58b-1f59-48b9-ae71-87d16211d19b",
+  "idNavigation": {
+    "email": "leonkene18@gmail.com",
+    "foto": "semfoto",
+    "id": "62c6a58b-1f59-48b9-ae71-87d16211d19b",
+    "nome": "Pedro Henrique Alves Freita",
+    "senha": "$2a$11$CMNiwMO2IyMhGYLALxE.XeGCaPnRHoItDf8eN3ygBQ70kx4rv3LLO",
+    "tipoUsuarioId": "5ff2df57-1b92-49d0-a516-f2b1172a0edc"
   },
-  "prioridadeId": "e2e3bdbb-5518-4e8f-96b4-26eb57f66350",
-  "situacao": {
-    "consulta": [Array
-    ],
-    "id": "0906a605-1206-47ea-b986-f8a3fb8cb549",
-    "situacao": "Pendentes"
-  },
-  "situacaoId": "0906a605-1206-47ea-b986-f8a3fb8cb549"
+  "rg": "183726042"
 }

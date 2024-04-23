@@ -10,6 +10,7 @@ import { useEffect, useState } from "react"
 import { userDecodeToken } from "../../utils/Auth"
 import api from "../../service/service"
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import moment from "moment"
 
 export const Perfil = ({ navigation }) => {
 
@@ -88,7 +89,8 @@ export const Perfil = ({ navigation }) => {
         }
     };
     
-
+//moment(user.dataNascimento, "YYYYMMDD").fromNow().slice(0, 2)
+//moment(user.dataNascimento, "DD/MM/YYYY").slice(0,10)
 
     useEffect(() => {
 
@@ -109,9 +111,9 @@ export const Perfil = ({ navigation }) => {
 
                     {tokenUser?.role === 'Paciente' && (
                         <>
-                            <FormField fieldWidth={90} editable={formEdit} labelText="Data de nascimento" fieldValue={user ? user.dataNascimento : ''} />
-                            <FormField fieldWidth={90} editable={formEdit} labelText="CPF" />
-                            <FormField fieldWidth={90} editable={formEdit} labelText="Endereco" />
+                            <FormField fieldWidth={90} editable={formEdit} labelText="Data de nascimento" fieldValue={user ? moment(user.dataNascimento).format("DD/MM/YYYY")  : ''} />
+                            <FormField fieldWidth={90} editable={formEdit} labelText="CPF" fieldValue={user ? user.cpf : ""}/>
+                            <FormField fieldWidth={90} editable={formEdit} labelText="Endereco" fieldValue={user ? user.endereco.logradouro : ""}/>
                         </>
                     )}
 

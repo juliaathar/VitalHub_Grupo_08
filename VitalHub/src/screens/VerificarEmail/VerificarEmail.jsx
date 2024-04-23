@@ -28,7 +28,7 @@ export const VerificarEmail = ({ navigation, route }) => {
 
     async function ValidarCodigo() {
         console.log(codigo);
-        await api.post(`/RecuperarSenha/ValidarCodigoRecuperacaoSenha?email=${route.params.emailRecuperacao}&codigo=${codigo}`)
+        await api.post(`/RecuperarSenha/ValidarCodigoRecuperarSenha?email=${route.params.emailRecuperacao}&codigo=${codigo}`)
         .then( () => {
             navigation.replace("RedefinirSenha", {emailRecuperacao : route.params.emailRecuperacao});
         }).catch(error => {
