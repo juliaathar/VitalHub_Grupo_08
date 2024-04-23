@@ -18,7 +18,7 @@ export const Login = ({ navigation }) => {
   const handleLogin = async () => {
     try {
       if (!desativado) {
-        const response = await api.post('http://172.16.39.82:4466/api/Login', {
+        const response = await api.post('/Login', {
           email: email,
           senha: senha
         });

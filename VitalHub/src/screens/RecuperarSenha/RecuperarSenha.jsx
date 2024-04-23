@@ -6,9 +6,26 @@ import { Title } from "../../components/Title/Style"
 import { Input } from "../../components/Input/Style"
 import { Logo } from "../../components/Logo/Style"
 import { AntDesign } from '@expo/vector-icons';
+import { useState } from "react"
+import api from "../../service/service"
 
 
 export const RecuperarSenha = ({ navigation }) => {
+
+    const [email, setEmail] = useState("leonkene18@gmail.com");
+
+    async function EnviarEmail() {
+        await api.post(`/RecuperarSenha?email=${email}`)
+        .then( response => {
+            console.log(response.status);
+            navigation.replace("VerificarEmail", { emailRecuperacao : email })
+        })
+        .catch( error => {
+            console.log(error);
+        })
+        navigation.replace("VerificarEmail", { emailRecuperacao : email })
+    }
+
     return (
         <Container >
             <ContainerLogo>
@@ -25,9 +42,15 @@ export const RecuperarSenha = ({ navigation }) => {
 
             <Input
                 placeholder={'Usuário ou Email'}
+                value={email}
+                onChangeText={(text) => {setEmail(text)}}
             />
 
-            <NormalButton title={"Continuar"} fieldWidth={90} onPress={() => navigation.navigate('VerificarEmail')}/>
+            <NormalButton 
+                title={"Continuar"} 
+                fieldWidth={90} 
+                onPress={() => EnviarEmail()}
+            />
         </Container>
     )
 }
