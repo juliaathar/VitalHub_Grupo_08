@@ -15,13 +15,12 @@ import moment from "moment"
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { ButtonCamera, ProfileContainer } from "./Style";
 
-export const Perfil = ({ navigation }) => {
+export const Perfil = ({ navigation, route }) => {
 
+    const { photoUri } = route.params || {};
     const [formEdit, setFormEdit] = useState(false);
-
     const [user, setUser] = useState();
     const [tokenUser, setTokenUser] = useState();
-
 
     async function loadProfile() {
         try {
@@ -30,16 +29,14 @@ export const Perfil = ({ navigation }) => {
             setTokenUser(token)
 
             const id = token.user;
-            // console.log(id);
             if (token.role === 'Paciente') {
                 info = await api.get(`/Pacientes/BuscarPorID?id=${id}`);
             } else if (token.role === 'Médico') {
                 info = await api.get(`/Medicos/BuscarPorID?id=${id}`);
             }
-            // console.log('Dados obtidos da API:', info)
             if (info) { setUser(info.data) }
 
-            console.log(user);
+            //console.log(user + " linha 41");
 
         }
         catch (error) {
@@ -47,14 +44,13 @@ export const Perfil = ({ navigation }) => {
         }
     }
 
-
-    const handleLogout = async () => {
+    async function handleLogout() {
         try {
             if (tokenUser) {
                 console.log(tokenUser);
                 await AsyncStorage.removeItem('tokenUser')
                 console.log(tokenUser);
-                
+
                 navigation.replace('Login');
             }
 
@@ -63,24 +59,56 @@ export const Perfil = ({ navigation }) => {
         }
     };
 
-    const updateUser = async () => {
+    async function AlterarFoto() {
+        const token = await userDecodeToken()
+        const formData = new FormData();
+        formData.append("Arquivo", {
+            uri: photoUri,
+            name: `image.${photoUri.split(".")[3]}`,
+            type: `image.${photoUri.split(".")[3]}`
+        })
+
+        await api.put(`/Usuario/AlterarFotoPerfil?id${token.user}`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        }).then(response => {
+            console.log(response);
+        }).catch(error => {
+            console.log(error);
+            console.log(token.user);
+            console.log(photoUri);
+        })
+    }
+
+    async function updateUser() {
         try {
-            // Assuming your API expects a PUT request to update the user
-            // and the endpoint is something like /Pacientes/Update or /Medicos/Update
             const endpoint = tokenUser.role === 'Paciente' ? '/Pacientes/Update' : '/Medicos/Update';
-            const updatedUser = {
-                // Include all the fields that can be updated
-                // For example:
-                dataNascimento: user.dataNascimento,
-                cpf: user.cpf,
-                endereco: user.endereco,
-                // Add other fields as necessary
-            };
+            const updatedUser = endpoint === '/Pacientes/Update' ?
+                {
+                    cpf: user.cpf,
+                    dataNascimento: "2024-04-24T12:27:47.518Z",
+                    novoEndereco: {
+                        cep: user.endereco.cep,
+                        logradouro: user.endereco.logradouro,
+                        numero: 0,
+                        longitude: 0,
+                        latitude: 0,
+                        cidade: user.endereco.cidade
+                    }
+                }
+                :
+                {
+                    foto: photoUri,
+                    cep: user.endereco.cep,
+                    logradouro: user.endereco.logradouro,
+                    cidade: user.endereco.cidade,
+                    numero: 0,
+                    crm: user?.crm,
+                }
             const response = await api.put(endpoint, updatedUser);
             if (response.status === 200) {
-                // Handle successful update, e.g., show a success message
                 console.log('User updated successfully');
-                // Optionally, reload the user profile to reflect the changes
                 loadProfile();
             } else {
                 // Handle errors
@@ -97,14 +125,19 @@ export const Perfil = ({ navigation }) => {
         console.log(user);
     }, []);
 
+    useEffect(() => {
+        if (photoUri) {
+            AlterarFoto()
+        }
+    }, [photoUri])
     return (
         <Container>
             <ScrollForm>
                 <ProfileContainer>
-                    <ProfilePic source={require("../../assets/profile.png")} />
+                    <ProfilePic source={photoUri ? { uri: photoUri } : require("../../assets/profile.png")} />
 
-                    <ButtonCamera onPress={() => navigation.navigate('CameraScreen', {SetMediaLabrary : true})}>
-                        <MaterialCommunityIcons name="camera-plus" size={20} color="#fbfbfb"/>
+                    <ButtonCamera onPress={() => navigation.navigate('CameraScreen', { SetMediaLabrary: true, Tela: "Main" })}>
+                        <MaterialCommunityIcons name="camera-plus" size={20} color="#fbfbfb" />
                     </ButtonCamera>
                 </ProfileContainer>
                 <View style={{ alignItems: "center" }}>
@@ -116,17 +149,35 @@ export const Perfil = ({ navigation }) => {
 
                     {tokenUser?.role === 'Paciente' && (
                         <>
-                            <FormField fieldWidth={90} editable={formEdit} labelText="Data de nascimento" fieldValue={user ? moment(user.dataNascimento).format("DD/MM/YYYY")  : ''} />
-                            <FormField fieldWidth={90} editable={formEdit} labelText="CPF" fieldValue={user ? user.cpf : ""}/>
-                            <FormField fieldWidth={90} editable={formEdit} labelText="Endereco" fieldValue={user ? user.endereco.logradouro : ""}/>
+                            <FormField
+                                fieldWidth={90}
+                                editable={formEdit}
+                                labelText="Data de nascimento"
+                                fieldValue={user ? moment(user.dataNascimento).format("DD/MM/YYYY") : ''}
+                                onChangeText={""}
+                            />
+                            <FormField
+                                fieldWidth={90}
+                                editable={formEdit}
+                                labelText="CPF"
+                                fieldValue={user ? user.cpf : ""}
+                                onChangeText={""}
+                            />
+                            <FormField
+                                fieldWidth={90}
+                                editable={formEdit}
+                                labelText="Endereco"
+                                fieldValue={user ? `${user.endereco.logradouro} ${user.endereco.numero}` : ""}
+                                onChangeText={""}
+                            />
                         </>
                     )}
 
                     {tokenUser?.role === 'Médico' && (
                         <>
-                            <FormField fieldWidth={90} editable={formEdit} labelText="Especialidade" fieldValue={user ? user.especialidade.especialidade1 : ``} />
+                            <FormField fieldWidth={90} editable={false} labelText="Especialidade" fieldValue={user ? user.especialidade.especialidade1 : ``} />
                             <FormField fieldWidth={90} editable={formEdit} labelText="CRM" fieldValue={user?.crm} />
-                            <FormField fieldWidth={90} editable={formEdit} labelText="Endereco" fieldValue={user?.endereco.logradouro} />
+                            <FormField fieldWidth={90} editable={formEdit} labelText="Endereco" fieldValue={user ? `${user.endereco.logradouro} ${user.endereco.numero}` : ""} />
                         </>
                     )}
 

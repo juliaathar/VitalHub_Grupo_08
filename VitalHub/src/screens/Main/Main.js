@@ -8,10 +8,11 @@ import { ContentIcon, TextIcon } from './Style';
 
 const BottomTab = createBottomTabNavigator();
 
-export const Main = () => {
+export const Main = ({ navigation, route }) => {
+    const routeParams = route.params;
     return (
         <BottomTab.Navigator
-            initialRouteName='Home'
+            initialRouteName={ routeParams !== undefined ? routeParams.screen : "Home"}
 
             screenOptions={({ route }) => ({
                 tabBarStyle: { backgroundColor: "#FFFFFF", height: 70, paddingTop: 10 },
@@ -49,10 +50,10 @@ export const Main = () => {
             />
 
 
-            <BottomTab.Screen
-                name="Perfil"
-                component={Perfil}
-            />
+            <BottomTab.Screen name="Perfil">
+                {(props) => <Perfil navigation={navigation} route={route}/>}
+            </BottomTab.Screen>
+
         </BottomTab.Navigator>
     )
 }

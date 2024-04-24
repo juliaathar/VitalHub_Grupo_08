@@ -1,4 +1,4 @@
-import { ButtonCamera, ButtonContainer, CameraBody, ButtonCameraOthers, ButtonCameraCenter } from './Style';
+import { ButtonCamera, ButtonContainer, CameraBody, ButtonCameraOthers, ButtonCameraCenter, LastPhoto } from './Style';
 import { Camera, CameraType, FlashMode } from 'expo-camera';
 import { PhotoTaked } from '../../components/Photo/Photo';
 import { useEffect, useRef, useState } from 'react';
@@ -17,7 +17,7 @@ export const CameraScreen = ({ navigation, route }) => {
     const [modalPhoto, setModalPhoto] = useState(false);
     const camRef = useRef(null);
 
-    //const [getMediaLibrary, setMediaLibrary] = useState(route.params.SetMediaLabrary);
+    const [Tela, setTela] = useState(route.params.Tela);
     const [lastestPhoto, setLastestPhoto] = useState(null);
 
 
@@ -35,6 +35,7 @@ export const CameraScreen = ({ navigation, route }) => {
         if (route.params.SetMediaLabrary) {
             GetLastPhoto();
         }
+        //console.log(Tela);
     }, []);
 
     if (!permission) {
@@ -48,8 +49,12 @@ export const CameraScreen = ({ navigation, route }) => {
     }
 
     async function GetLastPhoto() {
-        const assets = await MediaLibrary.getAssetsAsync({ sortBy : [[MediaLibrary.SortBy.creationTime, false]], first : 1})
-        console.log(assets);
+        const {assets} = await MediaLibrary.getAssetsAsync({ sortBy: [[MediaLibrary.SortBy.creationTime, false]], first: 1 })
+
+        if (assets.length > 0) {
+            setLastestPhoto(assets[0].uri)
+            //console.log(lastestPhoto);
+        }
     }
 
     function toggleCameraType() {
@@ -58,7 +63,7 @@ export const CameraScreen = ({ navigation, route }) => {
 
     function flashActive() {
         setFlash(current => (current === FlashMode.on ? FlashMode.off : FlashMode.on));
-        console.log(flash)
+        //console.log(flash)
     }
 
     async function takePicture() {
@@ -71,11 +76,23 @@ export const CameraScreen = ({ navigation, route }) => {
     async function savePicture() {
         const asset = await MediaLibrary.createAssetAsync(capturedPhoto)
             .then(() => {
-                navigation.navigate('Prescricao', { photoUri: capturedPhoto })
+                navigation.navigate(`${Tela}`, { photoUri: capturedPhoto })
             })
             .catch(error => {
                 console.log("error", error)
             })
+    }
+
+    async function SelectImageGallery() {
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes : ImagePicker.MediaTypeOptions.Images,
+            quality : 1
+        });
+
+        if (!result.canceled) {
+            setCapturedPhoto(result.assets[0].uri)
+            navigation.navigate(`${Tela}`, { photoUri: result.assets[0].uri })
+        }
     }
 
 
@@ -89,12 +106,22 @@ export const CameraScreen = ({ navigation, route }) => {
             >
 
                 <ButtonContainer>
+                    <ButtonCameraOthers onPress={() => SelectImageGallery()}>
+                        {lastestPhoto !== null ? (
+                            <LastPhoto
+                                source={{ uri: lastestPhoto }}
+                            />
+                        ) : (
+                            null
+                        )}
+                    </ButtonCameraOthers>
+
                     <ButtonCameraOthers onPress={toggleCameraType}>
                         <FontAwesome name="refresh" size={23} color="white" />
                     </ButtonCameraOthers>
 
                     <ButtonCamera onPress={takePicture}>
-                        <ButtonCameraCenter/>
+                        <ButtonCameraCenter />
                     </ButtonCamera>
 
                     <ButtonCameraOthers onPress={flashActive}>
@@ -103,6 +130,10 @@ export const CameraScreen = ({ navigation, route }) => {
                         ) : (
                             <Ionicons name="flash-off" size={24} color="white" />
                         )}
+                    </ButtonCameraOthers>
+
+                    <ButtonCameraOthers>
+                        
                     </ButtonCameraOthers>
                 </ButtonContainer>
             </CameraBody>

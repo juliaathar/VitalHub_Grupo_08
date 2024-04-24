@@ -1,3 +1,29 @@
+[
+  // medico:
+  {
+    "foto": "string",
+    "cep": "string",
+    "logradouro": "string",
+    "cidade": "string",
+    "numero": 0,
+    "crm": "string",
+    "idTipoUsuario": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+  },
+  //paciente
+  {
+    "cpf": "string",
+    "dataNascimento": "2024-04-24T12:27:47.518Z",
+    "novoEndereco": {
+      "cep": "string",
+      "logradouro": "string",
+      "numero": 0,
+      "longitude": 0,
+      "latitude": 0,
+      "cidade": "string"
+    }
+  }
+]
+
 {
   "crm": "123123123",
   "endereco": {

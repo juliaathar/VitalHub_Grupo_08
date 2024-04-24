@@ -72,7 +72,7 @@ export const Prescricao = ({ navigation, route }) => {
                     </FormPhoto>
 
                     <OptionLine>
-                        <PhotoButton onPress={() => navigation.navigate('CameraScreen')}>
+                        <PhotoButton onPress={() => navigation.navigate('CameraScreen', {Tela : "Prescricao"})}>
                             <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
                             <TextButton>Enviar</TextButton>
                         </PhotoButton>
