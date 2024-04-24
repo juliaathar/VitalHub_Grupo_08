@@ -23,7 +23,7 @@ export const RecuperarSenha = ({ navigation }) => {
         .catch( error => {
             console.log(error);
         })
-        navigation.replace("VerificarEmail", { emailRecuperacao : email })
+        //navigation.replace("VerificarEmail", { emailRecuperacao : email })
     }
 
     return (

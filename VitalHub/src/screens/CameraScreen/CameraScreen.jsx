@@ -6,8 +6,10 @@ import * as MediaLibrary from 'expo-media-library'
 import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { Button, Text, View } from 'react-native';
+//import ImagePicker from 'expo-image-picker';
+import * as ImagePicker from 'expo-image-picker'
 
-export const CameraScreen = ({ navigation }) => {
+export const CameraScreen = ({ navigation, route }) => {
     const [type, setType] = useState(CameraType.back);
     const [flash, setFlash] = useState(FlashMode.off)
     const [capturedPhoto, setCapturedPhoto] = useState(null);
@@ -15,14 +17,24 @@ export const CameraScreen = ({ navigation }) => {
     const [modalPhoto, setModalPhoto] = useState(false);
     const camRef = useRef(null);
 
+    //const [getMediaLibrary, setMediaLibrary] = useState(route.params.SetMediaLabrary);
+    const [lastestPhoto, setLastestPhoto] = useState(null);
+
 
     useEffect(() => {
         (async () => {
             const { status } = await Camera.requestCameraPermissionsAsync();
-
             const { status: mediaStatus } = await MediaLibrary.requestPermissionsAsync();
+            await ImagePicker.requestMediaLibraryPermissionsAsync();
             requestPermission(status === 'granted')
         })();
+
+        //verificar se mostra a parte da galeria
+        //console.log(getMediaLibrary);
+        //console.log(route.params.SetMediaLabrary);
+        if (route.params.SetMediaLabrary) {
+            GetLastPhoto();
+        }
     }, []);
 
     if (!permission) {
@@ -33,6 +45,11 @@ export const CameraScreen = ({ navigation }) => {
                 <Button onPress={requestPermission} title="grant permission" />
             </View>
         );
+    }
+
+    async function GetLastPhoto() {
+        const assets = await MediaLibrary.getAssetsAsync({ sortBy : [[MediaLibrary.SortBy.creationTime, false]], first : 1})
+        console.log(assets);
     }
 
     function toggleCameraType() {

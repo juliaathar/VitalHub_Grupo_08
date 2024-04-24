@@ -42,7 +42,7 @@ export const CalendarHome = ({
   const endingDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
   return (
     <StyledCalendarStrip
-      onDateSelected={day => setDiaSelecionado(day.format("YYYY-DD-MM"))}
+      onDateSelected={day => setDiaSelecionado(day.format("YYYY-MM-DD"))}
 
       // animação e seleção de cada data
       calendarAnimation={{ type: "sequence", duration: 30 }}

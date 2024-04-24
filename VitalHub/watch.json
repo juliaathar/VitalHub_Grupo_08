@@ -1,30 +1,29 @@
 {
-  "dataConsulta": "2024-05-04T00:00:00",
-  "exames": [],
-  "id": "d7806c50-6fc6-4921-9185-77ee7220e32d",
-  "medicoClinica": {
-    "clinicaId": "d60f0c16-748d-4387-bc3a-794e23c86e0b",
-    "consulta": [Array
-    ],
-    "id": "5134b4a3-25d4-4d07-bcbb-357ec38c7146",
-    "medico": [Object
-    ],
-    "medicoId": "31f571c6-5fbe-462f-98fe-863e0362ec98"
+  "crm": "123123123",
+  "endereco": {
+    "cep": "73083420",
+    "clinicas": [],
+    "id": "085598ed-3703-49ba-bbd6-7d8e27258d0b",
+    "logradouro": "Quadra Quadra 3",
+    "medicos": [],
+    "numero": 385,
+    "pacientes": []
   },
-  "medicoClinicaId": "5134b4a3-25d4-4d07-bcbb-357ec38c7146",
-  "pacienteId": "e95cc29e-b878-4250-a2f7-01663506eb63",
-  "prioridade": {
-    "consulta": [Array
-    ],
-    "id": "e2e3bdbb-5518-4e8f-96b4-26eb57f66350",
-    "prioridade": 1
+  "enderecoId": "085598ed-3703-49ba-bbd6-7d8e27258d0b",
+  "especialidade": {
+    "especialidade1": "Psiquiatra",
+    "id": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+    "medicos": []
   },
-  "prioridadeId": "e2e3bdbb-5518-4e8f-96b4-26eb57f66350",
-  "situacao": {
-    "consulta": [Array
-    ],
-    "id": "0906a605-1206-47ea-b986-f8a3fb8cb549",
-    "situacao": "Pendentes"
+  "especialidadeId": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+  "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+  "idNavigation": {
+    "email": "julia@gmail.com",
+    "foto": "semfoto",
+    "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+    "nome": "Júlia Aben-Athar",
+    "senha": "$2a$11$uGlXnnbmVZb4lPw.6t.zzuOggrmR.Zx.ZpUp7LUaL4YhFROA0dl6u",
+    "tipoUsuarioId": "4d3c8067-250d-48a2-980f-d7f0a454ee82"
   },
-  "situacaoId": "0906a605-1206-47ea-b986-f8a3fb8cb549"
+  "medicosClinicas": []
 }
