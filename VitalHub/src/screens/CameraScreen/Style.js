@@ -7,11 +7,10 @@ export const ButtonContainer = styled.View`
     //border: 1px solid red;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
     gap: 35px;
-    width: 100%;
+    width: 90%;
     align-self: center;
-    //border-radius: 50px;
     bottom: 45px;
 `
 
@@ -22,7 +21,6 @@ export const ButtonCamera = styled.TouchableOpacity `
     border-radius: 50px;
     align-items: center;
     justify-content: center;
-    //background-color: #496BBA;
 `
 
 export const ButtonCameraCenter = styled.View `
@@ -47,4 +45,10 @@ export const ButtonCameraOthers = styled.TouchableOpacity `
 export const CameraBody = styled(Camera)`
     flex: 1;
     justify-content: flex-end;
+`
+
+export const LastPhoto = styled.Image`
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
 `
