@@ -11,7 +11,9 @@ import api from "../../service/service"
 import { useState } from "react"
 
 export const Prontuario = ({ navigation, route }) => {
-    const { consulta } = route.params || {};
+    // const { consulta } = route.params || {};
+    const { photoUri } = route.params || {};
+
     
     const nome = consulta.paciente.idNavigation.nome;
     const email = consulta.paciente.idNavigation.email;
@@ -32,6 +34,32 @@ export const Prontuario = ({ navigation, route }) => {
                 console.log(`Erro ao atualizar: ${error}`);
             })
     }
+
+    async function InserirExame() {
+        const formData = new FormData()
+        formData.append("ConsultaId", novoProntuario.id)
+        formData.append("Arquivo", {
+            uri: photoUri,
+            name: `image.${photoUri.split('.').pop()}`,
+            type: `image/${photoUri.split('.').pop()}`
+        });
+
+        await api.post(`/Exame/Cadastrar`, formData, {
+            headers: {
+                "Content-Type" : "multipart/form-data"
+            }
+        }).then(response =>{
+            setDescricao(descricao + '\n' + response.data.descricao)
+        }).catch(error => {
+            console.log(error);
+        })
+    }
+
+    useEffect(() => {
+        if (photoUri) {
+            InserirExame()
+        }
+    }, [photoUri])
 
     return (
         <Container>

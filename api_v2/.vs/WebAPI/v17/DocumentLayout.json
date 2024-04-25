@@ -199,8 +199,7 @@
               "ViewState": "AQIAACoAAAAAAAAAAAA1wAgAAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-10T12:16:25.337Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -212,8 +211,7 @@
               "RelativeToolTip": "WebAPI\\Controllers\\UsuarioController.cs",
               "ViewState": "AQIAAC8AAAAAAAAAAAAYwD4AAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-10T12:20:24.645Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-10T12:20:24.645Z"
             },
             {
               "$type": "Document",
@@ -261,8 +259,7 @@
               "RelativeToolTip": "WebAPI\\Controllers\\PacientesController.cs",
               "ViewState": "AQIAADEAAAAAAAAAAAAkwD0AAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-10T12:18:47.308Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-10T12:18:47.308Z"
             },
             {
               "$type": "Document",

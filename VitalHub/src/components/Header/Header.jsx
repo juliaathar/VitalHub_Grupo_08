@@ -2,7 +2,7 @@ import { BoxUser, DataUser, ImageUser, Line, LinearContainer, UserName, Wellcome
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from "react-native";
 
-export const Header = ({ navigation, name }) => {
+export const Header = ({ navigation, name, foto }) => {
 
     return (
         <LinearContainer>
@@ -10,7 +10,7 @@ export const Header = ({ navigation, name }) => {
                 <BoxUser
                     onPress={() => navigation.navigate('Perfil')}
                 >
-                    <ImageUser source={{ uri: "https://github.com/LeonKene-hub.png" }} />
+                    <ImageUser source={{ uri: foto}} />
 
                     <DataUser>
                         <Wellcome>Bem Vindo</Wellcome>

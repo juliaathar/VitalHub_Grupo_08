@@ -37,6 +37,7 @@ Notifications.setNotificationHandler({
 export const Home = ({ navigation }) => {
     const [statusLista, setStatusLista] = useState("pendente");
     const [profile, setProfile] = useState('Paciente')
+    const [user, setUser] = useState()
     const [diaSelecionado, setDiaSelecionado] = useState(moment().format("YYYY-DD-MM"))
 
     const [modalCancel, setModalCancel] = useState(false);
@@ -74,13 +75,27 @@ export const Home = ({ navigation }) => {
         })
     }
 
-    async function profileLoad() {
-        const token = await userDecodeToken();
-        //console.log(token)
+    const profileLoad = async () => {
+        try {
+            const token = await userDecodeToken();
+            console.log("Token do usuário:", token);
+            setProfile(token);
+            setDiaSelecionado(moment().format("YYYY-MM-DD"));
+            loadUser(token.user);
+        } catch (error) {
+            console.error('Erro ao carregar o perfil do usuário:', error);
+        }
+    };
 
-        setProfile(token)
-        setDiaSelecionado(moment().format("YYYY-MM-DD"))
-    }
+    const loadUser = async (userId) => {
+        try {
+            const resp = await api.get(`/Usuario/BuscarPorID?id=${userId}`);
+            console.log("Dados do usuário:", resp.data);
+            setUser(resp.data);
+        } catch (error) {
+            console.log(`Erro ao carregar o usuário: ${error}`);
+        }
+    };
 
     async function ListarConsulta() {
         const url = (profile.role == "Médico" ? "Medicos" : "Pacientes")
@@ -122,7 +137,10 @@ export const Home = ({ navigation }) => {
     //atualiza a pagina de acordo com o login
     useEffect(() => {
         profileLoad();
+     
+        console.log(`testeeeeeeeeeeeeeeeeeeeeeeeeeee${user}`);
     }, [])
+    
     useEffect(() => {
         ListarConsulta();
     }, [diaSelecionado])
@@ -132,7 +150,8 @@ export const Home = ({ navigation }) => {
             <Container>
                 <Header
                     navigation={navigation}
-                    name={profile.name}
+                    name={user && user.nome}
+                    foto={user && user.foto}
                 />
 
                 <CalendarHome
