@@ -35,7 +35,7 @@ namespace WebAPI.Repositories
         }
 
 
-        public void Cadastrar(Consulta clinica)
+        public void Cadastrar(Consulta   clinica)
         {
             ctx.Consultas.Add(clinica);
             ctx.SaveChanges();

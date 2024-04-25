@@ -36,7 +36,7 @@ export const Perfil = ({ navigation, route }) => {
             }
             if (info) { setUser(info.data) }
 
-            //console.log(user + " linha 41");
+            console.log(user.nome + " linha 41");
 
         }
         catch (error) {
@@ -60,69 +60,42 @@ export const Perfil = ({ navigation, route }) => {
     };
 
     async function AlterarFoto() {
-        const token = await userDecodeToken()
+        const token = await userDecodeToken();
         const formData = new FormData();
         formData.append("Arquivo", {
             uri: photoUri,
-            name: `image.${photoUri.split(".")[3]}`,
-            type: `image.${photoUri.split(".")[3]}`
-        })
-
-        await api.put(`/Usuario/AlterarFotoPerfil?id${token.user}`, formData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        }).then(response => {
-            console.log(response);
-        }).catch(error => {
-            console.log(error);
-            console.log(token.user);
-            console.log(photoUri);
-        })
-    }
-
-    async function updateUser() {
+            name: `image.${photoUri.split(".").pop()}`,
+            type: `image/${photoUri.split(".").pop()}`
+        });
+    
         try {
-            const endpoint = tokenUser.role === 'Paciente' ? '/Pacientes/Update' : '/Medicos/Update';
-            const updatedUser = endpoint === '/Pacientes/Update' ?
-                {
-                    cpf: user.cpf,
-                    dataNascimento: "2024-04-24T12:27:47.518Z",
-                    novoEndereco: {
-                        cep: user.endereco.cep,
-                        logradouro: user.endereco.logradouro,
-                        numero: 0,
-                        longitude: 0,
-                        latitude: 0,
-                        cidade: user.endereco.cidade
-                    }
+            const response = await api.put(`/Usuario/AlterarFotoPerfil?id=${token.user}`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
                 }
-                :
-                {
-                    foto: photoUri,
-                    cep: user.endereco.cep,
-                    logradouro: user.endereco.logradouro,
-                    cidade: user.endereco.cidade,
-                    numero: 0,
-                    crm: user?.crm,
-                }
-            const response = await api.put(endpoint, updatedUser);
-            if (response.status === 200) {
-                console.log('User updated successfully');
-                loadProfile();
-            } else {
-                // Handle errors
-                console.log('Failed to update user');
-            }
+            });
+            console.log(response.data); 
+            console.log("sucessoo"); 
+            loadProfile();
         } catch (error) {
-            console.error('Error updating user:', error);
+            console.log("Erro ao alterar foto:", error);
+        }
+    }
+    const getUserPhoto = () => {
+        if (user && user.idNavigation && user.idNavigation.foto) {
+            return { uri: user.idNavigation.foto };
+        } else {
+            return require("../../assets/profile.png");
         }
     };
+    
 
     useEffect(() => {
 
         loadProfile();
-        console.log(user);
+
+
+        console.log(`${user} teste`);
     }, []);
 
     useEffect(() => {
@@ -130,11 +103,13 @@ export const Perfil = ({ navigation, route }) => {
             AlterarFoto()
         }
     }, [photoUri])
+    
     return (
         <Container>
             <ScrollForm>
                 <ProfileContainer>
-                    <ProfilePic source={photoUri ? { uri: photoUri } : require("../../assets/profile.png")} />
+                    {/* <ProfilePic source={user.idNavigation.foto ? { uri: photoUri } : require("../../assets/profile.png")} /> */}
+                    <ProfilePic source={getUserPhoto()}/>
 
                     <ButtonCamera onPress={() => navigation.navigate('CameraScreen', { SetMediaLabrary: true, Tela: "Main" })}>
                         <MaterialCommunityIcons name="camera-plus" size={20} color="#fbfbfb" />
