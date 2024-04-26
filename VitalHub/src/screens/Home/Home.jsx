@@ -90,7 +90,7 @@ export const Home = ({ navigation }) => {
     const loadUser = async (userId) => {
         try {
             const resp = await api.get(`/Usuario/BuscarPorID?id=${userId}`);
-            console.log("Dados do usuário:", resp.data);
+            //console.log("Dados do usuário:", resp.data);
             setUser(resp.data);
         } catch (error) {
             console.log(`Erro ao carregar o usuário: ${error}`);
@@ -100,6 +100,7 @@ export const Home = ({ navigation }) => {
     async function ListarConsulta() {
         const url = (profile.role == "Médico" ? "Medicos" : "Pacientes")
 
+        //console.log(`/${url}/BuscarPorData?data=${diaSelecionado}&id=${profile.user}`);
         await api.get(`/${url}/BuscarPorData?data=${diaSelecionado}&id=${profile.user}`)
             .then(async response => {
                 await setConsultas(response.data);
@@ -181,13 +182,13 @@ export const Home = ({ navigation }) => {
                 {
                     statusLista == "pendente" ? (
                         <CardList
-                            data={() => consultas}
+                            data={consultas}
                             keyExtractor={(item) => item.id}
                             renderItem={({ item }) => item.situacao.situacao === "Pendente" ?
                                 <ConsultationData
                                     situacao={item.situacao.situacao}
-                                    nome={item.paciente.idNavigation.nome}
-                                    idade={moment(item.paciente.dataNascimento, "YYYYMMDD").fromNow().slice(0, 2)}
+                                    nome={profile.role == "Paciente" ? item.medicoClinica.medico.idNavigation.nome : item.paciente.idNavigation.nome}
+                                    idade={moment( profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.dataNascimento) : (item.paciente.dataNascimento), "YYYYMMDD").fromNow().slice(0, 2)}
                                     hora={(item.dataConsulta).slice(11,16)}
                                     tipoConsulta={item.prioridade.prioridade}
                                     onPressCancel={() => MostrarModal("cancelar", item)}
@@ -198,7 +199,8 @@ export const Home = ({ navigation }) => {
                                             MostrarModal("local", item) //provisorio
                                         )
                                     }}
-                                /> : null}
+                                /> 
+                                : null}
                         />
 
                     ) : statusLista == "realizado" ? (
@@ -209,19 +211,21 @@ export const Home = ({ navigation }) => {
                             renderItem={({ item }) => item.situacao.situacao === "Realizado" ?
                                 <ConsultationData
                                     situacao={item.situacao.situacao}
-                                    nome={item.paciente.idNavigation.nome}
-                                    idade={moment(item.paciente.dataNascimento, "YYYYMMDD").fromNow().slice(0, 2)}
+                                    // nome={"Rubens"}
+                                    nome={ profile.role == "Paciente" ? item.medicoClinica.medico.idNavigation.nome : item.paciente.idNavigation.nome}
+                                    idade={moment( profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.dataNascimento) : (item.paciente.dataNascimento), "YYYYMMDD").fromNow().slice(0, 2)}
                                     hora={(item.dataConsulta).slice(11,16)}
                                     tipoConsulta={item.prioridade.prioridade}
                                     onPressAppoiment={() => {
                                         profile.role === "Paciente" ? (
-                                            navigation.navigate('Prescricao')
+                                            navigation.navigate('Prescricao',{id: item.id})
                                         ) : (
                                             MostrarModal("doutor", item)
                                         )
                                     }}
 
-                                /> : null}
+                                /> 
+                                : null}
                         />
 
                     ) : (
@@ -232,8 +236,8 @@ export const Home = ({ navigation }) => {
                             renderItem={({ item }) => item.situacao.situacao === "Cancelado" ?
                                 <ConsultationData
                                     situacao={item.situacao.situacao}
-                                    nome={item.paciente.idNavigation.nome}
-                                    idade={moment(item.paciente.dataNascimento, "YYYYMMDD").fromNow().slice(0, 2)}
+                                    nome={ profile.role == "Paciente" ? item.medicoClinica.medico.idNavigation.nome : item.paciente.idNavigation.nome}
+                                    idade={moment( profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.dataNascimento) : (item.paciente.dataNascimento), "YYYYMMDD").fromNow().slice(0, 2)}
                                     hora={(item.dataConsulta).slice(11,16)}
                                     tipoConsulta={item.prioridade.prioridade}
                                 /> : null}

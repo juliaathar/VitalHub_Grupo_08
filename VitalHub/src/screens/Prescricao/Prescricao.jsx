@@ -13,14 +13,60 @@ import { TouchableOpacity } from "react-native"
 import { useEffect, useState } from "react"
 import { Text } from "react-native"
 import { PhotoTaked } from "../../components/Photo/Photo"
+import api from "../../service/service"
 
 
 export const Prescricao = ({ navigation, route }) => {
-    const { photoUri } = route.params || {};
+    const { photoUri, id } = route.params || {};
     const [modalPhoto, setModalPhoto] = useState(false);
     const [modalUri, setModalUri] = useState('');
     const [photoTaked, setPhotoTaked] = useState(false)
     const [photos, setPhotos] = useState([]);
+
+    const [novoProntuario, setNovoProntuario] = useState(false)
+
+    async function ConsultaGet() {
+        await api.get(`/Consultas/BuscarPorId?id=${id}`)
+        .then( async response => {
+            console.log("Consulta get");
+            console.log(JSON.stringify(response.data));
+            await setNovoProntuario(response.data);
+        })
+        .catch(error => {
+            console.log(`Erro em ConsultaGet: ${error}`);
+        })
+    }
+    
+    const getUserPhoto = () => {
+        if (novoProntuario) {
+            return { uri: novoProntuario.medicoClinica.medico.idNavigation.foto };
+        } else {
+            return require("../../assets/profile.png");
+        }
+    };
+
+    // async function InserirExame() {
+    //     const formData = new FormData()
+    //     formData.append("ConsultaId", novoProntuario.id)
+    //     formData.append("Arquivo", {
+    //         uri: photoUri,
+    //         name: `image.${photoUri.split('.').pop()}`,
+    //         type: `image/${photoUri.split('.').pop()}`
+    //     });
+
+    //     await api.post(`/Exame/Cadastrar`, formData, {
+    //         headers: {
+    //             "Content-Type" : "multipart/form-data"
+    //         }
+    //     }).then(response =>{
+    //         setDescricao(descricao + '\n' + response.data.descricao)
+    //     }).catch(error => {
+    //         console.log(error);
+    //     })
+    // }
+    useEffect(() => {
+        ConsultaGet();
+    }, [])
 
     useEffect(() => {
         if (photoUri !== undefined) {
@@ -31,21 +77,34 @@ export const Prescricao = ({ navigation, route }) => {
         }
     }, [photoUri]);
 
+
     return (
         <>
             <ScrollForm>
-                <ProfilePic source={require("../../assets/profile.png")} />
+                <ProfilePic source={getUserPhoto()} />
 
                 <Container>
-                    <Title>Dr. Claudio</Title>
+                    <Title style={{marginTop : 15}}>{novoProntuario ? novoProntuario.medicoClinica.medico.idNavigation.nome : "vazio"}</Title>
                     <Line>
-                        <Paragraph>{"especialidade"}</Paragraph>
-                        <Paragraph>{"codigo"}</Paragraph>
+                        <Paragraph>{novoProntuario ? novoProntuario.medicoClinica.medico.especialidade.especialidade1 : "vazio"}</Paragraph>
+                        <Paragraph>{novoProntuario ? novoProntuario.medicoClinica.medico.crm : "vazio"}</Paragraph>
                     </Line>
 
-                    <FormField fieldWidth={90} labelText="Descrição da consulta" />
-                    <FormField fieldWidth={90} labelText="Diagnóstico do paciente" />
-                    <FormField fieldWidth={90} labelText="Prescrição médica" />
+                    <FormField 
+                        fieldWidth={90} 
+                        labelText="Descrição da consulta" 
+                        fieldValue={novoProntuario ? novoProntuario.descricao : "vazio"}
+                    />
+                    <FormField 
+                        fieldWidth={90} 
+                        labelText="Diagnóstico do paciente" 
+                        fieldValue={novoProntuario ? novoProntuario.diagnostico : "vazio"}
+                    />
+                    <FormField 
+                        fieldWidth={90} 
+                        labelText="Prescrição médica" 
+                        fieldValue={novoProntuario ? novoProntuario.receita.medicamento : "vazio"}
+                    />
 
 
                     <FormPhoto>
@@ -84,7 +143,11 @@ export const Prescricao = ({ navigation, route }) => {
 
                     <DecorLine/>
 
-                    <FormField fieldWidth={90} labelText="" fieldValue={"Resultado do exame de sangue : tudo normal"} />
+                    <FormField 
+                        fieldWidth={90} 
+                        labelText="" 
+                        fieldValue={"Resultado do exame de sangue : tudo normal"} 
+                    />
 
                     <TouchableOpacity style={{ marginBottom: 15, marginTop: 15 }} onPress={() => navigation.replace('Main')}>
                         <LinkMedium>Voltar</LinkMedium>
