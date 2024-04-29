@@ -60,5 +60,11 @@ namespace WebAPI.Controllers
             consultaRepository.EditarProntuario(consulta);
             return Ok();
         }
+
+        [HttpGet("BuscarPorId")]
+        public IActionResult BuscarPorId(Guid id)
+        {
+            return Ok(consultaRepository.BuscarPorId(id));
+        }
     }
 }
