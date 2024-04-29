@@ -113,7 +113,7 @@ export const Home = ({ navigation }) => {
     }
 
     async function CancelarConsulta(item) {
-        await api.patch(`/Consultas/Status?idConsulta=${item.id}&idSituacao=46A56A8B-D8A9-4E53-A6A6-7850AC222142`)
+        await api.patch(`/Consultas/Status?idConsulta=${item.id}&status=Cancelado`)
             .then(response => {
                 console.log(response.status);
             })
@@ -139,7 +139,7 @@ export const Home = ({ navigation }) => {
     useEffect(() => {
         profileLoad();
      
-        console.log(`testeeeeeeeeeeeeeeeeeeeeeeeeeee${user}`);
+        console.log(`testeeeeeeeeeeeeeeeeeeeeeeeeeee ${user}`);
     }, [])
     
     useEffect(() => {
@@ -187,7 +187,7 @@ export const Home = ({ navigation }) => {
                             renderItem={({ item }) => item.situacao.situacao === "Pendente" ?
                                 <ConsultationData
                                     situacao={item.situacao.situacao}
-                                    nome={profile.role == "Paciente" ? item.medicoClinica.medico.idNavigation.nome : item.paciente.idNavigation.nome}
+                                    nome={profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.nome) : (item.paciente.idNavigation.nome)}
                                     idade={moment( profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.dataNascimento) : (item.paciente.dataNascimento), "YYYYMMDD").fromNow().slice(0, 2)}
                                     hora={(item.dataConsulta).slice(11,16)}
                                     tipoConsulta={item.prioridade.prioridade}
@@ -212,7 +212,7 @@ export const Home = ({ navigation }) => {
                                 <ConsultationData
                                     situacao={item.situacao.situacao}
                                     // nome={"Rubens"}
-                                    nome={ profile.role == "Paciente" ? item.medicoClinica.medico.idNavigation.nome : item.paciente.idNavigation.nome}
+                                    nome={ profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.nome) : (item.paciente.idNavigation.nome)}
                                     idade={moment( profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.dataNascimento) : (item.paciente.dataNascimento), "YYYYMMDD").fromNow().slice(0, 2)}
                                     hora={(item.dataConsulta).slice(11,16)}
                                     tipoConsulta={item.prioridade.prioridade}
@@ -236,7 +236,7 @@ export const Home = ({ navigation }) => {
                             renderItem={({ item }) => item.situacao.situacao === "Cancelado" ?
                                 <ConsultationData
                                     situacao={item.situacao.situacao}
-                                    nome={ profile.role == "Paciente" ? item.medicoClinica.medico.idNavigation.nome : item.paciente.idNavigation.nome}
+                                    nome={ profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.nome) : (item.paciente.idNavigation.nome)}
                                     idade={moment( profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.dataNascimento) : (item.paciente.dataNascimento), "YYYYMMDD").fromNow().slice(0, 2)}
                                     hora={(item.dataConsulta).slice(11,16)}
                                     tipoConsulta={item.prioridade.prioridade}

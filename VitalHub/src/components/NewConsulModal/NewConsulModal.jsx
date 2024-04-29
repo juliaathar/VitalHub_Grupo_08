@@ -19,7 +19,7 @@ export const NewConsulModal = ({
     navigation
 }) => {
 
-    const [nivel, setNivel] = useState()
+    const [nivel, setNivel] = useState({id: "ADD341BE-8E85-40F1-BCA3-71C72A1585D3", prioridade: "Rotina" })
     const [localidade, setLocalidade] = useState()
 
 
@@ -39,24 +39,24 @@ export const NewConsulModal = ({
             <ContainerView>
                 <Title>Agendar consulta</Title>
 
-
+                
                 <ConsulLevel>
                     <Label>Qual o nível da consulta</Label>
                     <ContainerChoice>
                         <FormChoice
                             textButton={"Rotina"}
-                            actived={nivel === "Rotina"}
-                            onPress={() => setNivel("Rotina")}
+                            actived={nivel.prioridade === "Rotina"}
+                            onPress={() => setNivel({id: "ADD341BE-8E85-40F1-BCA3-71C72A1585D3", prioridade: "Rotina" })}
                         />
                         <FormChoice
                             textButton={"Exame"}
-                            actived={nivel === "Exame"}
-                            onPress={() => setNivel("Exame")}
+                            actived={nivel.prioridade === "Exame"}
+                            onPress={() => setNivel({id: "8BB82967-1CA9-4D71-A37C-715E473D00AC", prioridade: "Exame" })}
                         />
                         <FormChoice
                             textButton={"Urgência"}
-                            actived={nivel === "Urgência"}
-                            onPress={() => setNivel("Urgência")}
+                            actived={nivel.prioridade === "Urgência"}
+                            onPress={() => setNivel({id: "34065EDC-CB48-4045-82FB-949DAE435DC9", prioridade: "Urgência" })}
                         />
                     </ContainerChoice>
                 </ConsulLevel>

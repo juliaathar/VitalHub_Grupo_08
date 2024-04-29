@@ -14,8 +14,8 @@ import api from "../../service/service"
 
 export const AgendarConsulta = ({ navigation, route }) => {
     //status da pagina
-    const [status, setStatus] = useState("clínica");
     const {nivel, localidade} = route.params || {};
+    const [status, setStatus] = useState("clínica");
 
     //chamados pela API
     const [medicosLista, setMedicosLista] = useState(null)
@@ -33,7 +33,8 @@ export const AgendarConsulta = ({ navigation, route }) => {
     //traz os medicos da api
     async function ListarMedicos() {
         //Instanciar
-        await api.get("http://172.16.39.82:4466/api/Medicos")
+        console.log(clinicaSelected.id);
+        await api.get(`/Medicos/BuscarPorIdClinica?id=${clinicaSelected.id}`)
             .then(async (response) => {
                 setMedicosLista(response.data)
             }).catch(error => {
@@ -43,7 +44,7 @@ export const AgendarConsulta = ({ navigation, route }) => {
 
     //traz as clinicas da api
     async function ListarClinicas() {
-        await api.get("http://172.16.39.82:4466/api/Clinica/ListarTodas")
+        await api.get(`/Clinica/BuscarPorCidade?cidade=${localidade}`)
             .then(async (response) => {
                 setClinicasLista(response.data)
             }).catch(error => {
@@ -51,22 +52,27 @@ export const AgendarConsulta = ({ navigation, route }) => {
             })
     }
 
-    function CompilarDados() {
+    //Reuni todos os dados para realizar a requisicao
+    async function CompilarDados() {
 
         const dados = {
             data: diaSelected,
+            medicoId: medicoSelected.id,
             nomeMedico: medicoSelected.idNavigation.nome,
             especialidade: medicoSelected.especialidade.especialidade1,
-            nivel: nivel,
+            clinicaId: clinicaSelected.id,
+            clinicaNome: clinicaSelected.nomeFantasia,
+            nivelId: nivel.id,
+            nivelLabel: nivel.prioridade,
             localidade: localidade
         }
-        setDados(dados)
+         await setDados(dados)
+        console.log(dados);
     }
 
 
     //atualiza as chamadas
     useEffect(() => {
-        ListarMedicos()
         ListarClinicas()
     }, [])
 
@@ -89,8 +95,8 @@ export const AgendarConsulta = ({ navigation, route }) => {
                                             dias={""}
                                             local={item.endereco.logradouro}
                                             //funções
-                                            actived={clinicaSelected == item.id}
-                                            onPress={() => setClinicaSelected(item.id)}
+                                            actived={clinicaSelected.id == item.id}
+                                            onPress={() => setClinicaSelected(item)}
                                         />
                                     }
                                 />
@@ -124,14 +130,14 @@ export const AgendarConsulta = ({ navigation, route }) => {
                                     break;
                                 case "clínica":
                                     clinicaSelected === "" ? setStatus("clínica") :
-                                        setStatus("médico")
+                                        (setStatus("médico"), ListarMedicos())
                                     break;
                                 case "médico":
                                     medicoSelected === "" ? setStatus("médico") :
                                         setStatus("data")
                                     break;
                                 case "data":
-                                    (setConsulModal(true), CompilarDados())
+                                    diaSelected ? (setConsulModal(true), CompilarDados()) : ""
                                     break;
                                 default:
                                     setStatus("data")

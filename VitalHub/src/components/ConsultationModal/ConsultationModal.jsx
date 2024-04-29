@@ -4,6 +4,7 @@ import { BoxData, BoxText, BoxTitle, ModalBody, ModalForm, ModalHeader } from ".
 import { LinkMedium } from "../Links/Style"
 import { Title } from "../Title/Style"
 import { Paragraph } from "../Paragraph/Style"
+import moment from "moment"
 
 export const ConsultationModal = ({
     onRequestClose,
@@ -24,20 +25,20 @@ export const ConsultationModal = ({
             <ModalBody>
                 <BoxData>
                     <BoxTitle>Data da consulta</BoxTitle>
-                    <BoxText>{dados.data}</BoxText>
+                    <BoxText>{dados.data ? moment(dados.data).format("DD/MM/YYYY") : "selecione uma data"}</BoxText>
                 </BoxData>
                 <BoxData>
                     <BoxTitle>Médico(a) da consulta</BoxTitle>
-                    <BoxText>{dados.nomeMedico}</BoxText>
-                    <BoxText>{dados.especialidade}</BoxText>
+                    <BoxText>{dados.nomeMedico ? dados.nomeMedico : ""}</BoxText>
+                    <BoxText>{dados.especialidade ? dados.especialidade : ""}</BoxText>
                 </BoxData>
                 <BoxData>
                     <BoxTitle>Local da consulta</BoxTitle>
-                    <BoxText>{dados.localidade}</BoxText>
+                    <BoxText>{dados.localidade ? dados.localidade : ""}</BoxText>
                 </BoxData>
                 <BoxData>
                     <BoxTitle>Tipo da consulta</BoxTitle>
-                    <BoxText>{dados.nivel}</BoxText>
+                    <BoxText>{dados.nivelLabel ? dados.nivelLabel : ""}</BoxText>
                 </BoxData>
             </ModalBody>
 
