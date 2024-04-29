@@ -70,24 +70,42 @@ namespace WebAPI.Repositories
             }
         }
 
-            public void EditarStatus(Guid idConsulta, string status)
+        public void EditarStatus(Guid idConsulta, string status)
         {
             try
             {
-                SituacaoConsulta situacao = ctx.Situacoes.FirstOrDefault(x => x.Situacao == status)!;
+         
+                SituacaoConsulta situacao = ctx.Situacoes.FirstOrDefault(x => x.Situacao == status);
 
-                Consulta buscada = ctx.Consultas.Find(idConsulta)!;
+                if (situacao == null)
+                {
+                    throw new ArgumentException("Status not found", nameof(status));
+                }
 
+  
+                Consulta buscada = ctx.Consultas.Find(idConsulta);
+
+                if (buscada == null)
+                {
+                    throw new ArgumentException("Não há consulta com esse id", nameof(idConsulta));
+                }
+
+      
                 buscada.SituacaoId = situacao.Id;
-                ctx.Update(buscada);
-                ctx.SaveChanges();
 
+        
+                ctx.Update(buscada);
+
+  
+                ctx.SaveChanges();
             }
             catch (Exception)
             {
-                throw;
+                throw; 
             }
         }
+
+
 
 
 
