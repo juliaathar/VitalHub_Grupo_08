@@ -156,14 +156,17 @@ namespace WebAPI.Repositories
                         Id = mc.Id,
                         Crm = mc.Medico!.Crm,
                         Especialidade = mc.Medico.Especialidade,
+                        MedicosClinicas = mc.Medico.MedicosClinicas,
 
                         IdNavigation = new Usuario
                         {
                             Id = mc.Medico.IdNavigation.Id,
                             Nome = mc.Medico.IdNavigation.Nome,
                             Email = mc.Medico.IdNavigation.Email,
-                            Foto = mc.Medico.IdNavigation.Foto
+                            Foto = mc.Medico.IdNavigation.Foto,
                         }
+
+                        
                     })
                     .ToList();
 
