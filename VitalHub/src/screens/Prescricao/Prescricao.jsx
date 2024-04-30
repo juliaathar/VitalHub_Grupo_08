@@ -45,25 +45,25 @@ export const Prescricao = ({ navigation, route }) => {
         }
     };
 
-    // async function InserirExame() {
-    //     const formData = new FormData()
-    //     formData.append("ConsultaId", novoProntuario.id)
-    //     formData.append("Arquivo", {
-    //         uri: photoUri,
-    //         name: `image.${photoUri.split('.').pop()}`,
-    //         type: `image/${photoUri.split('.').pop()}`
-    //     });
+    async function InserirExame() {
+        const formData = new FormData()
+        formData.append("ConsultaId", novoProntuario.id)
+        formData.append("Arquivo", {
+            uri: photoUri,
+            name: `image.${photoUri.split('.').pop()}`,
+            type: `image/${photoUri.split('.').pop()}`
+        });
 
-    //     await api.post(`/Exame/Cadastrar`, formData, {
-    //         headers: {
-    //             "Content-Type" : "multipart/form-data"
-    //         }
-    //     }).then(response =>{
-    //         setDescricao(descricao + '\n' + response.data.descricao)
-    //     }).catch(error => {
-    //         console.log(error);
-    //     })
-    // }
+        await api.post(`/Exame/Cadastrar`, formData, {
+            headers: {
+                "Content-Type" : "multipart/form-data"
+            }
+        }).then(response =>{
+            setDescricao(descricao + '\n' + response.data.descricao)
+        }).catch(error => {
+            console.log(error);
+        })
+    }
     useEffect(() => {
         ConsultaGet();
     }, [])
@@ -74,6 +74,7 @@ export const Prescricao = ({ navigation, route }) => {
         }
         if (photoUri) {
             setPhotoTaked(true);
+            InserirExame()
         }
     }, [photoUri]);
 
