@@ -104,10 +104,10 @@ export const Home = ({ navigation }) => {
         await api.get(`/${url}/BuscarPorData?data=${diaSelecionado}&id=${profile.user}`)
             .then(async response => {
                 await setConsultas(response.data);
-                console.log(`consultas, exito: ${consultas}`);
+                // console.log(`consultas, exito: ${consultas}`);
                 console.log(response.data);
             }).catch(error => {
-                console.log("consultas, erro: " + error);
+                // console.log("consultas, erro: " + error);
                 //console.log(error);
             })
     }
@@ -144,6 +144,7 @@ export const Home = ({ navigation }) => {
     
     useEffect(() => {
         ListarConsulta();
+        console.log("Consulta recebida na Home:", idEncontrado);
     }, [diaSelecionado])
 
     return (
@@ -280,6 +281,7 @@ export const Home = ({ navigation }) => {
                 onRequestClose={() => { setModalNewConsul(false) }}
                 navigation={navigation}
             />
+
             <PromptuaryModal
                 visible={modalPromptuary}
                 onRequestClose={() => { setModalPromptuary(false) }}

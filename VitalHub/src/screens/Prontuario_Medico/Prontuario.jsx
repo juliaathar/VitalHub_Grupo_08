@@ -8,58 +8,42 @@ import { LinkMedium } from "../../components/Links/Style"
 import { TouchableOpacity, View } from "react-native"
 import { Title } from "../../components/Title/Style"
 import api from "../../service/service"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export const Prontuario = ({ navigation, route }) => {
-    // const { consulta } = route.params || {};
-    const { photoUri } = route.params || {};
+    const { consulta } = route.params || {};
 
-    
     const nome = consulta.paciente.idNavigation.nome;
     const email = consulta.paciente.idNavigation.email;
 
-    const [descricao, setDescricao] = useState(consulta.descricao);
-    const [diagnostico, setDiagnostico] = useState(consulta.diagnostico);
+    const [descricao, setDescricao] = useState(consulta.descricao || '');
+    const [diagnostico, setDiagnostico] = useState(consulta.diagnostico || '');
     const [prescricao, setPrescricao] = useState(consulta.receita.medicamento);
-    
+
     const [formEdit, setFormEdit] = useState(false);
-    const [novoProntuario, setNovoProntuario] = useState({})
+    const [novoProntuario, setNovoProntuario] = useState({});
 
     async function AtualizarProntuario() {
-        await api.pacth(`/Consultas/Prontuario` , novoProntuario)
-            .then(response => {
-                console.log(`Prontuario atualizado com exito! ${response.status}`);
-            })
-            .catch(error => {
-                console.log(`Erro ao atualizar: ${error}`);
-            })
-    }
+        try {
+            const response = await api.put(`/Consultas/Prontuario/${novoProntuario.id}`, novoProntuario);
+            console.log(`nao entrou no if!`);
 
-    async function InserirExame() {
-        const formData = new FormData()
-        formData.append("ConsultaId", novoProntuario.id)
-        formData.append("Arquivo", {
-            uri: photoUri,
-            name: `image.${photoUri.split('.').pop()}`,
-            type: `image/${photoUri.split('.').pop()}`
-        });
 
-        await api.post(`/Exame/Cadastrar`, formData, {
-            headers: {
-                "Content-Type" : "multipart/form-data"
+            if (response.status === 200) {
+                console.log(`Prontuário atualizado com sucesso!`);
+            } else {
+                console.log(`Erro ao atualizar prontuário: ${response.statusText}`);
             }
-        }).then(response =>{
-            setDescricao(descricao + '\n' + response.data.descricao)
-        }).catch(error => {
-            console.log(error);
-        })
+        } catch (error) {
+            console.log(`Erro ao atualizar prontuário: ${error.message}`);
+        }
     }
+    
 
     useEffect(() => {
-        if (photoUri) {
-            InserirExame()
-        }
-    }, [photoUri])
+        console.log('Consulta recebida:', consulta);
+    }, [consulta]);
+    
 
     return (
         <Container>

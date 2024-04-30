@@ -26,12 +26,14 @@ export const PromptuaryModal = ({
         console.log(consulta);
         navigation.navigate('Prontuario', { consulta: consulta })
     }
+    
 
     useEffect(() => {
         if (consulta != null) {
             setValores();
             setConfirm(true)
         }
+
     }, [consulta]);
 
     return (

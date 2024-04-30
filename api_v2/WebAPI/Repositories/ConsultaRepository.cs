@@ -117,6 +117,7 @@ namespace WebAPI.Repositories
                     .Include(x => x.Paciente!.IdNavigation)
                     .Include(x => x.Situacao)
                     .Include(x => x.Prioridade)
+                     .Include(x => x.Receita)
                     .Where(x => x.MedicoClinica != null && x.MedicoClinica.MedicoId == IdMedico)
                     .ToList();
 
@@ -137,6 +138,7 @@ namespace WebAPI.Repositories
                     .Include(x => x.MedicoClinica!.Medico!.IdNavigation)
                     .Include(x => x.Situacao)
                     .Include(x => x.Prioridade)
+                    .Include(x=> x.Receita)
                     .Where(x => x.PacienteId != null && x.PacienteId == IdPaciente)
                     .ToList();
 
