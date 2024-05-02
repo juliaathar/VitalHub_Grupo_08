@@ -1,11 +1,24 @@
 {
-  "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
-  "clinicaNome": "VitalHub",
-  "data": "2024-05-04",
-  "especialidade": "Psiquiatra",
-  "localidade": "São Paulo ",
-  "medicoId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
-  "nivelId": "ADD341BE-8E85-40F1-BCA3-71C72A1585D3",
-  "nivelLabel": "Rotina",
-  "nomeMedico": "Júlia Aben-Athar"
+  "crm": "123123123",
+  "especialidade": {
+    "especialidade1": "Psiquiatra",
+    "id": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+    "medicos": []
+  },
+  "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+  "idNavigation": {
+    "email": "julia@gmail.com",
+    "foto": "https://blobvitalhub08.blob.core.windows.net/blobvitalhubcontainer/d0e52f0cf35c489aabf0de188a0644de.jpg",
+    "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+    "nome": "Júlia Aben-Athar"
+  },
+  "medicosClinicas": [
+    {
+      "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
+      "consulta": [Array
+      ],
+      "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+      "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07"
+    }
+  ]
 }

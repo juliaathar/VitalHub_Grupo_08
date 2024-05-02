@@ -11,29 +11,32 @@ import { Body, RenderInside } from "./Style"
 import { useEffect, useState } from "react"
 import { CardList } from "../Home/Style"
 import api from "../../service/service"
+import { userDecodeToken } from "../../utils/Auth"
+
 
 export const AgendarConsulta = ({ navigation, route }) => {
     //status da pagina
     const {nivel, localidade} = route.params || {};
-    const [status, setStatus] = useState("clínica");
+    const [profile, setProfile] = useState("");
+    const [status, setStatus] = useState("clínica"); //status define o titulo e tambem o conteudo da tela
 
     //chamados pela API
-    const [medicosLista, setMedicosLista] = useState(null)
-    const [clinicasLista, setClinicasLista] = useState(null)
-    const [dados, setDados] = useState([])
+    const [medicosLista, setMedicosLista] = useState(null); //lista de medicos
+    const [clinicasLista, setClinicasLista] = useState(null); //lista de clinicas
+    const [dados, setDados] = useState([]) //dados que serao usados para o cadastro
 
     //front-end
-    const [medicoSelected, setMedicoSelected] = useState("");//id do medico selecionado
-    const [clinicaSelected, setClinicaSelected] = useState("");//id da clinica selecionada
+    const [medicoSelected, setMedicoSelected] = useState(""); //id do medico selecionado
+    const [clinicaSelected, setClinicaSelected] = useState(""); //id da clinica selecionada
 
     //calendario e select
-    const [diaSelected, setDiaSelected] = useState("");//id do dia selecionada
-    const [consulModal, setConsulModal] = useState(false); //mudar para false
+    const [diaSelected, setDiaSelected] = useState(""); //id do dia selecionada
+    const [horaSelected, setHoraSelected] = useState("");
+    const [consulModal, setConsulModal] = useState(false); //mudar modal final de cadastro
 
     //traz os medicos da api
     async function ListarMedicos() {
         //Instanciar
-        console.log(clinicaSelected.id);
         await api.get(`/Medicos/BuscarPorIdClinica?id=${clinicaSelected.id}`)
             .then(async (response) => {
                 setMedicosLista(response.data)
@@ -52,28 +55,59 @@ export const AgendarConsulta = ({ navigation, route }) => {
             })
     }
 
+    async function ProfileLoad() {
+        const token = await userDecodeToken();
+
+        if (token) {
+            setProfile(token)
+        }
+    }
+
     //Reuni todos os dados para realizar a requisicao
     async function CompilarDados() {
+        const dataConsulta = `${diaSelected} ${horaSelected}`
 
         const dados = {
-            data: diaSelected,
+            dataConsulta: dataConsulta,
             medicoId: medicoSelected.id,
             nomeMedico: medicoSelected.idNavigation.nome,
             especialidade: medicoSelected.especialidade.especialidade1,
+            medicoClinica: medicoSelected.id,
             clinicaId: clinicaSelected.id,
             clinicaNome: clinicaSelected.nomeFantasia,
-            nivelId: nivel.id,
-            nivelLabel: nivel.prioridade,
+            prioridadeId: nivel.id,
+            prioridadeLabel: nivel.prioridade,
             localidade: localidade
         }
-         await setDados(dados)
-        console.log(dados);
+        await setDados(dados)
+        console.log(medicoSelected.id + "id de medico");
+        console.log(profile.user + "id do paciente");
+        //console.log(dados);
+    }
+
+    async function CadastrarConsulta() {
+        await api.post('/Consultas/Cadastrar', {
+            pacienteId : profile.user,
+            situacaoId : "791B5F13-EECA-4229-B751-712E702D8837",
+            medicoClinicaId : "",
+            prioridadeId : dados.prioridadeId,
+            dataConsulta : dados.dataConsulta,
+            descricao : "",
+            diagnostico : ""
+        })
+        .then( (response) => {
+            console.log(`Cadastro de consulta feita: ${response.status}`);
+            //console.log(response.data);
+        }).catch(error => {
+            console.log(`Erro no cadastro de consulta: ${error}`);
+        })
     }
 
 
     //atualiza as chamadas
     useEffect(() => {
         ListarClinicas()
+        ProfileLoad()
     }, [])
 
     return (
@@ -116,6 +150,7 @@ export const AgendarConsulta = ({ navigation, route }) => {
                             ) : (
                                 <CalendarApp 
                                     setDiaSelected = {setDiaSelected}
+                                    setHoraSelected={setHoraSelected}
                                 />
                             )
                         }
@@ -172,9 +207,10 @@ export const AgendarConsulta = ({ navigation, route }) => {
 
             <ConsultationModal
                 visible={consulModal}
-                onRequestClose={() => setConsulModal(false)}
+                onRequestClose={() => (setConsulModal(false))}
                 navigation={navigation}
                 dados={dados}
+                onPress={CadastrarConsulta()}
             />
         </>
     )

@@ -10,7 +10,8 @@ export const ConsultationModal = ({
     onRequestClose,
     visible,
     navigation,
-    dados
+    dados,
+    onPress
 }) => {
     return (
         <ModalForm
@@ -25,7 +26,7 @@ export const ConsultationModal = ({
             <ModalBody>
                 <BoxData>
                     <BoxTitle>Data da consulta</BoxTitle>
-                    <BoxText>{dados.data ? moment(dados.data).format("DD/MM/YYYY") : "selecione uma data"}</BoxText>
+                    <BoxText>{dados.data ? moment(dados.data).format("DD/MM/YYYY hh:mm") : "selecione uma data"}</BoxText>
                 </BoxData>
                 <BoxData>
                     <BoxTitle>Médico(a) da consulta</BoxTitle>
@@ -34,18 +35,19 @@ export const ConsultationModal = ({
                 </BoxData>
                 <BoxData>
                     <BoxTitle>Local da consulta</BoxTitle>
+                    <BoxText>Clinica {dados.clinicaNome ? dados.clinicaNome : ""}</BoxText>
                     <BoxText>{dados.localidade ? dados.localidade : ""}</BoxText>
                 </BoxData>
                 <BoxData>
                     <BoxTitle>Tipo da consulta</BoxTitle>
-                    <BoxText>{dados.nivelLabel ? dados.nivelLabel : ""}</BoxText>
+                    <BoxText>{dados.prioridadeLabel ? dados.prioridadeLabel : ""}</BoxText>
                 </BoxData>
             </ModalBody>
 
             <NormalButton
                 title={"Confirmar"}
                 fieldWidth={80}
-                onPress={() => navigation.replace("Main")}
+                onPress={onPress}
             />
             <TouchableOpacity onPress={onRequestClose} style={{ marginBottom: 25 }}>
                 <LinkMedium>Cancelar</LinkMedium>
