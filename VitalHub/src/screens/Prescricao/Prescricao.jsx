@@ -21,20 +21,33 @@ export const Prescricao = ({ navigation, route }) => {
     const [modalPhoto, setModalPhoto] = useState(false);
     const [modalUri, setModalUri] = useState('');
     const [photoTaked, setPhotoTaked] = useState(false)
+    const [descricao, setDescricao] = useState("")
     const [photos, setPhotos] = useState([]);
 
-    const [novoProntuario, setNovoProntuario] = useState(false)
+    const [novoProntuario, setNovoProntuario] = useState()
+    const [novoExame, setNovoExame] = useState()
 
     async function ConsultaGet() {
         await api.get(`/Consultas/BuscarPorId?id=${id}`)
         .then( async response => {
-            console.log("Consulta get");
-            console.log(JSON.stringify(response.data));
+            //console.log("Consulta get");
+            //console.log("consultas ------------------------------------------------------------------------------- " + JSON.stringify(response.data));
             await setNovoProntuario(response.data);
+            arrayOCR()
         })
         .catch(error => {
             console.log(`Erro em ConsultaGet: ${error}`);
         })
+
+        // await api.get(`/Exame/BuscarPorIdConsulta?id=${id}`)
+        // .then(async response => {
+        //     console.log("exames------------------------------------------------------------------------------- " + JSON.stringify(response.data))
+        //     await setNovoExame(response.data)
+        //     console.log(novoExame);
+        // })
+        // .catch(error => {
+        //     console.log(error);
+        // })
     }
     
     const getUserPhoto = () => {
@@ -53,15 +66,16 @@ export const Prescricao = ({ navigation, route }) => {
             name: `image.${photoUri.split('.').pop()}`,
             type: `image/${photoUri.split('.').pop()}`
         });
-
+        console.log(formData);
         await api.post(`/Exame/Cadastrar`, formData, {
             headers: {
                 "Content-Type" : "multipart/form-data"
             }
         }).then(response =>{
             setDescricao(descricao + '\n' + response.data.descricao)
+            console.log(response.status);
         }).catch(error => {
-            console.log(error);
+            console.log(error + " inserir exames deu errado ");
         })
     }
     useEffect(() => {
@@ -77,6 +91,15 @@ export const Prescricao = ({ navigation, route }) => {
             InserirExame()
         }
     }, [photoUri]);
+
+    function arrayOCR() {
+        const compr = novoProntuario ? novoProntuario.exames : "length"
+        for (let index = 0; index < compr.length; index++) {
+
+            const element = compr[index];
+            console.log(element.descricao);
+        }
+    }
 
 
     return (
@@ -147,7 +170,11 @@ export const Prescricao = ({ navigation, route }) => {
                     <FormField 
                         fieldWidth={90} 
                         labelText="" 
-                        fieldValue={"Resultado do exame de sangue : tudo normal"} 
+                        fieldValue={novoProntuario ? 
+                            novoProntuario.exames[0].descricao
+                            : 
+                            "nada"
+                    } 
                     />
 
                     <TouchableOpacity style={{ marginBottom: 15, marginTop: 15 }} onPress={() => navigation.replace('Main')}>
