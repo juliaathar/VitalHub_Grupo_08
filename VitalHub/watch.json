@@ -1,24 +1,916 @@
-{
-  "crm": "123123123",
-  "especialidade": {
-    "especialidade1": "Psiquiatra",
-    "id": "f737e0b7-3936-4346-a83b-94edaa3f7992",
-    "medicos": []
-  },
-  "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
-  "idNavigation": {
-    "email": "julia@gmail.com",
-    "foto": "https://blobvitalhub08.blob.core.windows.net/blobvitalhubcontainer/d0e52f0cf35c489aabf0de188a0644de.jpg",
-    "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
-    "nome": "Júlia Aben-Athar"
-  },
-  "medicosClinicas": [
-    {
-      "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
-      "consulta": [Array
-      ],
+[
+  {
+    "id": "2201f413-195e-4a39-a6c6-240526aaafef",
+    "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+    "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+    "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+    "prioridadeId": "34065edc-cb48-4045-82fb-949dae435dc9",
+    "dataConsulta": "2024-05-12T17:00:00",
+    "descricao": "",
+    "diagnostico": "",
+    "exames": [],
+    "medicoClinica": {
       "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
-      "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07"
+      "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
+      "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+      "consulta": [
+        {
+          "id": "4dc680e2-41fa-438c-9e79-7b7d9161b048",
+          "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe",
+          "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+          "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+          "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+          "dataConsulta": "2024-05-04T13:00:00",
+          "descricao": "",
+          "diagnostico": "",
+          "exames": []
+        },
+        {
+          "id": "a4e40d38-c12d-4feb-803d-7dd507e4217b",
+          "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+          "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+          "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+          "prioridadeId": "34065edc-cb48-4045-82fb-949dae435dc9",
+          "dataConsulta": "2024-05-04T14:00:00",
+          "descricao": "",
+          "diagnostico": "",
+          "exames": [],
+          "prioridade": {
+            "id": "34065edc-cb48-4045-82fb-949dae435dc9",
+            "prioridade": 3,
+            "consulta": []
+          },
+          "situacao": {
+            "id": "791b5f13-eeca-4229-b751-712e702d8837",
+            "situacao": "Pendente",
+            "consulta": [
+              {
+                "id": "ccd72450-048c-4bc2-a721-9ff76ef5ecf5",
+                "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-04-04T12:00:00",
+                "descricao": "Nada",
+                "diagnostico": "Frescura",
+                "exames": []
+              },
+              {
+                "id": "fd0a9df4-0532-4e6d-824a-a84d15e2b43f",
+                "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-05-31T13:00:00",
+                "descricao": "",
+                "diagnostico": "",
+                "exames": []
+              }
+            ]
+          }
+        },
+        {
+          "id": "ccd72450-048c-4bc2-a721-9ff76ef5ecf5",
+          "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+          "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+          "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+          "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+          "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+          "dataConsulta": "2024-04-04T12:00:00",
+          "descricao": "Nada",
+          "diagnostico": "Frescura",
+          "exames": [],
+          "situacao": {
+            "id": "791b5f13-eeca-4229-b751-712e702d8837",
+            "situacao": "Pendente",
+            "consulta": [
+              {
+                "id": "a4e40d38-c12d-4feb-803d-7dd507e4217b",
+                "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "prioridadeId": "34065edc-cb48-4045-82fb-949dae435dc9",
+                "dataConsulta": "2024-05-04T14:00:00",
+                "descricao": "",
+                "diagnostico": "",
+                "exames": [],
+                "prioridade": {
+                  "id": "34065edc-cb48-4045-82fb-949dae435dc9",
+                  "prioridade": 3,
+                  "consulta": []
+                }
+              },
+              {
+                "id": "fd0a9df4-0532-4e6d-824a-a84d15e2b43f",
+                "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-05-31T13:00:00",
+                "descricao": "",
+                "diagnostico": "",
+                "exames": []
+              }
+            ]
+          }
+        },
+        {
+          "id": "fd0a9df4-0532-4e6d-824a-a84d15e2b43f",
+          "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+          "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+          "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+          "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+          "dataConsulta": "2024-05-31T13:00:00",
+          "descricao": "",
+          "diagnostico": "",
+          "exames": [],
+          "situacao": {
+            "id": "791b5f13-eeca-4229-b751-712e702d8837",
+            "situacao": "Pendente",
+            "consulta": [
+              {
+                "id": "a4e40d38-c12d-4feb-803d-7dd507e4217b",
+                "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "prioridadeId": "34065edc-cb48-4045-82fb-949dae435dc9",
+                "dataConsulta": "2024-05-04T14:00:00",
+                "descricao": "",
+                "diagnostico": "",
+                "exames": [],
+                "prioridade": {
+                  "id": "34065edc-cb48-4045-82fb-949dae435dc9",
+                  "prioridade": 3,
+                  "consulta": []
+                }
+              },
+              {
+                "id": "ccd72450-048c-4bc2-a721-9ff76ef5ecf5",
+                "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-04-04T12:00:00",
+                "descricao": "Nada",
+                "diagnostico": "Frescura",
+                "exames": []
+              }
+            ]
+          }
+        },
+        {
+          "id": "482f0d30-c6b4-4d59-a302-c2b465a1170c",
+          "situacaoId": "46a56a8b-d8a9-4e53-a6a6-7850ac222142",
+          "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+          "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+          "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+          "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+          "dataConsulta": "2024-04-04T12:00:00",
+          "descricao": "descricao",
+          "diagnostico": "diagnostico",
+          "exames": []
+        },
+        {
+          "id": "45a8b1b5-caaf-4045-ab3e-ec82af9e594a",
+          "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe",
+          "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+          "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+          "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+          "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+          "dataConsulta": "2024-04-04T12:00:00",
+          "descricao": "Nada",
+          "diagnostico": "Frescura",
+          "exames": []
+        },
+        {
+          "id": "8c47e2cc-ef60-4c98-8889-f104602fa706",
+          "situacaoId": "46a56a8b-d8a9-4e53-a6a6-7850ac222142",
+          "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+          "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+          "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+          "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+          "dataConsulta": "2024-04-04T12:00:00",
+          "descricao": "Nada",
+          "diagnostico": "Frescura",
+          "exames": []
+        }
+      ],
+      "medico": {
+        "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+        "especialidadeId": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+        "crm": "123123123",
+        "enderecoId": "085598ed-3703-49ba-bbd6-7d8e27258d0b",
+        "especialidade": {
+          "id": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+          "especialidade1": "Psiquiatra",
+          "medicos": []
+        },
+        "idNavigation": {
+          "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+          "tipoUsuarioId": "4d3c8067-250d-48a2-980f-d7f0a454ee82",
+          "nome": "Júlia Aben-Athar",
+          "email": "julia@gmail.com",
+          "senha": "$2a$11$uGlXnnbmVZb4lPw.6t.zzuOggrmR.Zx.ZpUp7LUaL4YhFROA0dl6u",
+          "foto": "https://blobvitalhub08.blob.core.windows.net/blobvitalhubcontainer/d0e52f0cf35c489aabf0de188a0644de.jpg"
+        },
+        "medicosClinicas": []
+      }
+    },
+    "prioridade": {
+      "id": "34065edc-cb48-4045-82fb-949dae435dc9",
+      "prioridade": 3,
+      "consulta": [
+        {
+          "id": "a4e40d38-c12d-4feb-803d-7dd507e4217b",
+          "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+          "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+          "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+          "prioridadeId": "34065edc-cb48-4045-82fb-949dae435dc9",
+          "dataConsulta": "2024-05-04T14:00:00",
+          "descricao": "",
+          "diagnostico": "",
+          "exames": [],
+          "medicoClinica": {
+            "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+            "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
+            "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+            "consulta": [
+              {
+                "id": "4dc680e2-41fa-438c-9e79-7b7d9161b048",
+                "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-05-04T13:00:00",
+                "descricao": "",
+                "diagnostico": "",
+                "exames": []
+              },
+              {
+                "id": "ccd72450-048c-4bc2-a721-9ff76ef5ecf5",
+                "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-04-04T12:00:00",
+                "descricao": "Nada",
+                "diagnostico": "Frescura",
+                "exames": [],
+                "situacao": {
+                  "id": "791b5f13-eeca-4229-b751-712e702d8837",
+                  "situacao": "Pendente",
+                  "consulta": [
+                    {
+                      "id": "fd0a9df4-0532-4e6d-824a-a84d15e2b43f",
+                      "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                      "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                      "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                      "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                      "dataConsulta": "2024-05-31T13:00:00",
+                      "descricao": "",
+                      "diagnostico": "",
+                      "exames": []
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "fd0a9df4-0532-4e6d-824a-a84d15e2b43f",
+                "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-05-31T13:00:00",
+                "descricao": "",
+                "diagnostico": "",
+                "exames": [],
+                "situacao": {
+                  "id": "791b5f13-eeca-4229-b751-712e702d8837",
+                  "situacao": "Pendente",
+                  "consulta": [
+                    {
+                      "id": "ccd72450-048c-4bc2-a721-9ff76ef5ecf5",
+                      "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                      "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                      "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                      "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                      "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                      "dataConsulta": "2024-04-04T12:00:00",
+                      "descricao": "Nada",
+                      "diagnostico": "Frescura",
+                      "exames": []
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "482f0d30-c6b4-4d59-a302-c2b465a1170c",
+                "situacaoId": "46a56a8b-d8a9-4e53-a6a6-7850ac222142",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-04-04T12:00:00",
+                "descricao": "descricao",
+                "diagnostico": "diagnostico",
+                "exames": []
+              },
+              {
+                "id": "45a8b1b5-caaf-4045-ab3e-ec82af9e594a",
+                "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-04-04T12:00:00",
+                "descricao": "Nada",
+                "diagnostico": "Frescura",
+                "exames": []
+              },
+              {
+                "id": "8c47e2cc-ef60-4c98-8889-f104602fa706",
+                "situacaoId": "46a56a8b-d8a9-4e53-a6a6-7850ac222142",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-04-04T12:00:00",
+                "descricao": "Nada",
+                "diagnostico": "Frescura",
+                "exames": []
+              }
+            ],
+            "medico": {
+              "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+              "especialidadeId": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+              "crm": "123123123",
+              "enderecoId": "085598ed-3703-49ba-bbd6-7d8e27258d0b",
+              "especialidade": {
+                "id": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+                "especialidade1": "Psiquiatra",
+                "medicos": []
+              },
+              "idNavigation": {
+                "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+                "tipoUsuarioId": "4d3c8067-250d-48a2-980f-d7f0a454ee82",
+                "nome": "Júlia Aben-Athar",
+                "email": "julia@gmail.com",
+                "senha": "$2a$11$uGlXnnbmVZb4lPw.6t.zzuOggrmR.Zx.ZpUp7LUaL4YhFROA0dl6u",
+                "foto": "https://blobvitalhub08.blob.core.windows.net/blobvitalhubcontainer/d0e52f0cf35c489aabf0de188a0644de.jpg"
+              },
+              "medicosClinicas": []
+            }
+          },
+          "situacao": {
+            "id": "791b5f13-eeca-4229-b751-712e702d8837",
+            "situacao": "Pendente",
+            "consulta": [
+              {
+                "id": "ccd72450-048c-4bc2-a721-9ff76ef5ecf5",
+                "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-04-04T12:00:00",
+                "descricao": "Nada",
+                "diagnostico": "Frescura",
+                "exames": [],
+                "medicoClinica": {
+                  "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                  "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
+                  "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+                  "consulta": [
+                    {
+                      "id": "4dc680e2-41fa-438c-9e79-7b7d9161b048",
+                      "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe",
+                      "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                      "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                      "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                      "dataConsulta": "2024-05-04T13:00:00",
+                      "descricao": "",
+                      "diagnostico": "",
+                      "exames": []
+                    },
+                    {
+                      "id": "fd0a9df4-0532-4e6d-824a-a84d15e2b43f",
+                      "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                      "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                      "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                      "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                      "dataConsulta": "2024-05-31T13:00:00",
+                      "descricao": "",
+                      "diagnostico": "",
+                      "exames": []
+                    },
+                    {
+                      "id": "482f0d30-c6b4-4d59-a302-c2b465a1170c",
+                      "situacaoId": "46a56a8b-d8a9-4e53-a6a6-7850ac222142",
+                      "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                      "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                      "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                      "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                      "dataConsulta": "2024-04-04T12:00:00",
+                      "descricao": "descricao",
+                      "diagnostico": "diagnostico",
+                      "exames": []
+                    },
+                    {
+                      "id": "45a8b1b5-caaf-4045-ab3e-ec82af9e594a",
+                      "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe",
+                      "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                      "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                      "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                      "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                      "dataConsulta": "2024-04-04T12:00:00",
+                      "descricao": "Nada",
+                      "diagnostico": "Frescura",
+                      "exames": []
+                    },
+                    {
+                      "id": "8c47e2cc-ef60-4c98-8889-f104602fa706",
+                      "situacaoId": "46a56a8b-d8a9-4e53-a6a6-7850ac222142",
+                      "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                      "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                      "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                      "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                      "dataConsulta": "2024-04-04T12:00:00",
+                      "descricao": "Nada",
+                      "diagnostico": "Frescura",
+                      "exames": []
+                    }
+                  ],
+                  "medico": {
+                    "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+                    "especialidadeId": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+                    "crm": "123123123",
+                    "enderecoId": "085598ed-3703-49ba-bbd6-7d8e27258d0b",
+                    "especialidade": {
+                      "id": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+                      "especialidade1": "Psiquiatra",
+                      "medicos": []
+                    },
+                    "idNavigation": {
+                      "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+                      "tipoUsuarioId": "4d3c8067-250d-48a2-980f-d7f0a454ee82",
+                      "nome": "Júlia Aben-Athar",
+                      "email": "julia@gmail.com",
+                      "senha": "$2a$11$uGlXnnbmVZb4lPw.6t.zzuOggrmR.Zx.ZpUp7LUaL4YhFROA0dl6u",
+                      "foto": "https://blobvitalhub08.blob.core.windows.net/blobvitalhubcontainer/d0e52f0cf35c489aabf0de188a0644de.jpg"
+                    },
+                    "medicosClinicas": []
+                  }
+                }
+              },
+              {
+                "id": "fd0a9df4-0532-4e6d-824a-a84d15e2b43f",
+                "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-05-31T13:00:00",
+                "descricao": "",
+                "diagnostico": "",
+                "exames": [],
+                "medicoClinica": {
+                  "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                  "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
+                  "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+                  "consulta": [
+                    {
+                      "id": "4dc680e2-41fa-438c-9e79-7b7d9161b048",
+                      "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe",
+                      "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                      "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                      "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                      "dataConsulta": "2024-05-04T13:00:00",
+                      "descricao": "",
+                      "diagnostico": "",
+                      "exames": []
+                    },
+                    {
+                      "id": "ccd72450-048c-4bc2-a721-9ff76ef5ecf5",
+                      "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                      "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                      "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                      "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                      "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                      "dataConsulta": "2024-04-04T12:00:00",
+                      "descricao": "Nada",
+                      "diagnostico": "Frescura",
+                      "exames": []
+                    },
+                    {
+                      "id": "482f0d30-c6b4-4d59-a302-c2b465a1170c",
+                      "situacaoId": "46a56a8b-d8a9-4e53-a6a6-7850ac222142",
+                      "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                      "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                      "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                      "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                      "dataConsulta": "2024-04-04T12:00:00",
+                      "descricao": "descricao",
+                      "diagnostico": "diagnostico",
+                      "exames": []
+                    },
+                    {
+                      "id": "45a8b1b5-caaf-4045-ab3e-ec82af9e594a",
+                      "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe",
+                      "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                      "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                      "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                      "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                      "dataConsulta": "2024-04-04T12:00:00",
+                      "descricao": "Nada",
+                      "diagnostico": "Frescura",
+                      "exames": []
+                    },
+                    {
+                      "id": "8c47e2cc-ef60-4c98-8889-f104602fa706",
+                      "situacaoId": "46a56a8b-d8a9-4e53-a6a6-7850ac222142",
+                      "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                      "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                      "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                      "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                      "dataConsulta": "2024-04-04T12:00:00",
+                      "descricao": "Nada",
+                      "diagnostico": "Frescura",
+                      "exames": []
+                    }
+                  ],
+                  "medico": {
+                    "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+                    "especialidadeId": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+                    "crm": "123123123",
+                    "enderecoId": "085598ed-3703-49ba-bbd6-7d8e27258d0b",
+                    "especialidade": {
+                      "id": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+                      "especialidade1": "Psiquiatra",
+                      "medicos": []
+                    },
+                    "idNavigation": {
+                      "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+                      "tipoUsuarioId": "4d3c8067-250d-48a2-980f-d7f0a454ee82",
+                      "nome": "Júlia Aben-Athar",
+                      "email": "julia@gmail.com",
+                      "senha": "$2a$11$uGlXnnbmVZb4lPw.6t.zzuOggrmR.Zx.ZpUp7LUaL4YhFROA0dl6u",
+                      "foto": "https://blobvitalhub08.blob.core.windows.net/blobvitalhubcontainer/d0e52f0cf35c489aabf0de188a0644de.jpg"
+                    },
+                    "medicosClinicas": []
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "situacao": {
+      "id": "791b5f13-eeca-4229-b751-712e702d8837",
+      "situacao": "Pendente",
+      "consulta": [
+        {
+          "id": "a4e40d38-c12d-4feb-803d-7dd507e4217b",
+          "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+          "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+          "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+          "prioridadeId": "34065edc-cb48-4045-82fb-949dae435dc9",
+          "dataConsulta": "2024-05-04T14:00:00",
+          "descricao": "",
+          "diagnostico": "",
+          "exames": [],
+          "medicoClinica": {
+            "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+            "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
+            "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+            "consulta": [
+              {
+                "id": "4dc680e2-41fa-438c-9e79-7b7d9161b048",
+                "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-05-04T13:00:00",
+                "descricao": "",
+                "diagnostico": "",
+                "exames": []
+              },
+              {
+                "id": "ccd72450-048c-4bc2-a721-9ff76ef5ecf5",
+                "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-04-04T12:00:00",
+                "descricao": "Nada",
+                "diagnostico": "Frescura",
+                "exames": []
+              },
+              {
+                "id": "fd0a9df4-0532-4e6d-824a-a84d15e2b43f",
+                "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-05-31T13:00:00",
+                "descricao": "",
+                "diagnostico": "",
+                "exames": []
+              },
+              {
+                "id": "482f0d30-c6b4-4d59-a302-c2b465a1170c",
+                "situacaoId": "46a56a8b-d8a9-4e53-a6a6-7850ac222142",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-04-04T12:00:00",
+                "descricao": "descricao",
+                "diagnostico": "diagnostico",
+                "exames": []
+              },
+              {
+                "id": "45a8b1b5-caaf-4045-ab3e-ec82af9e594a",
+                "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-04-04T12:00:00",
+                "descricao": "Nada",
+                "diagnostico": "Frescura",
+                "exames": []
+              },
+              {
+                "id": "8c47e2cc-ef60-4c98-8889-f104602fa706",
+                "situacaoId": "46a56a8b-d8a9-4e53-a6a6-7850ac222142",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-04-04T12:00:00",
+                "descricao": "Nada",
+                "diagnostico": "Frescura",
+                "exames": []
+              }
+            ],
+            "medico": {
+              "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+              "especialidadeId": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+              "crm": "123123123",
+              "enderecoId": "085598ed-3703-49ba-bbd6-7d8e27258d0b",
+              "especialidade": {
+                "id": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+                "especialidade1": "Psiquiatra",
+                "medicos": []
+              },
+              "idNavigation": {
+                "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+                "tipoUsuarioId": "4d3c8067-250d-48a2-980f-d7f0a454ee82",
+                "nome": "Júlia Aben-Athar",
+                "email": "julia@gmail.com",
+                "senha": "$2a$11$uGlXnnbmVZb4lPw.6t.zzuOggrmR.Zx.ZpUp7LUaL4YhFROA0dl6u",
+                "foto": "https://blobvitalhub08.blob.core.windows.net/blobvitalhubcontainer/d0e52f0cf35c489aabf0de188a0644de.jpg"
+              },
+              "medicosClinicas": []
+            }
+          },
+          "prioridade": {
+            "id": "34065edc-cb48-4045-82fb-949dae435dc9",
+            "prioridade": 3,
+            "consulta": []
+          }
+        },
+        {
+          "id": "ccd72450-048c-4bc2-a721-9ff76ef5ecf5",
+          "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+          "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+          "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+          "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+          "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+          "dataConsulta": "2024-04-04T12:00:00",
+          "descricao": "Nada",
+          "diagnostico": "Frescura",
+          "exames": [],
+          "medicoClinica": {
+            "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+            "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
+            "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+            "consulta": [
+              {
+                "id": "4dc680e2-41fa-438c-9e79-7b7d9161b048",
+                "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-05-04T13:00:00",
+                "descricao": "",
+                "diagnostico": "",
+                "exames": []
+              },
+              {
+                "id": "a4e40d38-c12d-4feb-803d-7dd507e4217b",
+                "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "prioridadeId": "34065edc-cb48-4045-82fb-949dae435dc9",
+                "dataConsulta": "2024-05-04T14:00:00",
+                "descricao": "",
+                "diagnostico": "",
+                "exames": [],
+                "prioridade": {
+                  "id": "34065edc-cb48-4045-82fb-949dae435dc9",
+                  "prioridade": 3,
+                  "consulta": []
+                }
+              },
+              {
+                "id": "fd0a9df4-0532-4e6d-824a-a84d15e2b43f",
+                "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-05-31T13:00:00",
+                "descricao": "",
+                "diagnostico": "",
+                "exames": []
+              },
+              {
+                "id": "482f0d30-c6b4-4d59-a302-c2b465a1170c",
+                "situacaoId": "46a56a8b-d8a9-4e53-a6a6-7850ac222142",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-04-04T12:00:00",
+                "descricao": "descricao",
+                "diagnostico": "diagnostico",
+                "exames": []
+              },
+              {
+                "id": "45a8b1b5-caaf-4045-ab3e-ec82af9e594a",
+                "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-04-04T12:00:00",
+                "descricao": "Nada",
+                "diagnostico": "Frescura",
+                "exames": []
+              },
+              {
+                "id": "8c47e2cc-ef60-4c98-8889-f104602fa706",
+                "situacaoId": "46a56a8b-d8a9-4e53-a6a6-7850ac222142",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-04-04T12:00:00",
+                "descricao": "Nada",
+                "diagnostico": "Frescura",
+                "exames": []
+              }
+            ],
+            "medico": {
+              "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+              "especialidadeId": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+              "crm": "123123123",
+              "enderecoId": "085598ed-3703-49ba-bbd6-7d8e27258d0b",
+              "especialidade": {
+                "id": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+                "especialidade1": "Psiquiatra",
+                "medicos": []
+              },
+              "idNavigation": {
+                "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+                "tipoUsuarioId": "4d3c8067-250d-48a2-980f-d7f0a454ee82",
+                "nome": "Júlia Aben-Athar",
+                "email": "julia@gmail.com",
+                "senha": "$2a$11$uGlXnnbmVZb4lPw.6t.zzuOggrmR.Zx.ZpUp7LUaL4YhFROA0dl6u",
+                "foto": "https://blobvitalhub08.blob.core.windows.net/blobvitalhubcontainer/d0e52f0cf35c489aabf0de188a0644de.jpg"
+              },
+              "medicosClinicas": []
+            }
+          }
+        },
+        {
+          "id": "fd0a9df4-0532-4e6d-824a-a84d15e2b43f",
+          "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+          "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+          "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+          "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+          "dataConsulta": "2024-05-31T13:00:00",
+          "descricao": "",
+          "diagnostico": "",
+          "exames": [],
+          "medicoClinica": {
+            "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+            "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
+            "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+            "consulta": [
+              {
+                "id": "4dc680e2-41fa-438c-9e79-7b7d9161b048",
+                "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-05-04T13:00:00",
+                "descricao": "",
+                "diagnostico": "",
+                "exames": []
+              },
+              {
+                "id": "a4e40d38-c12d-4feb-803d-7dd507e4217b",
+                "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "prioridadeId": "34065edc-cb48-4045-82fb-949dae435dc9",
+                "dataConsulta": "2024-05-04T14:00:00",
+                "descricao": "",
+                "diagnostico": "",
+                "exames": [],
+                "prioridade": {
+                  "id": "34065edc-cb48-4045-82fb-949dae435dc9",
+                  "prioridade": 3,
+                  "consulta": []
+                }
+              },
+              {
+                "id": "ccd72450-048c-4bc2-a721-9ff76ef5ecf5",
+                "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-04-04T12:00:00",
+                "descricao": "Nada",
+                "diagnostico": "Frescura",
+                "exames": []
+              },
+              {
+                "id": "482f0d30-c6b4-4d59-a302-c2b465a1170c",
+                "situacaoId": "46a56a8b-d8a9-4e53-a6a6-7850ac222142",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-04-04T12:00:00",
+                "descricao": "descricao",
+                "diagnostico": "diagnostico",
+                "exames": []
+              },
+              {
+                "id": "45a8b1b5-caaf-4045-ab3e-ec82af9e594a",
+                "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-04-04T12:00:00",
+                "descricao": "Nada",
+                "diagnostico": "Frescura",
+                "exames": []
+              },
+              {
+                "id": "8c47e2cc-ef60-4c98-8889-f104602fa706",
+                "situacaoId": "46a56a8b-d8a9-4e53-a6a6-7850ac222142",
+                "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+                "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+                "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
+                "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
+                "dataConsulta": "2024-04-04T12:00:00",
+                "descricao": "Nada",
+                "diagnostico": "Frescura",
+                "exames": []
+              }
+            ],
+            "medico": {
+              "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+              "especialidadeId": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+              "crm": "123123123",
+              "enderecoId": "085598ed-3703-49ba-bbd6-7d8e27258d0b",
+              "especialidade": {
+                "id": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+                "especialidade1": "Psiquiatra",
+                "medicos": []
+              },
+              "idNavigation": {
+                "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+                "tipoUsuarioId": "4d3c8067-250d-48a2-980f-d7f0a454ee82",
+                "nome": "Júlia Aben-Athar",
+                "email": "julia@gmail.com",
+                "senha": "$2a$11$uGlXnnbmVZb4lPw.6t.zzuOggrmR.Zx.ZpUp7LUaL4YhFROA0dl6u",
+                "foto": "https://blobvitalhub08.blob.core.windows.net/blobvitalhubcontainer/d0e52f0cf35c489aabf0de188a0644de.jpg"
+              },
+              "medicosClinicas": []
+            }
+          }
+        }
+      ]
     }
-  ]
-}
+  }
+]

@@ -37,7 +37,7 @@ export const Perfil = ({ navigation, route }) => {
             if (info) { setUser(info.data) }
 
             console.log(user.nome + " linha 41");
-
+            console.log(info);
         }
         catch (error) {
             return console.log(`erro ${error}`);

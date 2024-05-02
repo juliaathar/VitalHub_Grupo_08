@@ -5,7 +5,7 @@ import { Fontisto } from '@expo/vector-icons';
 export const ConsultationData = ({
     situacao = "",
     nome = "Beta Tester",
-    idade = 20,
+    idade = "...",
     tipoConsulta = "Rotina",
     hora = "14:00",
     onPressCancel,
@@ -24,8 +24,20 @@ export const ConsultationData = ({
     function Consulta(tipo) {
         tipoConsulta = "Indefinido"
 
-        if (tipo <= 2) {
-            tipo == 0 ? tipoConsulta = "Rotina" : tipo == 1 ?  tipoConsulta = "Exame" : tipoConsulta = "Urgência";
+        switch (tipo) {
+            case 1:
+                tipoConsulta = "Rotina"
+                break;
+            case 2:
+                tipoConsulta = "Exame"
+                break;
+            case 3:
+                tipoConsulta = "Urgência"
+                break;
+        
+            default:
+                tipoConsulta = "Indefinido"
+                break;
         }
         return tipoConsulta;
     }
@@ -43,8 +55,8 @@ export const ConsultationData = ({
                     <InfoBox>
                         <Name>{wordBreak(nome)}</Name>
                         <Data>
-                            <Age>{idade} anos</Age>
-                            <Fontisto name="ellipse" size={7} color="#D9D9D9"/>
+                            <Age>{idade != "In" ? idade : "∞"} anos</Age>
+                            <Fontisto name="ellipse" size={8} color="#D9D9D9"/>
                             <TypeConsul>{Consulta(tipoConsulta)}</TypeConsul>
                         </Data>
                     </InfoBox>

@@ -98,9 +98,11 @@ export const Age = styled.Text`
     font-family: "Quicksand_500Medium";
     font-size: 14px;
     color: #8C8A97;
+    margin-right: 10px;
 `
 export const TypeConsul = styled.Text`
     font-family: "Quicksand_600SemiBold";
     font-size: 14px;
     color: #8C8A97;
+    margin-left: 10px;
 `

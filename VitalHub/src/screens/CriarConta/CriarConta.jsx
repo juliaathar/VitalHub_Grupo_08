@@ -17,11 +17,12 @@ export const CriarConta = ({ navigation }) => {
 
     async function cadastrarUsuario() {
         const cadastro = {
-            nome,
-            senha,
-            email,
+            nome : nome,
+            senha : senha,
+            email : email,
             idTipoUsuario: '5FF2DF57-1B92-49D0-A516-F2B1172A0EDC'
         }
+        console.log(cadastro);
 
         try {
             if (senha === confirm) {
@@ -48,10 +49,10 @@ export const CriarConta = ({ navigation }) => {
 
             <Paragraph>Insira seu endereço de e-mail e senha para realizar seu cadastro.</Paragraph>
 
-            <Input placeholder="Nome" value={nome} onChangeText={setNome} />
-            <Input placeholder="E-mail" value={email} onChangeText={setEmail} />
-            <Input placeholder="Senha" value={senha} onChangeText={setSenha} />
-            <Input placeholder="Confirmar Senha" value={confirm} onChangeText={setConfirm} />
+            <Input placeholder="Nome" value={nome} onChangeText={(nameInput) => setNome(nameInput)} />
+            <Input placeholder="E-mail" value={email} onChangeText={(emailInput) => setEmail(emailInput)} />
+            <Input placeholder="Senha" value={senha} onChangeText={(senhaInput) => setSenha(senhaInput)} />
+            <Input placeholder="Confirmar Senha" value={confirm} onChangeText={(confirmInput) => setConfirm(confirmInput)} />
 
             <NormalButton title={"Cadastrar"} fieldWidth={90} onPress={cadastrarUsuario} />
 

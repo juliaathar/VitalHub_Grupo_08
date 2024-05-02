@@ -80,8 +80,8 @@ export const AgendarConsulta = ({ navigation, route }) => {
             localidade: localidade
         }
         await setDados(dados)
-        console.log(medicoSelected.id + "id de medico");
-        console.log(profile.user + "id do paciente");
+        console.log(medicoSelected.id + " id de medico");
+        console.log(profile.user + " id do paciente");
         //console.log(dados);
     }
 
@@ -89,7 +89,7 @@ export const AgendarConsulta = ({ navigation, route }) => {
         await api.post('/Consultas/Cadastrar', {
             pacienteId : profile.user,
             situacaoId : "791B5F13-EECA-4229-B751-712E702D8837",
-            medicoClinicaId : "",
+            medicoClinicaId : dados.medicoClinica,
             prioridadeId : dados.prioridadeId,
             dataConsulta : dados.dataConsulta,
             descricao : "",
@@ -98,6 +98,7 @@ export const AgendarConsulta = ({ navigation, route }) => {
         .then( (response) => {
             console.log(`Cadastro de consulta feita: ${response.status}`);
             //console.log(response.data);
+            navigation.replace("Main")
         }).catch(error => {
             console.log(`Erro no cadastro de consulta: ${error}`);
         })
@@ -210,7 +211,7 @@ export const AgendarConsulta = ({ navigation, route }) => {
                 onRequestClose={() => (setConsulModal(false))}
                 navigation={navigation}
                 dados={dados}
-                onPress={CadastrarConsulta()}
+                onPress={() => CadastrarConsulta()}
             />
         </>
     )

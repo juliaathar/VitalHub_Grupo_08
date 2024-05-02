@@ -26,7 +26,7 @@ export const ConsultationModal = ({
             <ModalBody>
                 <BoxData>
                     <BoxTitle>Data da consulta</BoxTitle>
-                    <BoxText>{dados.data ? moment(dados.data).format("DD/MM/YYYY hh:mm") : "selecione uma data"}</BoxText>
+                    <BoxText>{dados.dataConsulta ? moment(dados.dataConsulta).format("DD/MM/YYYY hh:mm") : "selecione uma data"}</BoxText>
                 </BoxData>
                 <BoxData>
                     <BoxTitle>Médico(a) da consulta</BoxTitle>

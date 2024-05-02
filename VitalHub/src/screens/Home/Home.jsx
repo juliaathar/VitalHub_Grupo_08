@@ -104,8 +104,8 @@ export const Home = ({ navigation }) => {
         await api.get(`/${url}/BuscarPorData?data=${diaSelecionado}&id=${profile.user}`)
             .then(async response => {
                 await setConsultas(response.data);
-                console.log(`consultas, exito: ${consultas}`);
-                console.log(response.data);
+                console.log(`consultas, exito:`);
+                console.log(response.data); 
             }).catch(error => {
                 console.log("consultas, erro: " + error);
                 //console.log(error);
@@ -188,6 +188,7 @@ export const Home = ({ navigation }) => {
                                 <ConsultationData
                                     situacao={item.situacao.situacao}
                                     nome={profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.nome) : (item.paciente.idNavigation.nome)}
+                                    //idade={profile.role == "Paciente" ? console.log(item.medicoClinica.medico.idNavigation.dataNascimento + " Paciente") : console.log(item.paciente.dataNascimento  + " Medico")}
                                     idade={moment( profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.dataNascimento) : (item.paciente.dataNascimento), "YYYYMMDD").fromNow().slice(0, 2)}
                                     hora={(item.dataConsulta).slice(11,16)}
                                     tipoConsulta={item.prioridade.prioridade}

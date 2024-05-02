@@ -104,7 +104,7 @@ export const Prescricao = ({ navigation, route }) => {
                     <FormField 
                         fieldWidth={90} 
                         labelText="Prescrição médica" 
-                        fieldValue={novoProntuario ? novoProntuario.receita.medicamento : "vazio"}
+                        fieldValue={novoProntuario &&  novoProntuario.receita && novoProntuario.receita.medicamento || "vazio"}
                     />
 
 
