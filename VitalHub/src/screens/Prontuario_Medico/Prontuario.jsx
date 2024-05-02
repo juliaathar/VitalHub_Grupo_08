@@ -18,7 +18,7 @@ export const Prontuario = ({ navigation, route }) => {
 
     const [descricao, setDescricao] = useState(consulta.descricao || '');
     const [diagnostico, setDiagnostico] = useState(consulta.diagnostico || '');
-    const [prescricao, setPrescricao] = useState(consulta.receita.medicamento);
+    const [prescricao, setPrescricao] = useState(consulta.receita.medicamento || '');
 
     const [formEdit, setFormEdit] = useState(false);
     const [novoProntuario, setNovoProntuario] = useState({});

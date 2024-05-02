@@ -27,16 +27,16 @@ export const Prescricao = ({ navigation, route }) => {
 
     async function ConsultaGet() {
         await api.get(`/Consultas/BuscarPorId?id=${id}`)
-        .then( async response => {
-            console.log("Consulta get");
-            console.log(JSON.stringify(response.data));
-            await setNovoProntuario(response.data);
-        })
-        .catch(error => {
-            console.log(`Erro em ConsultaGet: ${error}`);
-        })
+            .then(async response => {
+                // console.log("Consulta get");
+                // console.log(JSON.stringify(response.data));
+                await setNovoProntuario(response.data);
+            })
+            .catch(error => {
+                console.log(`Erro em ConsultaGet: ${error}`);
+            })
     }
-    
+
     const getUserPhoto = () => {
         if (novoProntuario) {
             return { uri: novoProntuario.medicoClinica.medico.idNavigation.foto };
@@ -56,16 +56,19 @@ export const Prescricao = ({ navigation, route }) => {
 
         await api.post(`/Exame/Cadastrar`, formData, {
             headers: {
-                "Content-Type" : "multipart/form-data"
+                "Content-Type": "multipart/form-data"
             }
-        }).then(response =>{
+        }).then(response => {
             setDescricao(descricao + '\n' + response.data.descricao)
         }).catch(error => {
             console.log(error);
         })
     }
+
     useEffect(() => {
         ConsultaGet();
+        console.log("-----------------------------------------------------------------------------------------------------------");
+        console.log(novoProntuario);
     }, [])
 
     useEffect(() => {
@@ -85,26 +88,26 @@ export const Prescricao = ({ navigation, route }) => {
                 <ProfilePic source={getUserPhoto()} />
 
                 <Container>
-                    <Title style={{marginTop : 15}}>{novoProntuario ? novoProntuario.medicoClinica.medico.idNavigation.nome : "vazio"}</Title>
+                    <Title style={{ marginTop: 15 }}>{novoProntuario ? novoProntuario.medicoClinica.medico.idNavigation.nome : "vazio"}</Title>
                     <Line>
                         <Paragraph>{novoProntuario ? novoProntuario.medicoClinica.medico.especialidade.especialidade1 : "vazio"}</Paragraph>
                         <Paragraph>{novoProntuario ? novoProntuario.medicoClinica.medico.crm : "vazio"}</Paragraph>
                     </Line>
 
-                    <FormField 
-                        fieldWidth={90} 
-                        labelText="Descrição da consulta" 
+                    <FormField
+                        fieldWidth={90}
+                        labelText="Descrição da consulta"
                         fieldValue={novoProntuario ? novoProntuario.descricao : "vazio"}
                     />
-                    <FormField 
-                        fieldWidth={90} 
-                        labelText="Diagnóstico do paciente" 
+                    <FormField
+                        fieldWidth={90}
+                        labelText="Diagnóstico do paciente"
                         fieldValue={novoProntuario ? novoProntuario.diagnostico : "vazio"}
                     />
-                    <FormField 
-                        fieldWidth={90} 
-                        labelText="Prescrição médica" 
-                        fieldValue={novoProntuario ? novoProntuario.receita.medicamento : "vazio"}
+                    <FormField
+                        fieldWidth={90}
+                        labelText="Prescrição médica"
+                        fieldValue={novoProntuario && novoProntuario.receita && novoProntuario.receita.medicamento || "vazio"}
                     />
 
 
@@ -132,7 +135,7 @@ export const Prescricao = ({ navigation, route }) => {
                     </FormPhoto>
 
                     <OptionLine>
-                        <PhotoButton onPress={() => navigation.navigate('CameraScreen', {Tela : "Prescricao"})}>
+                        <PhotoButton onPress={() => navigation.navigate('CameraScreen', { Tela: "Prescricao" })}>
                             <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
                             <TextButton>Enviar</TextButton>
                         </PhotoButton>
@@ -142,12 +145,12 @@ export const Prescricao = ({ navigation, route }) => {
                         </CancelarButton>
                     </OptionLine>
 
-                    <DecorLine/>
+                    <DecorLine />
 
-                    <FormField 
-                        fieldWidth={90} 
-                        labelText="" 
-                        fieldValue={"Resultado do exame de sangue : tudo normal"} 
+                    <FormField
+                        fieldWidth={90}
+                        labelText=""
+                        fieldValue={"Resultado do exame de sangue : tudo normal"}
                     />
 
                     <TouchableOpacity style={{ marginBottom: 15, marginTop: 15 }} onPress={() => navigation.replace('Main')}>
