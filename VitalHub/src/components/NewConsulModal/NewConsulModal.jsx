@@ -20,7 +20,7 @@ export const NewConsulModal = ({
 }) => {
 
     const [nivel, setNivel] = useState({id: "ADD341BE-8E85-40F1-BCA3-71C72A1585D3", prioridade: "Rotina" })
-    const [localidade, setLocalidade] = useState()
+    const [localidade, setLocalidade] = useState("")
 
 
     const select = [
@@ -101,7 +101,11 @@ export const NewConsulModal = ({
                 <NormalButton
                     fieldWidth={90}
                     title={"continuar"}
-                    onPress={() => navigation.navigate('AgendarConsulta', {nivel: nivel, localidade: localidade})}
+                    onPress={() => localidade !== "" ? 
+                        navigation.navigate('AgendarConsulta', {nivel: nivel, localidade: localidade}) 
+                        : 
+                        console.log("Informe uma localidade")
+                    }
                 />
 
                 <TouchableOpacity onPress={onRequestClose}>

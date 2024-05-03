@@ -68,7 +68,7 @@ export const CameraScreen = ({ navigation, route }) => {
 
     async function takePicture() {
         if (camRef) {
-            const data = await camRef.current.takePictureAsync();
+            const data = await camRef.current.takePictureAsync({ quality : 1 });
             setCapturedPhoto(data.uri)
             setModalPhoto(true)
         }

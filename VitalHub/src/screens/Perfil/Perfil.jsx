@@ -22,6 +22,16 @@ export const Perfil = ({ navigation, route }) => {
     const [user, setUser] = useState();
     const [tokenUser, setTokenUser] = useState();
 
+    //Dados do formulario
+    //Paciente
+    const [dataNascimento, setDataNascimento] = useState()
+    const [cpf, setCpf] = useState()
+
+    //Geral
+    const [endereco, setEndereco] = useState()
+    const [cep, setCep] = useState()
+    const [cidade, setCidade] = useState()
+
     async function loadProfile() {
         try {
             const token = await userDecodeToken()
@@ -34,16 +44,25 @@ export const Perfil = ({ navigation, route }) => {
             } else if (token.role === 'Médico') {
                 info = await api.get(`/Medicos/BuscarPorID?id=${id}`);
             }
+
             if (info) { setUser(info.data) }
 
-            console.log(user.nome + " linha 41");
-
+            //console.log(info);
         }
         catch (error) {
             return console.log(`erro ${error}`);
         }
     }
 
+    function PreencherCampos() {
+        tokenUser?.role === 'Paciente' ? (
+            setDataNascimento(user ? moment(user.dataNascimento).format("DD/MM/YYYY") : ''),
+            setCpf(user ? user.cpf : "")
+        ) : ("")
+
+        setCep(user && user.endereco ? user.endereco.cep : '')
+        setCidade(user && user.endereco ? user.endereco.cidade : '')
+    }
     async function handleLogout() {
         try {
             if (tokenUser) {
@@ -67,15 +86,15 @@ export const Perfil = ({ navigation, route }) => {
             name: `image.${photoUri.split(".").pop()}`,
             type: `image/${photoUri.split(".").pop()}`
         });
-    
+
         try {
             const response = await api.put(`/Usuario/AlterarFotoPerfil?id=${token.user}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
             });
-            console.log(response.data); 
-            console.log("sucessoo"); 
+            console.log(response.data);
+            console.log("sucessoo");
             loadProfile();
         } catch (error) {
             console.log("Erro ao alterar foto:", error);
@@ -88,28 +107,26 @@ export const Perfil = ({ navigation, route }) => {
             return require("../../assets/profile.png");
         }
     };
-    
+
 
     useEffect(() => {
-
         loadProfile();
-
-
-        console.log(`${user} teste`);
     }, []);
-
+    useEffect(() => {
+        PreencherCampos()
+    },[user])
     useEffect(() => {
         if (photoUri) {
             AlterarFoto()
         }
     }, [photoUri])
-    
+
     return (
         <Container>
             <ScrollForm>
                 <ProfileContainer>
                     {/* <ProfilePic source={user.idNavigation.foto ? { uri: photoUri } : require("../../assets/profile.png")} /> */}
-                    <ProfilePic source={getUserPhoto()}/>
+                    <ProfilePic source={getUserPhoto()} />
 
                     <ButtonCamera onPress={() => navigation.navigate('CameraScreen', { SetMediaLabrary: true, Tela: "Main" })}>
                         <MaterialCommunityIcons name="camera-plus" size={20} color="#fbfbfb" />
@@ -128,15 +145,15 @@ export const Perfil = ({ navigation, route }) => {
                                 fieldWidth={90}
                                 editable={formEdit}
                                 labelText="Data de nascimento"
-                                fieldValue={user ? moment(user.dataNascimento).format("DD/MM/YYYY") : ''}
-                                onChangeText={""}
+                                fieldValue={dataNascimento}
+                                onChangeText={(data) => { setDataNascimento(data) }}
                             />
                             <FormField
                                 fieldWidth={90}
                                 editable={formEdit}
                                 labelText="CPF"
-                                fieldValue={user ? user.cpf : ""}
-                                onChangeText={""}
+                                fieldValue={cpf}
+                                onChangeText={(cpf) => {setCpf(cpf)}}
                             />
                             <FormField
                                 fieldWidth={90}
@@ -150,20 +167,52 @@ export const Perfil = ({ navigation, route }) => {
 
                     {tokenUser?.role === 'Médico' && (
                         <>
-                            <FormField fieldWidth={90} editable={false} labelText="Especialidade" fieldValue={user ? user.especialidade.especialidade1 : ``} />
-                            <FormField fieldWidth={90} editable={formEdit} labelText="CRM" fieldValue={user?.crm} />
-                            <FormField fieldWidth={90} editable={formEdit} labelText="Endereco" fieldValue={user ? `${user.endereco.logradouro} ${user.endereco.numero}` : ""} />
+                            <FormField
+                                fieldWidth={90}
+                                editable={false}
+                                labelText="Especialidade"
+                                fieldValue={user ? user.especialidade.especialidade1 : ``}
+                            />
+                            <FormField
+                                fieldWidth={90}
+                                editable={false}
+                                labelText="CRM"
+                                fieldValue={user?.crm}
+                            />
+                            <FormField
+                                fieldWidth={90}
+                                editable={formEdit}
+                                labelText="Endereco"
+                                fieldValue={user ? `${user.endereco.logradouro} ${user.endereco.numero}` : ""}
+                            />
                         </>
                     )}
 
                     <View style={{ width: "90%", justifyContent: "space-between", flexDirection: "row" }}>
-                        <FormField fieldWidth={45} editable={formEdit} labelText="Cep" fieldValue={user && user.endereco ? user.endereco.cep : ''} />
-                        <FormField fieldWidth={45} editable={formEdit} labelText="Cidade" fieldValue={user && user.endereco ? user.endereco.cidade : ''} />
+                        <FormField
+                            fieldWidth={45}
+                            editable={formEdit}
+                            labelText="Cep"
+                            fieldValue={cep} 
+                            onChangeText={(c) => {setCep(c)}}
+                            maxLength={8}
+                            KeyType="numeric"
+                        />
+                        <FormField
+                            fieldWidth={45}
+                            editable={formEdit}
+                            labelText="Cidade"
+                            fieldValue={cidade} 
+                            onChangeText={(c) => {setCidade(c)}}
+                        />
                     </View>
 
-                    <NormalButton title={"Salvar"} onPress={() => { setFormEdit(false) }} fieldWidth={90} />
-                    <NormalButton title={"editar"} onPress={() => { setFormEdit(true) }} fieldWidth={90} />
-                    <GoogleButton title={"Sair do app"} onPress={handleLogout} fieldWidth={70} />
+                    <NormalButton title={"Salvar"} onPress={() => { setFormEdit(false) }}
+                        fieldWidth={90} />
+                    <NormalButton title={"editar"} onPress={() => { setFormEdit(true) }}
+                        fieldWidth={90} />
+                    <GoogleButton title={"Sair do app"} onPress={handleLogout}
+                        fieldWidth={70} />
 
                 </View>
             </ScrollForm>

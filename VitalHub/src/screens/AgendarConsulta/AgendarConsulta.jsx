@@ -66,8 +66,8 @@ export const AgendarConsulta = ({ navigation, route }) => {
     //Reuni todos os dados para realizar a requisicao
     async function CompilarDados() {
         const dataConsulta = `${diaSelected} ${horaSelected}`
-
-        const dados = {
+        console.clear()
+        const dadosInserir = {
             dataConsulta: dataConsulta,
             medicoId: medicoSelected.id,
             nomeMedico: medicoSelected.idNavigation.nome,
@@ -79,9 +79,10 @@ export const AgendarConsulta = ({ navigation, route }) => {
             prioridadeLabel: nivel.prioridade,
             localidade: localidade
         }
-        await setDados(dados)
-        console.log(medicoSelected.id + "id de medico");
-        console.log(profile.user + "id do paciente");
+        await setDados(dadosInserir)
+        console.log(dados);
+        // console.log(medicoSelected.id + " id de medico");
+        // console.log(profile.user + " id do paciente");
         //console.log(dados);
     }
 
@@ -89,7 +90,7 @@ export const AgendarConsulta = ({ navigation, route }) => {
         await api.post('/Consultas/Cadastrar', {
             pacienteId : profile.user,
             situacaoId : "791B5F13-EECA-4229-B751-712E702D8837",
-            medicoClinicaId : "",
+            medicoClinicaId : dados.medicoClinica,
             prioridadeId : dados.prioridadeId,
             dataConsulta : dados.dataConsulta,
             descricao : "",
@@ -98,6 +99,7 @@ export const AgendarConsulta = ({ navigation, route }) => {
         .then( (response) => {
             console.log(`Cadastro de consulta feita: ${response.status}`);
             //console.log(response.data);
+            navigation.replace("Main")
         }).catch(error => {
             console.log(`Erro no cadastro de consulta: ${error}`);
         })
@@ -172,7 +174,7 @@ export const AgendarConsulta = ({ navigation, route }) => {
                                         setStatus("data")
                                     break;
                                 case "data":
-                                    diaSelected ? (setConsulModal(true), CompilarDados()) : ""
+                                    diaSelected && horaSelected ? (setConsulModal(true), CompilarDados()) : ""
                                     break;
                                 default:
                                     setStatus("data")
@@ -210,7 +212,7 @@ export const AgendarConsulta = ({ navigation, route }) => {
                 onRequestClose={() => (setConsulModal(false))}
                 navigation={navigation}
                 dados={dados}
-                onPress={CadastrarConsulta()}
+                onPress={() => CadastrarConsulta()}
             />
         </>
     )
