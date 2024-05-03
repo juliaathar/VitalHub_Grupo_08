@@ -105,7 +105,7 @@ export const Home = ({ navigation }) => {
             .then(async response => {
                 await setConsultas(response.data);
                 console.log(`consultas, exito:`);
-                console.log(response.data); 
+                //console.log(response.data); 
             }).catch(error => {
                 console.log("consultas, erro: " + error);
                 //console.log(error);

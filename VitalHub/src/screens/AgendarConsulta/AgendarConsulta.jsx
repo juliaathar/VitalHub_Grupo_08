@@ -66,8 +66,8 @@ export const AgendarConsulta = ({ navigation, route }) => {
     //Reuni todos os dados para realizar a requisicao
     async function CompilarDados() {
         const dataConsulta = `${diaSelected} ${horaSelected}`
-
-        const dados = {
+        console.clear()
+        const dadosInserir = {
             dataConsulta: dataConsulta,
             medicoId: medicoSelected.id,
             nomeMedico: medicoSelected.idNavigation.nome,
@@ -79,9 +79,10 @@ export const AgendarConsulta = ({ navigation, route }) => {
             prioridadeLabel: nivel.prioridade,
             localidade: localidade
         }
-        await setDados(dados)
-        console.log(medicoSelected.id + " id de medico");
-        console.log(profile.user + " id do paciente");
+        await setDados(dadosInserir)
+        console.log(dados);
+        // console.log(medicoSelected.id + " id de medico");
+        // console.log(profile.user + " id do paciente");
         //console.log(dados);
     }
 
@@ -173,7 +174,7 @@ export const AgendarConsulta = ({ navigation, route }) => {
                                         setStatus("data")
                                     break;
                                 case "data":
-                                    diaSelected ? (setConsulModal(true), CompilarDados()) : ""
+                                    diaSelected && horaSelected ? (setConsulModal(true), CompilarDados()) : ""
                                     break;
                                 default:
                                     setStatus("data")

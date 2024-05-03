@@ -9,7 +9,7 @@ export const FormField = ({
     onChangeText = null,
     KeyType = 'default',
     placeholder,
-    maxLenght
+    maxLength
 }) => {
     return (
         <ContentBox
@@ -29,7 +29,7 @@ export const FormField = ({
                 keyboardType={KeyType}
                 value={fieldValue}
                 editable={editable}
-                maxLenght={maxLenght}
+                maxLength={maxLength}
                 onChangeText={onChangeText}
 
                 {...editable ? (placeholder = { placeholder }) : (placeholder = "")}

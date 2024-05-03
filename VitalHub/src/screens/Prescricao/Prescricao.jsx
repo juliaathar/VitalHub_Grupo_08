@@ -23,21 +23,21 @@ export const Prescricao = ({ navigation, route }) => {
     const [photoTaked, setPhotoTaked] = useState(false)
     const [descricao, setDescricao] = useState("")
     const [photos, setPhotos] = useState([]);
+    const [lista, setLista] = useState([]);
 
     const [novoProntuario, setNovoProntuario] = useState()
-    const [novoExame, setNovoExame] = useState()
 
     async function ConsultaGet() {
         await api.get(`/Consultas/BuscarPorId?id=${id}`)
-        .then( async response => {
-            //console.log("Consulta get");
-            //console.log("consultas ------------------------------------------------------------------------------- " + JSON.stringify(response.data));
-            await setNovoProntuario(response.data);
-            arrayOCR()
-        })
-        .catch(error => {
-            console.log(`Erro em ConsultaGet: ${error}`);
-        })
+            .then(async response => {
+                //console.log("Consulta get");
+                //console.log("consultas ------------------------------------------------------------------------------- " + JSON.stringify(response.data));
+                await setNovoProntuario(response.data);
+                console.log(novoProntuario);
+            })
+            .catch(error => {
+                console.log(`Erro em ConsultaGet: ${error}`);
+            })
 
         // await api.get(`/Exame/BuscarPorIdConsulta?id=${id}`)
         // .then(async response => {
@@ -49,7 +49,7 @@ export const Prescricao = ({ navigation, route }) => {
         //     console.log(error);
         // })
     }
-    
+
     const getUserPhoto = () => {
         if (novoProntuario) {
             return { uri: novoProntuario.medicoClinica.medico.idNavigation.foto };
@@ -69,9 +69,9 @@ export const Prescricao = ({ navigation, route }) => {
         console.log(formData);
         await api.post(`/Exame/Cadastrar`, formData, {
             headers: {
-                "Content-Type" : "multipart/form-data"
+                "Content-Type": "multipart/form-data"
             }
-        }).then(response =>{
+        }).then(response => {
             setDescricao(descricao + '\n' + response.data.descricao)
             console.log(response.status);
         }).catch(error => {
@@ -81,6 +81,10 @@ export const Prescricao = ({ navigation, route }) => {
     useEffect(() => {
         ConsultaGet();
     }, [])
+
+    useEffect(() => {
+        arrayOCR()
+    },[novoProntuario])
 
     useEffect(() => {
         if (photoUri !== undefined) {
@@ -93,14 +97,12 @@ export const Prescricao = ({ navigation, route }) => {
     }, [photoUri]);
 
     function arrayOCR() {
-        const compr = novoProntuario ? novoProntuario.exames : "length"
-        for (let index = 0; index < compr.length; index++) {
+        const exames = novoProntuario ? novoProntuario.exames : []
 
-            const element = compr[index];
-            console.log(element.descricao);
-        }
+        exames.map( (item, index) => {
+            setLista(`${lista} \n ${item.descricao}`);
+        })
     }
-
 
     return (
         <>
@@ -108,28 +110,27 @@ export const Prescricao = ({ navigation, route }) => {
                 <ProfilePic source={getUserPhoto()} />
 
                 <Container>
-                    <Title style={{marginTop : 15}}>{novoProntuario ? novoProntuario.medicoClinica.medico.idNavigation.nome : "vazio"}</Title>
+                    <Title style={{ marginTop: 15 }}>{novoProntuario ? novoProntuario.medicoClinica.medico.idNavigation.nome : "vazio"}</Title>
                     <Line>
                         <Paragraph>{novoProntuario ? novoProntuario.medicoClinica.medico.especialidade.especialidade1 : "vazio"}</Paragraph>
                         <Paragraph>{novoProntuario ? novoProntuario.medicoClinica.medico.crm : "vazio"}</Paragraph>
                     </Line>
 
-                    <FormField 
-                        fieldWidth={90} 
-                        labelText="Descrição da consulta" 
+                    <FormField
+                        fieldWidth={90}
+                        labelText="Descrição da consulta"
                         fieldValue={novoProntuario ? novoProntuario.descricao : "vazio"}
                     />
-                    <FormField 
-                        fieldWidth={90} 
-                        labelText="Diagnóstico do paciente" 
+                    <FormField
+                        fieldWidth={90}
+                        labelText="Diagnóstico do paciente"
                         fieldValue={novoProntuario ? novoProntuario.diagnostico : "vazio"}
                     />
-                    <FormField 
-                        fieldWidth={90} 
-                        labelText="Prescrição médica" 
-                        fieldValue={novoProntuario &&  novoProntuario.receita && novoProntuario.receita.medicamento || "vazio"}
+                    <FormField
+                        fieldWidth={90}
+                        labelText="Prescrição médica"
+                        fieldValue={novoProntuario && novoProntuario.receita && novoProntuario.receita.medicamento || "vazio"}
                     />
-
 
                     <FormPhoto>
                         <Label>Exames médicos</Label>
@@ -155,7 +156,7 @@ export const Prescricao = ({ navigation, route }) => {
                     </FormPhoto>
 
                     <OptionLine>
-                        <PhotoButton onPress={() => navigation.navigate('CameraScreen', {Tela : "Prescricao"})}>
+                        <PhotoButton onPress={() => navigation.navigate('CameraScreen', { Tela: "Prescricao" })}>
                             <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
                             <TextButton>Enviar</TextButton>
                         </PhotoButton>
@@ -165,16 +166,16 @@ export const Prescricao = ({ navigation, route }) => {
                         </CancelarButton>
                     </OptionLine>
 
-                    <DecorLine/>
+                    <DecorLine />
 
-                    <FormField 
-                        fieldWidth={90} 
-                        labelText="" 
-                        fieldValue={novoProntuario ? 
-                            novoProntuario.exames[0].descricao
-                            : 
+                    <FormField
+                        fieldWidth={90}
+                        labelText=""
+                        fieldValue={novoProntuario ?
+                            lista
+                            :
                             "nada"
-                    } 
+                        }
                     />
 
                     <TouchableOpacity style={{ marginBottom: 15, marginTop: 15 }} onPress={() => navigation.replace('Main')}>
