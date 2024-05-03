@@ -122,7 +122,7 @@ export const Home = ({ navigation }) => {
             })
         setModalCancel(false)
     }
-    
+
     function MostrarModal(modal, consulta) {
         if (modal == "cancelar") {
             setModalCancel(true)
@@ -131,20 +131,21 @@ export const Home = ({ navigation }) => {
         } else if (modal == "local") {
             setModalDoctor(true)
         }
-        
+
         setIdEncontrado(consulta)
     }
 
     //atualiza a pagina de acordo com o login
     useEffect(() => {
         profileLoad();
-     
-        console.log(`testeeeeeeeeeeeeeeeeeeeeeeeeeee ${user}`);
+        loadUser()
     }, [])
-    
+
     useEffect(() => {
         ListarConsulta();
         console.log("Consulta recebida na Home:", idEncontrado);
+        console.log("Consulta recebida na Home:", idEncontrado);
+
     }, [diaSelecionado])
 
     return (
@@ -189,8 +190,10 @@ export const Home = ({ navigation }) => {
                                 <ConsultationData
                                     situacao={item.situacao.situacao}
                                     nome={profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.nome) : (item.paciente.idNavigation.nome)}
-                                    idade={moment( profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.dataNascimento) : (item.paciente.dataNascimento), "YYYYMMDD").fromNow().slice(0, 2)}
-                                    hora={(item.dataConsulta).slice(11,16)}
+                                    idade={profile.role == "Paciente" ? item.medicoClinica.medico.crm : moment((item.paciente.dataNascimento), "YYYYMMDD").fromNow().slice(0, 2)}
+                                    textIdade = {profile.role == "Paciente" ? "CRM" : "anos"}
+                                    hora={(item.dataConsulta).slice(11, 16)}
+                                    foto={profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.foto) : (item.paciente.idNavigation.foto)}
                                     tipoConsulta={item.prioridade.prioridade}
                                     onPressCancel={() => MostrarModal("cancelar", item)}
                                     onPressCard={() => {
@@ -200,7 +203,7 @@ export const Home = ({ navigation }) => {
                                             MostrarModal("local", item) //provisorio
                                         )
                                     }}
-                                /> 
+                                />
                                 : null}
                         />
 
@@ -213,19 +216,21 @@ export const Home = ({ navigation }) => {
                                 <ConsultationData
                                     situacao={item.situacao.situacao}
                                     // nome={"Rubens"}
-                                    nome={ profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.nome) : (item.paciente.idNavigation.nome)}
-                                    idade={moment( profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.dataNascimento) : (item.paciente.dataNascimento), "YYYYMMDD").fromNow().slice(0, 2)}
-                                    hora={(item.dataConsulta).slice(11,16)}
+                                    nome={profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.nome) : (item.paciente.idNavigation.nome)}
+                                    idade={profile.role == "Paciente" ? item.medicoClinica.medico.crm : moment((item.paciente.dataNascimento), "YYYYMMDD").fromNow().slice(0, 2)}
+                                    textIdade = {profile.role == "Paciente" ? "CRM" : "anos"}
+                                    foto={profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.foto) : (item.paciente.idNavigation.foto)}
+                                    hora={(item.dataConsulta).slice(11, 16)}
                                     tipoConsulta={item.prioridade.prioridade}
                                     onPressAppoiment={() => {
                                         profile.role === "Paciente" ? (
-                                            navigation.navigate('Prescricao',{id: item.id})
+                                            navigation.navigate('Prescricao', { id: item.id })
                                         ) : (
                                             MostrarModal("doutor", item)
                                         )
                                     }}
 
-                                /> 
+                                />
                                 : null}
                         />
 
@@ -237,9 +242,11 @@ export const Home = ({ navigation }) => {
                             renderItem={({ item }) => item.situacao.situacao === "Cancelado" ?
                                 <ConsultationData
                                     situacao={item.situacao.situacao}
-                                    nome={ profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.nome) : (item.paciente.idNavigation.nome)}
-                                    idade={moment( profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.dataNascimento) : (item.paciente.dataNascimento), "YYYYMMDD").fromNow().slice(0, 2)}
-                                    hora={(item.dataConsulta).slice(11,16)}
+                                    nome={profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.nome) : (item.paciente.idNavigation.nome)}
+                                    idade={profile.role == "Paciente" ? item.medicoClinica.medico.crm : moment((item.paciente.dataNascimento), "YYYYMMDD").fromNow().slice(0, 2)}
+                                    textIdade = {profile.role == "Paciente" ? "CRM" : "anos"}
+                                    foto={profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.foto) : (item.paciente.idNavigation.foto)}
+                                    hora={(item.dataConsulta).slice(11, 16)}
                                     tipoConsulta={item.prioridade.prioridade}
                                 /> : null}
                         />
