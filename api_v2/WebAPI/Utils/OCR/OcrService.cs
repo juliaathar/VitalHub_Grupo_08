@@ -6,7 +6,7 @@ namespace WebAPI.Utils.OCR
     public class OcrService
     {
 
-        private readonly string _subscriptionKey = "74397693a5a94ef78f2ed098ae1f6843";
+        private readonly string _subscriptionKey = "bda38cb1f1f643a2b69e3d8714c7ec10";
         private readonly string _endpoint = "https://computervisionvitalhub.cognitiveservices.azure.com/";
 
         public async Task <string> RecognizeTextAsync (Stream imageStream)
