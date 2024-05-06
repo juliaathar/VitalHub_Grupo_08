@@ -1,69 +1,58 @@
 {
-  "id": "4dc680e2-41fa-438c-9e79-7b7d9161b048",
-  "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe",
-  "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
-  "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
-  "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
   "dataConsulta": "2024-05-04T13:00:00",
   "descricao": "",
   "diagnostico": "",
   "exames": [
     {
-      "id": "edd34a2a-7a22-49e2-b3bd-8d4a636bd79b",
-      "descricao": "GABRIELA LIMA \n",
-      "consultaId": "4dc680e2-41fa-438c-9e79-7b7d9161b048"
+      "consultaId": "4dc680e2-41fa-438c-9e79-7b7d9161b048",
+      "descricao": "GABRIELA LIMA",
+      "id": "edd34a2a-7a22-49e2-b3bd-8d4a636bd79b"
     }
   ],
+  "id": "4dc680e2-41fa-438c-9e79-7b7d9161b048",
   "medicoClinica": {
-    "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
     "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
-    "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
     "consulta": [],
+    "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
     "medico": {
-      "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
-      "especialidadeId": "f737e0b7-3936-4346-a83b-94edaa3f7992",
       "crm": "123123123",
       "enderecoId": "085598ed-3703-49ba-bbd6-7d8e27258d0b",
-      "especialidade": {
-        "id": "f737e0b7-3936-4346-a83b-94edaa3f7992",
-        "especialidade1": "Psiquiatra",
-        "medicos": []
-      },
-      "idNavigation": {
-        "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
-        "tipoUsuarioId": "4d3c8067-250d-48a2-980f-d7f0a454ee82",
-        "nome": "Júlia Aben-Athar",
-        "email": "julia@gmail.com",
-        "senha": "$2a$11$uGlXnnbmVZb4lPw.6t.zzuOggrmR.Zx.ZpUp7LUaL4YhFROA0dl6u",
-        "foto": "https://blobvitalhub08.blob.core.windows.net/blobvitalhubcontainer/d0e52f0cf35c489aabf0de188a0644de.jpg"
-      },
+      "especialidade": [],
+      "especialidadeId": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+      "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+      "idNavigation": [],
       "medicosClinicas": []
-    }
+    },
+    "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07"
   },
+  "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
   "paciente": {
-    "id": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
-    "dataNascimento": "2004-04-09T00:00:00",
-    "rg": "356776797",
-    "cpf": "17262419048",
-    "enderecoId": "ad29af4c-b6c7-464c-b189-44ee0ebdabf0",
     "consulta": [],
+    "cpf": "17262419048",
+    "dataNascimento": "2013-04-09T00: 00: 00",
+    "enderecoId": "ad29af4c-b6c7-464c-b189-44ee0ebdabf0",
+    "id": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
     "idNavigation": {
-      "id": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
-      "tipoUsuarioId": "5ff2df57-1b92-49d0-a516-f2b1172a0edc",
-      "nome": "Paulo Gonçalves",
       "email": "paulo@gmail.com",
+      "foto": "https: //blobvitalhub08.blob.core.windows.net/blobvitalhubcontainer/000a667c37c64e5aabbb7934d7f35c6d.jpeg",
+      "id": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+      "nome": "Paulo Gonçalves",
       "senha": "$2a$11$faxW8mYjLain9R4UtN16HuLIekb8uLadZPOa4GK2FpnCq6d8dbpIm",
-      "foto": "semfoto"
-    }
+      "tipoUsuarioId": "5ff2df57-1b92-49d0-a516-f2b1172a0edc"
+    },
+    "rg": "356776797"
   },
+  "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
   "prioridade": {
+    "consulta": [],
     "id": "add341be-8e85-40f1-bca3-71c72a1585d3",
-    "prioridade": 1,
-    "consulta": []
+    "prioridade": 1
   },
+  "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
   "situacao": {
+    "consulta": [],
     "id": "62b453de-2709-4243-b249-e57863ccecbe",
-    "situacao": "Realizado",
-    "consulta": []
-  }
+    "situacao": "Realizado"
+  },
+  "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe"
 }

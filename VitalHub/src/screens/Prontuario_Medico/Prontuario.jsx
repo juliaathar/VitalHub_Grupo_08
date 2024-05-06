@@ -13,16 +13,36 @@ import { useEffect, useState } from "react"
 export const Prontuario = ({ navigation, route }) => {
     const { consulta } = route.params || {};
 
-    const nome = consulta.paciente.idNavigation.nome;
-    const email = consulta.paciente.idNavigation.email;
-
-    const [descricao, setDescricao] = useState(consulta.descricao || '');
-    const [diagnostico, setDiagnostico] = useState(consulta.diagnostico || '');
-    const [prescricao, setPrescricao] = useState(consulta.receita.medicamento || '');
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [descricao, setDescricao] = useState('');
+    const [diagnostico, setDiagnostico] = useState('');
+    const [prescricao, setPrescricao] = useState('');
 
     const [formEdit, setFormEdit] = useState(false);
     const [novoProntuario, setNovoProntuario] = useState({});
 
+    async function GetConsulta() {
+        try {
+            api.get(`/Consultas/BuscarPorId?id=${consulta}`)
+            .then( (response) => {
+                setNovoProntuario(response.data)
+                console.log(novoProntuario);
+
+                setNome(novoProntuario.paciente.idNavigation.nome)
+                setEmail(novoProntuario.paciente.idNavigation.email)
+                setDescricao(novoProntuario.descricao)
+                setDiagnostico(novoProntuario.diagnostico)
+                setPrescricao("vazio igual o coracao da ruiva")
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        } catch (error) {
+            console.log(`Erro ao buscar prontuário: ${error.message}`);
+        }
+    }
     async function AtualizarProntuario() {
         try {
             const response = await api.put(`/Consultas/Prontuario/${novoProntuario.id}`, novoProntuario);
@@ -42,7 +62,8 @@ export const Prontuario = ({ navigation, route }) => {
 
     useEffect(() => {
         console.log('Consulta recebida:', consulta);
-    }, [consulta]);
+        GetConsulta()
+    }, []);
     
 
     return (

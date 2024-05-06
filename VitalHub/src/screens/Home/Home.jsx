@@ -133,6 +133,7 @@ export const Home = ({ navigation }) => {
         }
 
         setIdEncontrado(consulta)
+        console.log(idEncontrado);
     }
 
     //atualiza a pagina de acordo com o login
@@ -144,8 +145,6 @@ export const Home = ({ navigation }) => {
     useEffect(() => {
         ListarConsulta();
         console.log("Consulta recebida na Home:", idEncontrado);
-        console.log("Consulta recebida na Home:", idEncontrado);
-
     }, [diaSelecionado])
 
     return (
@@ -293,8 +292,11 @@ export const Home = ({ navigation }) => {
                 visible={modalPromptuary}
                 onRequestClose={() => { setModalPromptuary(false) }}
                 navigation={navigation}
-                consulta={idEncontrado}
-                role={profile.role}
+                consulta={idEncontrado.id}
+                idade={idEncontrado ? idEncontrado.paciente.dataNascimento : ""}
+                nome={idEncontrado ? idEncontrado.paciente.idNavigation.nome : ""}
+                email={idEncontrado ? idEncontrado.paciente.idNavigation.email : ""}
+                foto={idEncontrado ? idEncontrado.paciente.idNavigation.foto : ""}
             />
         </>
     )

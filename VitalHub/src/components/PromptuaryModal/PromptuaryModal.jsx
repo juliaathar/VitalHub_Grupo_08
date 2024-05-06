@@ -6,33 +6,23 @@ import { useEffect, useState } from "react"
 import moment from "moment"
 
 export const PromptuaryModal = ({
+    nome,
+    email,
+    idade,
+    foto,
     visible,
     onRequestClose,
     navigation,
     consulta,
-    role
 }) => {
-    const [nome, setNome] = useState("");
-    const [email, setEmail] = useState("");
-    const [idade, setIdade] = useState("");
     const [confirm, setConfirm] = useState(false)
 
-    // async function setValores() {
-    //     setNome(consulta.paciente.idNavigation.nome);
-    //     setEmail(consulta.paciente.idNavigation.email);
-    //     setIdade(consulta.paciente.dataNascimento)
-    // }
-    async function Prontuario() {
-        console.log("consulta modal prescricao");
-        console.log(consulta);
+    function Prontuario() {
         navigation.navigate('Prontuario', { consulta: consulta })
     }
 
-
     useEffect(() => {
-        console.log(`ROLEEEEEEEEEEEEEEEEEEEEE${role}`);
         if (consulta != null) {
-            // setValores();
             setConfirm(true)
         }
 
@@ -45,7 +35,7 @@ export const PromptuaryModal = ({
                     isVisible={visible}
                 >
                     <CenterContainer>
-                        <PerfilImg source={{ uri: "https://github.com/LeonKene-hub.png" }} />
+                        <PerfilImg source={ foto ? {uri : foto} : { uri: "https://github.com/LeonKene-hub.png" }} />
 
                         <PatientName>{nome}</PatientName>
 

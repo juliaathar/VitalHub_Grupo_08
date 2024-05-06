@@ -28,7 +28,8 @@ export const Perfil = ({ navigation, route }) => {
     const [cpf, setCpf] = useState()
 
     //Geral
-    const [endereco, setEndereco] = useState()
+    const [logradouro, setLogradouro] = useState()
+    const [numeroEndereco, setNumeroEndereco] = useState()
     const [cep, setCep] = useState()
     const [cidade, setCidade] = useState()
 
@@ -47,7 +48,7 @@ export const Perfil = ({ navigation, route }) => {
 
             if (info) { setUser(info.data) }
 
-            //console.log(info);
+            console.log(info.data);
         }
         catch (error) {
             return console.log(`erro ${error}`);
@@ -61,6 +62,8 @@ export const Perfil = ({ navigation, route }) => {
         ) : ("")
 
         setCep(user && user.endereco ? user.endereco.cep : '')
+        setLogradouro(user ? user.endereco.logradouro : "")
+        setNumeroEndereco(user ? `${user.endereco.numero}` : "")
         setCidade(user && user.endereco ? user.endereco.cidade : '')
     }
     async function handleLogout() {
@@ -100,6 +103,29 @@ export const Perfil = ({ navigation, route }) => {
             console.log("Erro ao alterar foto:", error);
         }
     }
+    async function AtualizarPerfil() {
+        const [dia, mes, ano] = dataNascimento.split("/")
+        const novaData = new Date(`${ano}-${mes}-${dia}`);
+
+        tokenUser?.role === 'Paciente' ? (
+            api.put(`/Pacientes?idUsuario=${user.id}`,{
+                cpf: cpf,
+                dataNascimento: novaData,
+                novoEndereco: {
+                  cep: cep,
+                  logradouro: logradouro,
+                  numero: numeroEndereco,
+                  cidade: cidade
+                }
+            })
+            .then( (response) => {
+                console.log(response.status);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        ) : ("")
+    }
     const getUserPhoto = () => {
         if (user && user.idNavigation && user.idNavigation.foto) {
             return { uri: user.idNavigation.foto };
@@ -107,7 +133,6 @@ export const Perfil = ({ navigation, route }) => {
             return require("../../assets/profile.png");
         }
     };
-
 
     useEffect(() => {
         loadProfile();
@@ -153,14 +178,9 @@ export const Perfil = ({ navigation, route }) => {
                                 editable={formEdit}
                                 labelText="CPF"
                                 fieldValue={cpf}
-                                onChangeText={(cpf) => {setCpf(cpf)}}
-                            />
-                            <FormField
-                                fieldWidth={90}
-                                editable={formEdit}
-                                labelText="Endereco"
-                                fieldValue={user ? `${user.endereco.logradouro} ${user.endereco.numero}` : ""}
-                                onChangeText={""}
+                                onChangeText={(c) => {setCpf(c)}}
+                                maxLength={11}
+                                KeyType="numeric"
                             />
                         </>
                     )}
@@ -179,13 +199,35 @@ export const Perfil = ({ navigation, route }) => {
                                 labelText="CRM"
                                 fieldValue={user?.crm}
                             />
-                            <FormField
-                                fieldWidth={90}
-                                editable={formEdit}
-                                labelText="Endereco"
-                                fieldValue={user ? `${user.endereco.logradouro} ${user.endereco.numero}` : ""}
-                            />
                         </>
+                    )}
+
+                    {!formEdit ? (
+                    <FormField
+                        fieldWidth={90}
+                        editable={formEdit}
+                        labelText="Endereco"
+                        fieldValue={user ? `${user.endereco.logradouro} ${user.endereco.numero}` : ""}
+                    />
+                    ) : (
+                        <View style={{ width: "90%", justifyContent: "space-between", flexDirection: "row" }}>
+                            <FormField
+                                fieldWidth={65}
+                                editable={formEdit}
+                                labelText="Logradouro"
+                                fieldValue={logradouro}
+                                onChangeText={(l) => {setLogradouro(l)}}
+                            />
+                            <FormField
+                                fieldWidth={30}
+                                editable={formEdit}
+                                labelText="Numero"
+                                fieldValue={numeroEndereco}
+                                onChangeText={(n) => {setNumeroEndereco(n)}}
+                                KeyType="numeric"
+                            />
+                        </View>
+                        
                     )}
 
                     <View style={{ width: "90%", justifyContent: "space-between", flexDirection: "row" }}>
@@ -206,11 +248,15 @@ export const Perfil = ({ navigation, route }) => {
                             onChangeText={(c) => {setCidade(c)}}
                         />
                     </View>
+                    
+                    {formEdit ? (
+                        <NormalButton title={"Salvar"} onPress={() => { setFormEdit(false), AtualizarPerfil() }}
+                            fieldWidth={90} />
+                    ) : (
+                        <NormalButton title={"editar"} onPress={() => { setFormEdit(true) }}
+                            fieldWidth={90} />
+                    )}
 
-                    <NormalButton title={"Salvar"} onPress={() => { setFormEdit(false) }}
-                        fieldWidth={90} />
-                    <NormalButton title={"editar"} onPress={() => { setFormEdit(true) }}
-                        fieldWidth={90} />
                     <GoogleButton title={"Sair do app"} onPress={handleLogout}
                         fieldWidth={70} />
 
