@@ -1,58 +1,38 @@
-{
-  "dataConsulta": "2024-05-04T13:00:00",
-  "descricao": "",
-  "diagnostico": "",
-  "exames": [
-    {
-      "consultaId": "4dc680e2-41fa-438c-9e79-7b7d9161b048",
-      "descricao": "GABRIELA LIMA",
-      "id": "edd34a2a-7a22-49e2-b3bd-8d4a636bd79b"
-    }
-  ],
-  "id": "4dc680e2-41fa-438c-9e79-7b7d9161b048",
-  "medicoClinica": {
-    "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
-    "consulta": [],
-    "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
-    "medico": {
-      "crm": "123123123",
-      "enderecoId": "085598ed-3703-49ba-bbd6-7d8e27258d0b",
-      "especialidade": [],
-      "especialidadeId": "f737e0b7-3936-4346-a83b-94edaa3f7992",
-      "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
-      "idNavigation": [],
-      "medicosClinicas": []
+[
+  {
+    "dataConsulta": "2024-05-07T19:00:00",
+    "exames": [],
+    "id": "8bb307f9-59a5-428b-8ca7-476062a23ba1",
+    "medicoClinica": {
+      "clinicaId": "0fca061b-328e-4f0d-a5d9-0f89343be832",
+      "consulta": [Array
+      ],
+      "id": "93c13046-dc2e-46cb-a59b-623376f32ce1",
+      "medico": [Object
+      ],
+      "medicoId": "b6a94404-3431-476a-9b7c-2f6fe0108344"
     },
-    "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07"
-  },
-  "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
-  "paciente": {
-    "consulta": [],
-    "cpf": "17262419048",
-    "dataNascimento": "2013-04-09T00: 00: 00",
-    "enderecoId": "ad29af4c-b6c7-464c-b189-44ee0ebdabf0",
-    "id": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
-    "idNavigation": {
-      "email": "paulo@gmail.com",
-      "foto": "https: //blobvitalhub08.blob.core.windows.net/blobvitalhubcontainer/000a667c37c64e5aabbb7934d7f35c6d.jpeg",
-      "id": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
-      "nome": "Paulo Gonçalves",
-      "senha": "$2a$11$faxW8mYjLain9R4UtN16HuLIekb8uLadZPOa4GK2FpnCq6d8dbpIm",
-      "tipoUsuarioId": "5ff2df57-1b92-49d0-a516-f2b1172a0edc"
+    "medicoClinicaId": "93c13046-dc2e-46cb-a59b-623376f32ce1",
+    "pacienteId": "b8e40930-0acb-431f-bf4b-a261ea945319",
+    "prioridade": {
+      "consulta": [Array
+      ],
+      "id": "395c5e28-07be-467b-ae19-3de0b37c6945",
+      "prioridade": 0
     },
-    "rg": "356776797"
-  },
-  "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
-  "prioridade": {
-    "consulta": [],
-    "id": "add341be-8e85-40f1-bca3-71c72a1585d3",
-    "prioridade": 1
-  },
-  "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
-  "situacao": {
-    "consulta": [],
-    "id": "62b453de-2709-4243-b249-e57863ccecbe",
-    "situacao": "Realizado"
-  },
-  "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe"
-}
+    "prioridadeId": "395c5e28-07be-467b-ae19-3de0b37c6945",
+    "receita": {
+      "consulta": [Array
+      ],
+      "id": "8dd7336b-9633-4620-ab9b-e7fd4dffaad3"
+    },
+    "receitaId": "8dd7336b-9633-4620-ab9b-e7fd4dffaad3",
+    "situacao": {
+      "consulta": [Array
+      ],
+      "id": "dff3e799-eeb1-4dee-b3bc-92da062fc8f1",
+      "situacao": "Pendentes"
+    },
+    "situacaoId": "dff3e799-eeb1-4dee-b3bc-92da062fc8f1"
+  }
+]

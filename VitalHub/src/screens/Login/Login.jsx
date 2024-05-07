@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { Alert, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { Container } from '../../components/Container/Style';
 import { ContentAccount, TextAccount, TextAccountLink } from '../../components/ContentAccount/Style';
 import { GoogleButton, NormalButton } from '../../components/Button/Buttons';
-import { Input } from '../../components/Input/Style';
-import { Logo } from '../../components/Logo/Style';
-import { Title } from '../../components/Title/Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import api from '../../service/service';
+import { Container } from '../../components/Container/Style';
 import { LinkMedium } from '../../components/Links/Style';
+import { Input } from '../../components/Input/Style';
+import { Title } from '../../components/Title/Style';
+import { Logo } from '../../components/Logo/Style';
+import { TouchableOpacity } from 'react-native';
+import api from '../../service/service';
+import React, { useState } from 'react';
 
 export const Login = ({ navigation }) => {
   const [email, setEmail] = useState('julia@gmail.com');

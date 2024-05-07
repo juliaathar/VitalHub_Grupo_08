@@ -124,7 +124,23 @@ export const Perfil = ({ navigation, route }) => {
             .catch(error => {
                 console.log(error);
             })
-        ) : ("")
+        ) : (
+            //Medico
+            api.put(`/Medicos?idUsuario=${user.id}`, {
+                novoEndereco: {
+                    cep: cep,
+                    logradouro: logradouro,
+                    numero: numeroEndereco,
+                    cidade: cidade
+                  }
+            })
+            .then( (response) => {
+                console.log(response.status);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        )
     }
     const getUserPhoto = () => {
         if (user && user.idNavigation && user.idNavigation.foto) {

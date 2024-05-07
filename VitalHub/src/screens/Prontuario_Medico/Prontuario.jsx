@@ -7,8 +7,8 @@ import { ProfilePic } from "../../components/Profile/Style"
 import { LinkMedium } from "../../components/Links/Style"
 import { TouchableOpacity, View } from "react-native"
 import { Title } from "../../components/Title/Style"
-import api from "../../service/service"
 import { useEffect, useState } from "react"
+import api from "../../service/service"
 
 export const Prontuario = ({ navigation, route }) => {
     const { consulta } = route.params || {};
@@ -33,7 +33,7 @@ export const Prontuario = ({ navigation, route }) => {
                 setEmail(novoProntuario.paciente.idNavigation.email)
                 setDescricao(novoProntuario.descricao)
                 setDiagnostico(novoProntuario.diagnostico)
-                setPrescricao("vazio igual o coracao da ruiva")
+                setPrescricao("vazio, igual o coracao da ruiva")
 
             })
             .catch(error => {
@@ -43,6 +43,7 @@ export const Prontuario = ({ navigation, route }) => {
             console.log(`Erro ao buscar prontuário: ${error.message}`);
         }
     }
+
     async function AtualizarProntuario() {
         try {
             const response = await api.put(`/Consultas/Prontuario/${novoProntuario.id}`, novoProntuario);
