@@ -33,7 +33,7 @@ export const Prontuario = ({ navigation, route }) => {
                 setEmail(novoProntuario.paciente.idNavigation.email)
                 setDescricao(novoProntuario.descricao)
                 setDiagnostico(novoProntuario.diagnostico)
-                setPrescricao("vazio, igual o coracao da ruiva")
+                setPrescricao("vazio")
 
             })
             .catch(error => {
