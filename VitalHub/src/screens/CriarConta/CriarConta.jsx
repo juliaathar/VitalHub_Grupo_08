@@ -14,38 +14,38 @@ import { Text } from "react-native"
 import { TextErrorForm } from "../../components/TextErrorForm/TextErrorForm"
 
 
-const formSchema = yup.object().shape({
-    nome: yup.string().required("Campo obrigatório"),
-    email: yup.string().email("Email inválido").required("Campo obrigatório"),
-    senha: yup
-        .string()
-        .required("Campo obrigatório")
-        .min(8, "A senha deve ter no mínimo 8 caracteres.")
-        .matches(/[A-Z]/, "A senha deve conter pelo menos uma letra maiúscula.")
-        .matches(/[a-z]/, "A senha deve conter pelo menos uma letra minúscula.")
-        .matches(/[\W_]/, "A senha deve conter pelo menos um caractere especial.")
-        .matches(/\d/, "A senha deve conter pelo menos um número."),
-    confirm: yup
-        .string()
-        .required("Campo obrigatório")
-        .oneOf([yup.ref("senha"), null], "As senhas devem coincidir"),
-});
+// const formSchema = yup.object().shape({
+//     nome: yup.string().required("Campo obrigatório"),
+//     email: yup.string().email("Email inválido").required("Campo obrigatório"),
+//     senha: yup
+//         .string()
+//         .required("Campo obrigatório")
+//         .min(8, "A senha deve ter no mínimo 8 caracteres.")
+//         .matches(/[A-Z]/, "A senha deve conter pelo menos uma letra maiúscula.")
+//         .matches(/[a-z]/, "A senha deve conter pelo menos uma letra minúscula.")
+//         .matches(/[\W_]/, "A senha deve conter pelo menos um caractere especial.")
+//         .matches(/\d/, "A senha deve conter pelo menos um número."),
+//     confirm: yup
+//         .string()
+//         .required("Campo obrigatório")
+//         .oneOf([yup.ref("senha"), null], "As senhas devem coincidir"),
+// });
 
 export const CriarConta = ({ navigation }) => {
 
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
-        resolver: yupResolver(formSchema),
-        defaultValues: {
-            nome: "",
-            email: "",
-            senha: "",
-            confirm: "",
-        },
-    });
+    // const {
+    //     control,
+    //     handleSubmit,
+    //     formState: { errors },
+    // } = useForm({
+    //     resolver: yupResolver(formSchema),
+    //     defaultValues: {
+    //         nome: "",
+    //         email: "",
+    //         senha: "",
+    //         confirm: "",
+    //     },
+    // });
 
     const [senha, setSenha] = useState()
     const [email, setEmail] = useState()
@@ -54,9 +54,9 @@ export const CriarConta = ({ navigation }) => {
 
 
 
-    const cadastrarUsuario = async (data) => {
+    const cadastrarUsuario = async () => {
         try {
-            const { nome, email, senha } = data;
+            // const { nome, email, senha } = data;
 
             const formData = new FormData();
             formData.append("nome", nome);
@@ -99,16 +99,16 @@ export const CriarConta = ({ navigation }) => {
                 value={nome}
                 onChangeText={(text) => setNome(text)}
             />
-            {errors.nome && <TextErrorForm>{errors.nome.message}</TextErrorForm>}
+            {/* {errors.nome && <TextErrorForm>{errors.nome.message}</TextErrorForm>} */}
 
             <Input placeholder="E-mail" value={email} onChangeText={(emailInput) => setEmail(emailInput)} />
-            {errors.email && <TextErrorForm>{errors.nome.message}</TextErrorForm>}
+            {/* {errors.email && <TextErrorForm>{errors.nome.message}</TextErrorForm>} */}
 
             <Input placeholder="Senha" value={senha} onChangeText={(senhaInput) => setSenha(senhaInput)} />
-            {errors.senha && <TextErrorForm>{errors.nome.message}</TextErrorForm>}
+            {/* {errors.senha && <TextErrorForm>{errors.nome.message}</TextErrorForm>} */}
 
             <Input placeholder="Confirmar Senha" value={confirm} onChangeText={(confirmInput) => setConfirm(confirmInput)} />
-            {errors.confirm && <TextErrorForm>{errors.nome.message}</TextErrorForm>}
+            {/* {errors.confirm && <TextErrorForm>{errors.nome.message}</TextErrorForm>} */}
 
 
             <NormalButton title={"Cadastrar"} fieldWidth={90} onPress={handleSubmit(cadastrarUsuario)} />

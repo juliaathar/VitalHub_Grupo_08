@@ -14,13 +14,18 @@ namespace WebAPI.Repositories
         public Paciente AtualizarPerfil(Guid Id, PatchPacienteViewModel pacientePatch)
         {
             Paciente pacienteBuscado = ctx.Pacientes
-                .Include(p => p.Endereco) // Certifique-se de incluir o Endereço
+                .Include(p => p.Endereco) 
                 .FirstOrDefault(x => x.Id == Id);
 
             if (pacienteBuscado != null)
             {
                 if (pacientePatch.DataNascimento != null)
                     pacienteBuscado.DataNascimento = pacientePatch.DataNascimento;
+                
+                
+                if (pacientePatch.Cpf != null)
+                    pacienteBuscado.Cpf = pacientePatch.Cpf;
+
 
                 if (pacientePatch.NovoEndereco != null)
                 {
