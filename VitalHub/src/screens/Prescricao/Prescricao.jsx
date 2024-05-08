@@ -59,35 +59,52 @@ export const Prescricao = ({ navigation, route }) => {
     };
 
     async function InserirExame() {
-        const formData = new FormData()
-        formData.append("ConsultaId", novoProntuario.id)
-        formData.append("Arquivo", {
-            uri: photoUri,
-            name: `image.${photoUri.split('.').pop()}`,
-            type: `image/${photoUri.split('.').pop()}`
-        });
-        console.log(formData);
-        await api.post(`/Exame/Cadastrar`, formData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        }).then(response => {
-            setDescricao(descricao + '\n' + response.data.descricao)
+        // await api.post(`/Exame/Cadastrar`, formData, {
+        //     headers: {
+        //         "Content-Type": "multipart/form-data"
+        //     }
+        // }).then(response => {
+        //     setDescricao(descricao + '\n' + response.data.descricao)
+        //     console.log(response.status);
+        // }).catch(error => {
+        //     console.log(JSON.stringify(formData));
+        //     console.log(error + " inserir exames deu errado ");
+        // })
+
+        try {
+            const formData = new FormData()
+            formData.append("ConsultaId", novoProntuario.id)
+            formData.append("Arquivo", {
+                uri: photoUri,
+                name: `image.${photoUri.split('.').pop()}`,
+                type: `image/${photoUri.split('.').pop()}`
+            });
+            
+            console.log(JSON.stringify(formData));
+
+            const response = api.post(`/Exame/Cadastrar`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            })
+            console.log('-------------------------------------------------');
             console.log(response.status);
-        }).catch(error => {
-            console.log(error + " inserir exames deu errado ");
-        })
+            console.log(response.data);
+
+            setDescricao(descricao + '\n' + (await response).data.descricao)
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {
         ConsultaGet();
-        console.log("-----------------------------------------------------------------------------------------------------------");
-        console.log(novoProntuario);
     }, [])
 
     useEffect(() => {
         arrayOCR()
-    },[novoProntuario])
+    }, [novoProntuario])
 
     useEffect(() => {
         if (photoUri !== undefined) {
@@ -102,7 +119,7 @@ export const Prescricao = ({ navigation, route }) => {
     function arrayOCR() {
         const exames = novoProntuario ? novoProntuario.exames : []
 
-        exames.map( (item, index) => {
+        exames.map((item, index) => {
             setLista(`${lista} \n ${item.descricao}`);
         })
     }

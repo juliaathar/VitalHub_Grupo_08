@@ -1,38 +1,16 @@
-[
-  {
-    "dataConsulta": "2024-05-07T19:00:00",
-    "exames": [],
-    "id": "8bb307f9-59a5-428b-8ca7-476062a23ba1",
-    "medicoClinica": {
-      "clinicaId": "0fca061b-328e-4f0d-a5d9-0f89343be832",
-      "consulta": [Array
-      ],
-      "id": "93c13046-dc2e-46cb-a59b-623376f32ce1",
-      "medico": [Object
-      ],
-      "medicoId": "b6a94404-3431-476a-9b7c-2f6fe0108344"
-    },
-    "medicoClinicaId": "93c13046-dc2e-46cb-a59b-623376f32ce1",
-    "pacienteId": "b8e40930-0acb-431f-bf4b-a261ea945319",
-    "prioridade": {
-      "consulta": [Array
-      ],
-      "id": "395c5e28-07be-467b-ae19-3de0b37c6945",
-      "prioridade": 0
-    },
-    "prioridadeId": "395c5e28-07be-467b-ae19-3de0b37c6945",
-    "receita": {
-      "consulta": [Array
-      ],
-      "id": "8dd7336b-9633-4620-ab9b-e7fd4dffaad3"
-    },
-    "receitaId": "8dd7336b-9633-4620-ab9b-e7fd4dffaad3",
-    "situacao": {
-      "consulta": [Array
-      ],
-      "id": "dff3e799-eeb1-4dee-b3bc-92da062fc8f1",
-      "situacao": "Pendentes"
-    },
-    "situacaoId": "dff3e799-eeb1-4dee-b3bc-92da062fc8f1"
-  }
-]
+{
+  "_parts": [
+    [
+      "ConsultaId",
+      "4dc680e2-41fa-438c-9e79-7b7d9161b048"
+    ],
+    [
+      "Arquivo",
+      {
+        "uri": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FVitalHub-5bfc9789-c47d-475d-a410-182a18ef38d7/Camera/a45fb580-52dd-4809-8907-7e70ef205ee6.jpg",
+        "name": "image.jpg",
+        "type": "image/jpg"
+      }
+    ]
+  ]
+}
