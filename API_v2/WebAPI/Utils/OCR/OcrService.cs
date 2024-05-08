@@ -44,7 +44,7 @@ namespace WebAPI.Utils.OCR
                 {
                     foreach (var words in line.Words)
                     {
-                        recognizedText += words.Text + " ";
+                        recognizedText += words.Text + "";
                     }
 
                     recognizedText += "\n";

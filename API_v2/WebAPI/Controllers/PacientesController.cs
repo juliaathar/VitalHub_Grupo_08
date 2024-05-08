@@ -103,7 +103,7 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPatch]
         public IActionResult UpdateProfile(Guid idUsuario, PatchPacienteViewModel paciente)
         {
             try
