@@ -19,7 +19,6 @@ export const ConsultationData = ({
 }) => {
     const [fotoCarregada, setFotoCarregada] = useState(false);
 
-
     function wordBreak(nome, max = 18) {
         if (nome.length > max) {
             return nome.slice(0, max) + "...";
