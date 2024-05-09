@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { ContentAccount, TextAccount, TextAccountLink } from '../../components/ContentAccount/Style';
 import { GoogleButton, NormalButton } from '../../components/Button/Buttons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -6,17 +7,26 @@ import { LinkMedium } from '../../components/Links/Style';
 import { Input } from '../../components/Input/Style';
 import { Title } from '../../components/Title/Style';
 import { Logo } from '../../components/Logo/Style';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity,  } from 'react-native'; 
 import api from '../../service/service';
-import React, { useState } from 'react';
+import * as yup from 'yup';
+import { TextErrorForm } from '../../components/TextErrorForm/TextErrorForm';
 
 export const Login = ({ navigation }) => {
-  const [email, setEmail] = useState('paulo@gmail.com');
-  const [senha, setSenha] = useState('paulo');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
   const [desativado, setDesativado] = useState(false);
+  const [errors, setErrors] = useState({}); 
 
   const handleLogin = async () => {
     try {
+      const schema = yup.object().shape({
+        email: yup.string().required("Campo obrigatório"),
+        senha: yup.string().required("Campo obrigatório")
+      });
+
+      await schema.validate({ email, senha }, { abortEarly: false });
+
       if (!desativado) {
         const response = await api.post('/Login', {
           email: email,
@@ -28,7 +38,20 @@ export const Login = ({ navigation }) => {
         navigation.replace('Main');
       }
     } catch (error) {
-      console.error('Erro ao fazer login:', error);
+      if (error instanceof yup.ValidationError) {
+        let validationErrors = {};
+        error.inner.forEach(err => {
+          validationErrors[err.path] = err.message;
+        });
+        setErrors(validationErrors);
+
+        // Remove os erros após 3 segundos
+        setTimeout(() => {
+          setErrors({});
+        }, 3000);
+      } else {
+        console.error('Erro ao fazer login:', error);
+      }
     }
 
     setDesativado(true);
@@ -46,13 +69,17 @@ export const Login = ({ navigation }) => {
         placeholder="Usuário ou Email"
         value={email}
         onChangeText={(newValue) => { setEmail(newValue) }}
+        style={{ borderColor: errors.email ? '#C81D25' : '#49B3BA' }}
       />
+      {errors.email && <TextErrorForm style={{ color: '#C81D25' }}>{errors.email}</TextErrorForm>}
       <Input
         placeholder="Senha"
         secureTextEntry
         value={senha}
         onChangeText={(newValue) => { setSenha(newValue) }}
+        style={{ borderColor: errors.senha ? '#C81D25' : '#49B3BA' }}
       />
+      {errors.senha && <TextErrorForm style={{ color: '#C81D25' }}>{errors.senha}</TextErrorForm>}
       <TouchableOpacity style={{ width: "100%" }} onPress={() => navigation.navigate('RecuperarSenha')}>
         <LinkMedium>Esqueceu sua senha?</LinkMedium>
       </TouchableOpacity>
