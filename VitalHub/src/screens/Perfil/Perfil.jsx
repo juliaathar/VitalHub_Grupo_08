@@ -24,7 +24,7 @@ export const Perfil = ({ navigation, route }) => {
 
     //Dados do formulario
     //Paciente
-    const [dataNascimento, setDataNascimento] = useState()
+    const [dataNascimento, setDataNascimento] = useState("00/00/0000")
     const [cpf, setCpf] = useState()
 
     //Geral
@@ -48,7 +48,7 @@ export const Perfil = ({ navigation, route }) => {
 
             if (info) { setUser(info.data) }
 
-            console.log(info.data);
+            //console.log(info.data);
         }
         catch (error) {
             return console.log(`erro ${error}`);
@@ -69,9 +69,9 @@ export const Perfil = ({ navigation, route }) => {
     async function handleLogout() {
         try {
             if (tokenUser) {
-                console.log(tokenUser);
+                //console.log(tokenUser);
                 await AsyncStorage.removeItem('tokenUser')
-                console.log(tokenUser);
+                //console.log(tokenUser);
 
                 navigation.replace('Login');
             }
@@ -96,7 +96,7 @@ export const Perfil = ({ navigation, route }) => {
                     "Content-Type": "multipart/form-data"
                 }
             });
-            console.log(response.data);
+            //console.log(response.data);
             console.log("sucessoo");
             loadProfile();
         } catch (error) {
@@ -105,41 +105,41 @@ export const Perfil = ({ navigation, route }) => {
     }
     async function AtualizarPerfil() {
         const [dia, mes, ano] = dataNascimento.split("/")
-        const novaData = new Date(`${ano}-${mes}-${dia}`);
+        const novaData = new Date(`${ano}-${mes}-${dia}`)
 
         tokenUser?.role === 'Paciente' ? (
-            api.put(`/Pacientes?idUsuario=${user.id}`,{
+            //Paciente
+            api.patch(`/Pacientes?idUsuario=${user.id}`, {
                 cpf: cpf,
                 dataNascimento: novaData,
-                novoEndereco: {
-                  cep: cep,
-                  logradouro: logradouro,
-                  numero: numeroEndereco,
-                  cidade: cidade
-                }
-            })
-            .then( (response) => {
-                console.log(response.status);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-        ) : (
-            //Medico
-            api.put(`/Medicos?idUsuario=${user.id}`, {
                 novoEndereco: {
                     cep: cep,
                     logradouro: logradouro,
                     numero: numeroEndereco,
-                    cidade: cidade
-                  }
+                    cidade: cidade,
+                    latitude: 0,
+                    longitude: 0
+                }
             })
-            .then( (response) => {
-                console.log(response.status);
+                .then((response) => {
+                    console.log(response.status);
+                })
+                .catch(error => {
+                    console.log(error + "Paciente atualizando");
+                })
+        ) : (
+            api.patch(`/Medicos?idUsuario=${user.id}`, {
+                cep: cep,
+                logradouro: logradouro,
+                cidade: cidade,
+                numero: numeroEndereco
             })
-            .catch(error => {
-                console.log(error);
-            })
+                .then((response) => {
+                    console.log(response.status);
+                })
+                .catch(error => {
+                    console.log(error + "Medico atualizando");
+                })
         )
     }
     const getUserPhoto = () => {
@@ -155,7 +155,7 @@ export const Perfil = ({ navigation, route }) => {
     }, []);
     useEffect(() => {
         PreencherCampos()
-    },[user])
+    }, [user])
     useEffect(() => {
         if (photoUri) {
             AlterarFoto()
@@ -194,7 +194,7 @@ export const Perfil = ({ navigation, route }) => {
                                 editable={formEdit}
                                 labelText="CPF"
                                 fieldValue={cpf}
-                                onChangeText={(c) => {setCpf(c)}}
+                                onChangeText={(c) => { setCpf(c) }}
                                 maxLength={11}
                                 KeyType="numeric"
                             />
@@ -219,12 +219,12 @@ export const Perfil = ({ navigation, route }) => {
                     )}
 
                     {!formEdit ? (
-                    <FormField
-                        fieldWidth={90}
-                        editable={formEdit}
-                        labelText="Endereco"
-                        fieldValue={user ? `${user.endereco.logradouro} ${user.endereco.numero}` : ""}
-                    />
+                        <FormField
+                            fieldWidth={90}
+                            editable={formEdit}
+                            labelText="Endereco"
+                            fieldValue={user ? `${user.endereco.logradouro} ${user.endereco.numero}` : ""}
+                        />
                     ) : (
                         <View style={{ width: "90%", justifyContent: "space-between", flexDirection: "row" }}>
                             <FormField
@@ -232,18 +232,18 @@ export const Perfil = ({ navigation, route }) => {
                                 editable={formEdit}
                                 labelText="Logradouro"
                                 fieldValue={logradouro}
-                                onChangeText={(l) => {setLogradouro(l)}}
+                                onChangeText={(l) => { setLogradouro(l) }}
                             />
                             <FormField
                                 fieldWidth={30}
                                 editable={formEdit}
                                 labelText="Numero"
                                 fieldValue={numeroEndereco}
-                                onChangeText={(n) => {setNumeroEndereco(n)}}
+                                onChangeText={(n) => { setNumeroEndereco(n) }}
                                 KeyType="numeric"
                             />
                         </View>
-                        
+
                     )}
 
                     <View style={{ width: "90%", justifyContent: "space-between", flexDirection: "row" }}>
@@ -251,8 +251,8 @@ export const Perfil = ({ navigation, route }) => {
                             fieldWidth={45}
                             editable={formEdit}
                             labelText="Cep"
-                            fieldValue={cep} 
-                            onChangeText={(c) => {setCep(c)}}
+                            fieldValue={cep}
+                            onChangeText={(c) => { setCep(c) }}
                             maxLength={8}
                             KeyType="numeric"
                         />
@@ -260,11 +260,11 @@ export const Perfil = ({ navigation, route }) => {
                             fieldWidth={45}
                             editable={formEdit}
                             labelText="Cidade"
-                            fieldValue={cidade} 
-                            onChangeText={(c) => {setCidade(c)}}
+                            fieldValue={cidade}
+                            onChangeText={(c) => { setCidade(c) }}
                         />
                     </View>
-                    
+
                     {formEdit ? (
                         <NormalButton title={"Salvar"} onPress={() => { setFormEdit(false), AtualizarPerfil() }}
                             fieldWidth={90} />

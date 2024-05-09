@@ -78,12 +78,12 @@ export const Home = ({ navigation }) => {
     const profileLoad = async () => {
         try {
             const token = await userDecodeToken();
-            console.log("Token do usuário:", token);
+            //console.log("Token do usuário:", token);
             setProfile(token);
             setDiaSelecionado(moment().format("YYYY-MM-DD"));
             loadUser(token.user);
         } catch (error) {
-            console.error('Erro ao carregar o perfil do usuário:', error);
+            //console.error('Erro ao carregar o perfil do usuário:', error);
         }
     };
 
@@ -93,7 +93,7 @@ export const Home = ({ navigation }) => {
             //console.log("Dados do usuário:", resp.data);
             setUser(resp.data);
         } catch (error) {
-            console.log(`Erro ao carregar o usuário: ${error}`);
+            //console.log(`Erro ao carregar o usuário: ${error}`);
         }
     };
 
@@ -105,7 +105,7 @@ export const Home = ({ navigation }) => {
             .then(async response => {
                 await setConsultas(response.data);
                 // console.log(`consultas, exito: ${consultas}`);
-                console.log(response.data);
+                //console.log(response.data);
             }).catch(error => {
                 // console.log("consultas, erro: " + error);
                 //console.log(error);
@@ -133,7 +133,7 @@ export const Home = ({ navigation }) => {
         }
 
         setIdEncontrado(consulta)
-        console.log(idEncontrado);
+        //console.log(idEncontrado);
     }
 
     //atualiza a pagina de acordo com o login
@@ -144,7 +144,7 @@ export const Home = ({ navigation }) => {
 
     useEffect(() => {
         ListarConsulta();
-        console.log("Consulta recebida na Home:", idEncontrado);
+        //console.log("Consulta recebida na Home:", idEncontrado);
     }, [diaSelecionado])
 
     return (
