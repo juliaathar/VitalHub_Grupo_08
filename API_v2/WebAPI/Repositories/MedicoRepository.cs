@@ -13,7 +13,7 @@ namespace WebAPI.Repositories
     {
         VitalContext ctx = new VitalContext();
 
-        public Medico AtualizarPerfil(Guid Id, MedicoViewModel medico)
+        public Medico AtualizarPerfil(Guid Id, MedicoPatchViewModel medico)
         {
             try
             {
@@ -27,11 +27,6 @@ namespace WebAPI.Repositories
                 //if (medico.Foto != null)
                 //    medicoBuscado.IdNavigation.Foto = medico.Foto;
 
-                if (medico.EspecialidadeId != null)
-                    medicoBuscado.EspecialidadeId = medico.EspecialidadeId;
-
-                if (medico.Crm != null)
-                    medicoBuscado.Crm = medico.Crm;
 
                 if (medico.Logradouro != null)
                     medicoBuscado.Endereco!.Logradouro = medico.Logradouro;

@@ -118,13 +118,11 @@ namespace WebAPI.Controllers
             }
         }
 
-        [Authorize]
-        [HttpPut]
-        public IActionResult UpdateProfile(MedicoViewModel medico)
+        [HttpPatch]
+        public IActionResult UpdateProfile(Guid idUsuario, MedicoPatchViewModel medico)
         {
             try
             {
-                Guid idUsuario = Guid.Parse(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
 
                 return Ok(_medicoRepository.AtualizarPerfil(idUsuario, medico));
 
