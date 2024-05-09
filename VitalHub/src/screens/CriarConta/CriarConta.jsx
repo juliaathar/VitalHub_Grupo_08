@@ -69,7 +69,7 @@ export const CriarConta = ({ navigation }) => {
 
             <Title>Criar conta</Title>
 
-            <Paragraph>Insira seu endereço de e-mail e senha para realizar seu cadastro.</Paragraph>
+            <Paragraph>Insira seus dados para realizar o cadastro.</Paragraph>
 
             <Input
                 placeholder="Nome"
