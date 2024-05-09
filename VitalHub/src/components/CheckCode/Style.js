@@ -12,6 +12,7 @@ export const CheckCode = styled.TextInput.attrs({
     placeholderTextColor: '#77CACF'
 })`
     width: 20%;
+    color: #34898F;
     border: 2px solid #77CACF;
     border-radius: 5px;
     font-size: 40px;
