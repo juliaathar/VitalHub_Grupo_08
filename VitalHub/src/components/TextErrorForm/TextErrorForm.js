@@ -6,4 +6,6 @@ export const TextErrorForm = styled.Text`
     font-size: 14px;
     text-align: left;
     font-family: 'MontserratAlternates_600SemiBold';
-`
+    margin: 5px 20px; 
+    align-self: flex-start; 
+`;
