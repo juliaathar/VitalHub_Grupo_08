@@ -1,4 +1,4 @@
-import { Camera } from "expo-camera";
+import { CameraView } from "expo-camera";
 import styled from "styled-components";
 
 export const ButtonContainer = styled.View`
@@ -42,7 +42,7 @@ export const ButtonCameraOthers = styled.TouchableOpacity `
     //background-color: white;
 `
 
-export const CameraBody = styled(Camera)`
+export const CameraBody = styled(CameraView)`
     flex: 1;
     justify-content: flex-end;
 `
