@@ -72,26 +72,27 @@ export const Prescricao = ({ navigation, route }) => {
         // })
 
         try {
+
             const formData = new FormData()
+            console.log(photoUri);
             formData.append("ConsultaId", novoProntuario.id)
-            formData.append("Arquivo", {
+            formData.append("Imagem", {
                 uri: photoUri,
                 name: `image.${photoUri.split('.').pop()}`,
                 type: `image/${photoUri.split('.').pop()}`
             });
-            
-            console.log(JSON.stringify(formData));
 
-            const response = api.post(`/Exame/Cadastrar`, formData, {
+            console.log(formData);
+
+            const response = await api.post(`/Exame/Cadastrar`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
             })
             console.log('-------------------------------------------------');
-            console.log(response.status);
-            console.log(response.data);
+            console.log(response.data.descricao);
 
-            setDescricao(descricao + '\n' + (await response).data.descricao)
+             setDescricao(descricao + '\n' + response.data.descricao)
 
         } catch (error) {
             console.log(error);

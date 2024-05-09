@@ -1,5 +1,5 @@
 import { ButtonCamera, ButtonContainer, CameraBody, ButtonCameraOthers, ButtonCameraCenter, LastPhoto } from './Style';
-import { Camera, CameraType, FlashMode } from 'expo-camera';
+import { Camera, useCameraPermissions } from 'expo-camera';
 import { PhotoTaked } from '../../components/Photo/Photo';
 import { useEffect, useRef, useState } from 'react';
 import * as MediaLibrary from 'expo-media-library'
@@ -10,10 +10,10 @@ import { Button, Text, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker'
 
 export const CameraScreen = ({ navigation, route }) => {
-    const [type, setType] = useState(CameraType.back);
-    const [flash, setFlash] = useState(FlashMode.off)
+    const [type, setType] = useState("back");
+    const [flash, setFlash] = useState("off")
     const [capturedPhoto, setCapturedPhoto] = useState(null);
-    const [permission, requestPermission] = Camera.useCameraPermissions();
+    const [permission, requestPermission] = useCameraPermissions();
     const [modalPhoto, setModalPhoto] = useState(false);
     const camRef = useRef(null);
 
@@ -58,11 +58,11 @@ export const CameraScreen = ({ navigation, route }) => {
     }
 
     function toggleCameraType() {
-        setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
+        setType(current => (current === "back" ? "front" : "back"));
     }
 
     function flashActive() {
-        setFlash(current => (current === FlashMode.on ? FlashMode.off : FlashMode.on));
+        setFlash(current => (current === "on" ? "off" : "on"));
         //console.log(flash)
     }
 
@@ -99,8 +99,8 @@ export const CameraScreen = ({ navigation, route }) => {
     return (
         <>
             <CameraBody
-                type={type}
-                flashMode={flash}
+                facing={type}
+                flash={flash}
                 ref={camRef}
                 ratio='16:9'
             >
