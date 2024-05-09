@@ -1,16 +1,66 @@
 {
-  "_parts": [
-    [
-      "ConsultaId",
-      "4dc680e2-41fa-438c-9e79-7b7d9161b048"
+  "dataConsulta": "2024-05-12T17:00:00",
+  "descricao": "",
+  "diagnostico": "",
+  "exames": [],
+  "id": "2201f413-195e-4a39-a6c6-240526aaafef",
+  "medicoClinica": {
+    "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
+    "consulta": [
+      [Object
+      ],
+      [Object
+      ],
+      [Object
+      ],
+      [Object
+      ],
+      [Object
+      ],
+      [Object
+      ],
+      [Object
+      ],
+      [Object
+      ]
     ],
-    [
-      "Arquivo",
-      {
-        "uri": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FVitalHub-5bfc9789-c47d-475d-a410-182a18ef38d7/Camera/a45fb580-52dd-4809-8907-7e70ef205ee6.jpg",
-        "name": "image.jpg",
-        "type": "image/jpg"
-      }
-    ]
-  ]
+    "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+    "medico": {
+      "crm": "123123123",
+      "enderecoId": "085598ed-3703-49ba-bbd6-7d8e27258d0b",
+      "especialidade": [Object
+      ],
+      "especialidadeId": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+      "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+      "idNavigation": [Object
+      ],
+      "medicosClinicas": [Array
+      ]
+    },
+    "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07"
+  },
+  "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+  "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
+  "prioridade": {
+    "consulta": [
+      [Object
+      ]
+    ],
+    "id": "34065edc-cb48-4045-82fb-949dae435dc9",
+    "prioridade": 3
+  },
+  "prioridadeId": "34065edc-cb48-4045-82fb-949dae435dc9",
+  "situacao": {
+    "consulta": [
+      [Object
+      ],
+      [Object
+      ],
+      [Object
+      ]
+    ],
+    "id": "791b5f13-eeca-4229-b751-712e702d8837",
+    "situacao": "Pendente"
+  },
+  "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837"
 }

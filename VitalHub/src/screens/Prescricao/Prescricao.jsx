@@ -59,18 +59,6 @@ export const Prescricao = ({ navigation, route }) => {
     };
 
     async function InserirExame() {
-        // await api.post(`/Exame/Cadastrar`, formData, {
-        //     headers: {
-        //         "Content-Type": "multipart/form-data"
-        //     }
-        // }).then(response => {
-        //     setDescricao(descricao + '\n' + response.data.descricao)
-        //     console.log(response.status);
-        // }).catch(error => {
-        //     console.log(JSON.stringify(formData));
-        //     console.log(error + " inserir exames deu errado ");
-        // })
-
         try {
 
             const formData = new FormData()
@@ -97,6 +85,7 @@ export const Prescricao = ({ navigation, route }) => {
         } catch (error) {
             console.log(error);
         }
+        ConsultaGet()
     }
 
     useEffect(() => {
