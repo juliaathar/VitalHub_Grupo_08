@@ -66,7 +66,7 @@ export const Login = ({ navigation }) => {
       <Logo source={require('../../assets/VitalHub_Logo1.png')} />
       <Title>Entrar ou criar conta</Title>
       <Input
-        placeholder="Usuário ou Email"
+        placeholder="E-mail"
         value={email}
         onChangeText={(newValue) => { setEmail(newValue) }}
         style={{ borderColor: errors.email ? '#C81D25' : '#49B3BA' }}
