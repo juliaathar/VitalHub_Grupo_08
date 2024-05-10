@@ -44,6 +44,7 @@
     "react-native-modal": "^13.0.1",
     "react-native-picker-select": "^8.1.0",
     "react-native-select-dropdown": "^3.4.0",
+    "react-native-validator-form": "^1.0.0",
     "react-native-web": "~0.19.6",
     "styled-components": "^6.1.8",
     "typescript": "~5.3.3",

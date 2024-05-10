@@ -1,62 +1,35 @@
-import { ContentAccount, TextAccountLink } from "../../components/ContentAccount/Style"
-import { NormalButton } from "../../components/Button/Buttons"
-import { Paragraph } from "../../components/Paragraph/Style"
-import { Container } from "../../components/Container/Style"
-import { Title } from "../../components/Title/Style"
-import { Input } from "../../components/Input/Style"
-import { Logo } from "../../components/Logo/Style"
-import { useState } from "react"
-import api from "../../service/service"
+import React, { useState } from "react";
+import { ContentAccount, TextAccountLink } from "../../components/ContentAccount/Style";
+import { NormalButton } from "../../components/Button/Buttons";
+import { Paragraph } from "../../components/Paragraph/Style";
+import { Container } from "../../components/Container/Style";
+import { Title } from "../../components/Title/Style";
+import { Input } from "../../components/Input/Style";
+import { Logo } from "../../components/Logo/Style";
 import * as yup from 'yup';
-import { Controller, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Text } from "react-native"
-import { TextErrorForm } from "../../components/TextErrorForm/TextErrorForm"
-
-
-// const formSchema = yup.object().shape({
-//     nome: yup.string().required("Campo obrigatório"),
-//     email: yup.string().email("Email inválido").required("Campo obrigatório"),
-//     senha: yup
-//         .string()
-//         .required("Campo obrigatório")
-//         .min(8, "A senha deve ter no mínimo 8 caracteres.")
-//         .matches(/[A-Z]/, "A senha deve conter pelo menos uma letra maiúscula.")
-//         .matches(/[a-z]/, "A senha deve conter pelo menos uma letra minúscula.")
-//         .matches(/[\W_]/, "A senha deve conter pelo menos um caractere especial.")
-//         .matches(/\d/, "A senha deve conter pelo menos um número."),
-//     confirm: yup
-//         .string()
-//         .required("Campo obrigatório")
-//         .oneOf([yup.ref("senha"), null], "As senhas devem coincidir"),
-// });
+import { Text } from "react-native";
+import api from "../../service/service";
+import { TextErrorForm } from "../../components/TextErrorForm/TextErrorForm";
 
 export const CriarConta = ({ navigation }) => {
-
-    // const {
-    //     control,
-    //     handleSubmit,
-    //     formState: { errors },
-    // } = useForm({
-    //     resolver: yupResolver(formSchema),
-    //     defaultValues: {
-    //         nome: "",
-    //         email: "",
-    //         senha: "",
-    //         confirm: "",
-    //     },
-    // });
-
-    const [senha, setSenha] = useState()
-    const [email, setEmail] = useState()
-    const [nome, setNome] = useState()
-    const [confirm, setConfirm] = useState()
-
-
+    const [nome, setNome] = useState("");
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [confirm, setConfirm] = useState("");
+    const [errors, setErrors] = useState({});
 
     const cadastrarUsuario = async () => {
         try {
-            // const { nome, email, senha } = data;
+            const schema = yup.object().shape({
+                nome: yup.string().required("Campo obrigatório").matches(/^[^\s]+(\s+[^\s]+)+$/, "Nome e sobrenome necessários"),
+                email: yup.string().email("Digite um e-mail válido").required("Campo obrigatório").matches(/@gmail.com$/, "O e-mail deve ser do Gmail"),
+                senha: yup.string().min(8, "A senha deve ter pelo menos 8 caracteres").required("Campo obrigatório")
+                    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()-_+=])[A-Za-z\d!@#$%^&*()-_+=]{8,}$/, 
+                    "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número, um caractere especial e ter no mínimo 8 caracteres"),
+                confirm: yup.string().oneOf([senha], "As senhas precisam ser iguais").required("Confirme a senha")
+            });
+
+            await schema.validate({ nome, email, senha, confirm }, { abortEarly: false });
 
             const formData = new FormData();
             formData.append("nome", nome);
@@ -65,7 +38,6 @@ export const CriarConta = ({ navigation }) => {
             formData.append("idTipoUsuario", '5FF2DF57-1B92-49D0-A516-F2B1172A0EDC');
 
             console.log(formData);
-
 
             const response = await api.post("/Pacientes", formData, {
                 headers: {
@@ -79,11 +51,17 @@ export const CriarConta = ({ navigation }) => {
                 navigation.navigate('Login');
             }
         } catch (error) {
-            console.log("Erro ao cadastrar:", error);
+            if (error instanceof yup.ValidationError) {
+                let validationErrors = {};
+                error.inner.forEach(err => {
+                    validationErrors[err.path] = err.message;
+                });
+                setErrors(validationErrors);
+            } else {
+                console.log("Erro ao cadastrar:", error);
+            }
         }
     };
-
-
 
     return (
         <Container>
@@ -91,31 +69,47 @@ export const CriarConta = ({ navigation }) => {
 
             <Title>Criar conta</Title>
 
-            <Paragraph>Insira seu endereço de e-mail e senha para realizar seu cadastro.</Paragraph>
-
+            <Paragraph>Insira seus dados para realizar o cadastro.</Paragraph>
 
             <Input
                 placeholder="Nome"
                 value={nome}
                 onChangeText={(text) => setNome(text)}
+                style={{ borderColor: errors.nome ? '#C81D25' : '#49B3BA' }}
             />
-            {/* {errors.nome && <TextErrorForm>{errors.nome.message}</TextErrorForm>} */}
+            {errors.nome && <TextErrorForm style={{ color: '#C81D25' }}>{errors.nome}</TextErrorForm>}
 
-            <Input placeholder="E-mail" value={email} onChangeText={(emailInput) => setEmail(emailInput)} />
-            {/* {errors.email && <TextErrorForm>{errors.nome.message}</TextErrorForm>} */}
+            <Input
+                placeholder="E-mail"
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+                style={{ borderColor: errors.email ? '#C81D25' : '#49B3BA' }}
+            />
+            {errors.email && <TextErrorForm style={{ color: '#C81D25' }}>{errors.email}</TextErrorForm>}
 
-            <Input placeholder="Senha" value={senha} onChangeText={(senhaInput) => setSenha(senhaInput)} />
-            {/* {errors.senha && <TextErrorForm>{errors.nome.message}</TextErrorForm>} */}
+            <Input
+                placeholder="Senha"
+                value={senha}
+                onChangeText={(text) => setSenha(text)}
+                secureTextEntry
+                style={{ borderColor: errors.senha ? '#C81D25' : '#49B3BA' }}
+            />
+            {errors.senha && <TextErrorForm style={{ color: '#C81D25' }}>{errors.senha}</TextErrorForm>}
 
-            <Input placeholder="Confirmar Senha" value={confirm} onChangeText={(confirmInput) => setConfirm(confirmInput)} />
-            {/* {errors.confirm && <TextErrorForm>{errors.nome.message}</TextErrorForm>} */}
+            <Input
+                placeholder="Confirmar Senha"
+                value={confirm}
+                onChangeText={(text) => setConfirm(text)}
+                secureTextEntry
+                style={{ borderColor: errors.confirm ? '#C81D25' : '#49B3BA' }}
+            />
+            {errors.confirm && <TextErrorForm style={{ color: '#C81D25' }}>{errors.confirm}</TextErrorForm>}
 
-
-            <NormalButton title={"Cadastrar"} fieldWidth={90} onPress={handleSubmit(cadastrarUsuario)} />
+            <NormalButton title="Cadastrar" fieldWidth={90} onPress={cadastrarUsuario} />
 
             <ContentAccount onPress={() => navigation.navigate('Login')}>
                 <TextAccountLink>Cancelar</TextAccountLink>
             </ContentAccount>
         </Container>
-    )
-}
+    );
+};
