@@ -70,6 +70,7 @@ export const RecuperarSenha = ({ navigation }) => {
                 title={"Continuar"}
                 fieldWidth={90}
                 onPress={() => EnviarEmail()}
+    
             />
         </Container>
     )
