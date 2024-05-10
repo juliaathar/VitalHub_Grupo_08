@@ -2,7 +2,6 @@ import { Age, Appointment, CardBoby, CardContainer, CardInfo, CardOptions, Data,
 import { MaterialIcons } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import { useEffect, useState } from "react";
-import api from "../../service/service";
 
 export const ConsultationData = ({
     situacao = "",
@@ -15,7 +14,6 @@ export const ConsultationData = ({
     onPressCancel,
     onPressAppoiment,
     onPressCard
-
 }) => {
     const [fotoCarregada, setFotoCarregada] = useState(false);
 
@@ -35,10 +33,22 @@ export const ConsultationData = ({
     };
     function Consulta(tipo) {
         tipoConsulta = "Indefinido"
-
-        if (tipo <= 2) {
-            tipo == 0 ? tipoConsulta = "Rotina" : tipo == 1 ? tipoConsulta = "Exame" : tipoConsulta = "Urgência";
+        switch (tipo) {
+            case 1:
+                tipoConsulta = "Rotina"
+                break;
+            case 2:
+                tipoConsulta = "Exame"
+                break;
+            case 3:
+                tipoConsulta = "Urgência"
+                break;
+        
+            default:
+                tipoConsulta = "Indefinido"
+                break;
         }
+        
         return tipoConsulta;
     }
 

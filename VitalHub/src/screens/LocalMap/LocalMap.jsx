@@ -39,11 +39,11 @@ export const LocalMap = ({ navigation, route }) => {
 
     //{cep, clinicas[],id,latitude,logradouro,longitude,medicos[],numero,pacientes[]}
     
-    //setFinalPosition({ latitude: response.data.endereco.latitude, longitude: response.data.endereco.longitude })
+    setFinalPosition({ latitude: response.data.endereco.latitude, longitude: response.data.endereco.longitude })
     setEndereco(response.data.endereco)
     console.log(endereco);
 
-    setFinalPosition({latitude: -23.8007, longitude: -46.0209,}) //--provisorio para testes-- //
+    //setFinalPosition({latitude: -23.8007, longitude: -46.0209,}) //--provisorio para testes-- //
     console.log(finalPosition.latitude);
     console.log(finalPosition.longitude);
   }

@@ -7,16 +7,18 @@ import { CalendarHome } from "../../components/CalendarHome/CalendarHome"
 import { DoctorModal } from "../../components/DoctorModal/DoctorModal"
 import { Container } from "../../components/Container/Style"
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { CardList, ContainerBox, NewConsul } from "./Style"
+import { CardList, ContainerBox, NewConsul, Nothing } from "./Style"
 import { Header } from "../../components/Header/Header"
 import { useEffect, useState } from "react"
 import api from "../../service/service"
 
 //notificacoes
 //importa a notificacao
+import { Paragraph } from "../../components/Paragraph/Style"
 import * as Notifications from "expo-notifications"
 import { userDecodeToken } from "../../utils/Auth"
 import moment from "moment"
+
 //solicitar a permissao
 Notifications.requestPermissionsAsync()
 //definir como as notificacoes devem ser tratadas
@@ -76,10 +78,12 @@ export const Home = ({ navigation }) => {
         await api.get(`/${url}/BuscarPorData?data=${diaSelecionado}&id=${profile.user}`)
             .then(async response => {
                 await setConsultas(response.data);
+                console.log(diaSelecionado);
+                console.log(response.data);
 
             }).catch(error => {
                 console.log(error);
-            }) 
+            })
     }
 
     async function CancelarConsulta(item) {
@@ -91,22 +95,24 @@ export const Home = ({ navigation }) => {
                 console.log(`Erro em cancelar a consulta! : ${error}`);
             })
         setModalCancel(false)
-        ListarConsulta()
+        //ListarConsulta()
     }
 
-    async function RealizarConsulta(item) {
-        await api.patch(`/Consultas/Status?idConsulta=${item.id}&status=Realizado`)
-            .then(response => {
-                console.log(response.status);
-            })
-            .catch(error => {
-                console.log(`Erro em realizar a consulta! : ${error}`);
-            })
-        setModalCancel(false)
-        ListarConsulta()
-    }
+    // async function RealizarConsulta(item) {
+    //     await api.patch(`/Consultas/Status?idConsulta=${item.id}&status=Realizado`)
+    //         .then(response => {
+    //             console.log(response.status);
+    //         })
+    //         .catch(error => {
+    //             console.log(`Erro em realizar a consulta! : ${error}`);
+    //         })
+    //     setModalCancel(false)
+    //     ListarConsulta()
+    // }
 
     function MostrarModal(modal, consulta) {
+        setIdEncontrado(consulta)
+        
         if (modal == "cancelar") {
             setModalCancel(true)
         } else if (modal == "doutor") {
@@ -114,14 +120,26 @@ export const Home = ({ navigation }) => {
         } else if (modal == "local") {
             setModalDoctor(true)
         }
+        //console.log(consulta);
+    }
 
-        setIdEncontrado(consulta)
+    const emptyComponent = () => {
+        return(
+            <Nothing>
+                <Paragraph>Ops! Nenhuma consulta aqui</Paragraph>
+            </Nothing>
+        )
     }
 
     useEffect(() => {
         profileLoad();
         loadUser()
     }, [])
+
+    useEffect(() => {
+        console.log("==================================================================================================================");
+        console.log(idEncontrado);
+    },[idEncontrado])
 
     useEffect(() => {
         ListarConsulta();
@@ -164,6 +182,7 @@ export const Home = ({ navigation }) => {
                     statusLista == "pendente" ? (
                         <CardList
                             data={consultas}
+                            ListEmptyComponent={emptyComponent}
                             keyExtractor={(item) => item.id}
                             renderItem={({ item }) => item.situacao.situacao === "Pendente" ?
                                 <ConsultationData
@@ -177,9 +196,10 @@ export const Home = ({ navigation }) => {
                                     onPressCancel={() => MostrarModal("cancelar", item)}
                                     onPressCard={() => {
                                         profile.role == "Paciente" ? (
-                                            MostrarModal("local",item)
+                                            MostrarModal("local", item)
                                         ) : (
-                                            RealizarConsulta(item)
+                                            null
+                                            //RealizarConsulta(item)
                                         )
                                     }}
                                 />
@@ -190,6 +210,7 @@ export const Home = ({ navigation }) => {
 
                         <CardList
                             data={consultas}
+                            ListEmptyComponent={emptyComponent}
                             keyExtractor={(item) => item.id}
                             renderItem={({ item }) => item.situacao.situacao === "Realizado" ?
                                 <ConsultationData
@@ -217,6 +238,7 @@ export const Home = ({ navigation }) => {
 
                         <CardList
                             data={consultas}
+                            ListEmptyComponent={emptyComponent}
                             keyExtractor={(item) => item.id}
                             renderItem={({ item }) => item.situacao.situacao === "Cancelado" ?
                                 <ConsultationData
@@ -242,7 +264,6 @@ export const Home = ({ navigation }) => {
                     <></>
                 )}
 
-
             </Container>
 
             <CancellationModal
@@ -255,7 +276,8 @@ export const Home = ({ navigation }) => {
                 title={"Cancelar consulta"}
                 paragraph={"Ao cancelar essa consulta, abrirá uma possível disponibilidade no seu horário, deseja mesmo cancelar essa consulta?"}
             />
-            <DoctorModal
+
+            {/* <DoctorModal
                 visible={modalDoctor}
                 onRequestClose={() => setModalDoctor(false)}
                 navigation={navigation}
@@ -264,7 +286,8 @@ export const Home = ({ navigation }) => {
                 crm={idEncontrado && idEncontrado.medicoClinica ? idEncontrado.medicoClinica.medico.crm : ""}
                 especialidade={idEncontrado && idEncontrado.medicoClinica ? idEncontrado.medicoClinica.medico.especialidade.especialidade1 : ""}
                 foto={idEncontrado && idEncontrado.medicoClinica ? idEncontrado.medicoClinica.medico.idNavigation.foto : ""}
-            />
+            /> */}
+
             <NewConsulModal
                 visible={modalNewConsul}
                 onRequestClose={() => { setModalNewConsul(false) }}
@@ -275,11 +298,11 @@ export const Home = ({ navigation }) => {
                 visible={modalPromptuary}
                 onRequestClose={() => { setModalPromptuary(false) }}
                 navigation={navigation}
-                consulta={idEncontrado.id}
+                consulta={idEncontrado}
                 idade={idEncontrado && idEncontrado.paciente && idEncontrado.paciente.dataNascimento ? idEncontrado.paciente.dataNascimento : ""}
-                nome={idEncontrado && idEncontrado.paciente ? idEncontrado.paciente.idNavigation.nome : ""}
-                email={idEncontrado && idEncontrado.paciente ? idEncontrado.paciente.idNavigation.email : ""}
-                foto={idEncontrado && idEncontrado.paciente ? idEncontrado.paciente.idNavigation.foto : ""}
+                nome={idEncontrado && idEncontrado.paciente && idEncontrado.paciente.idNavigation ? idEncontrado.paciente.idNavigation.nome : ""}
+                email={idEncontrado && idEncontrado.paciente && idEncontrado.paciente.idNavigation ? idEncontrado.paciente.idNavigation.email : ""}
+                foto={idEncontrado && idEncontrado.paciente && idEncontrado.paciente.idNavigation ? idEncontrado.paciente.idNavigation.foto : ""}
             />
         </>
     )

@@ -25,3 +25,7 @@ export const NewConsul = styled.TouchableOpacity`
     bottom: 20px;
     right: 20px;
 `
+
+export const Nothing = styled.View`
+    flex: 1;
+`

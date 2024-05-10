@@ -66,6 +66,7 @@ export const Perfil = ({ navigation, route }) => {
         setNumeroEndereco(user ? `${user.endereco.numero}` : "")
         setCidade(user && user.endereco ? user.endereco.cidade : '')
     }
+    
     async function handleLogout() {
         try {
             if (tokenUser) {
@@ -274,7 +275,7 @@ export const Perfil = ({ navigation, route }) => {
                     )}
 
                     <GoogleButton title={"Sair do app"} onPress={handleLogout}
-                        fieldWidth={70} />
+                        fieldWidth={90} />
 
                 </View>
             </ScrollForm>

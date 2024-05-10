@@ -6,10 +6,10 @@ import { useEffect, useState } from "react"
 import moment from "moment"
 
 export const PromptuaryModal = ({
-    nome,
-    email,
-    idade,
-    foto,
+    nome ="",
+    email ="",
+    idade ="",
+    foto ="",
     visible,
     onRequestClose,
     navigation,
@@ -35,7 +35,7 @@ export const PromptuaryModal = ({
                     isVisible={visible}
                 >
                     <CenterContainer>
-                        <PerfilImg source={ foto ? {uri : foto} : { uri: "https://github.com/LeonKene-hub.png" }} />
+                        <PerfilImg source={ foto != "" ? {uri : foto} : { uri: "https://github.com/LeonKene-hub.png" }} />
 
                         <PatientName>{nome}</PatientName>
 
