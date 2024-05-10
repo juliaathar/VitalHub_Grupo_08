@@ -44,36 +44,8 @@ export const Home = ({ navigation }) => {
     const [modalNewConsul, setModalNewConsul] = useState(false);
     const [modalDoctor, setModalDoctor] = useState(false);
     const [modalPromptuary, setModalPromptuary] = useState(false);
-
     const [idEncontrado, setIdEncontrado] = useState("");
-
     const [consultas, setConsultas] = useState();
-    //notificacoes
-    //funcao para lidar con a chamada da notificacao
-    const handleNotifications = async () => {
-
-        //obtem o status das permissoes
-        const { status } = await Notifications.getPermissionsAsync()
-
-        //verifica se o usuario concedeu permissao para notificacoes
-        if (status !== "granted") {
-            alert("voce nao deixou as notificacoes ativas");
-            return;
-        }
-
-        //obter o token de enviou de notificacao
-        const token = await Notifications.getExpoPushTokenAsync()
-        //console.log(token);
-
-        //agendar uma notificacao parar ser exibida apos 5 segundos
-        await Notifications.scheduleNotificationAsync({
-            content: {
-                title: "Consulta cancelada",
-                body: "voce cancelou a sua consulta"
-            },
-            trigger: null
-        })
-    }
 
     const profileLoad = async () => {
         try {
@@ -83,7 +55,7 @@ export const Home = ({ navigation }) => {
             setDiaSelecionado(moment().format("YYYY-MM-DD"));
             loadUser(token.user);
         } catch (error) {
-            //console.error('Erro ao carregar o perfil do usuário:', error);
+            console.error('Erro ao carregar o perfil do usuário:', error);
         }
     };
 
@@ -93,23 +65,21 @@ export const Home = ({ navigation }) => {
             //console.log("Dados do usuário:", resp.data);
             setUser(resp.data);
         } catch (error) {
-            //console.log(`Erro ao carregar o usuário: ${error}`);
+            console.log(`Erro usuário: ${error}`);
         }
     };
 
     async function ListarConsulta() {
         const url = (profile.role == "Médico" ? "Medicos" : "Pacientes")
 
-        //console.log(`/${url}/BuscarPorData?data=${diaSelecionado}&id=${profile.user}`);
+
         await api.get(`/${url}/BuscarPorData?data=${diaSelecionado}&id=${profile.user}`)
             .then(async response => {
                 await setConsultas(response.data);
-                // console.log(`consultas, exito: ${consultas}`);
-                //console.log(response.data);
+
             }).catch(error => {
-                // console.log("consultas, erro: " + error);
-                //console.log(error);
-            })
+                console.log(error);
+            }) 
     }
 
     async function CancelarConsulta(item) {
@@ -121,6 +91,19 @@ export const Home = ({ navigation }) => {
                 console.log(`Erro em cancelar a consulta! : ${error}`);
             })
         setModalCancel(false)
+        ListarConsulta()
+    }
+
+    async function RealizarConsulta(item) {
+        await api.patch(`/Consultas/Status?idConsulta=${item.id}&status=Realizado`)
+            .then(response => {
+                console.log(response.status);
+            })
+            .catch(error => {
+                console.log(`Erro em realizar a consulta! : ${error}`);
+            })
+        setModalCancel(false)
+        ListarConsulta()
     }
 
     function MostrarModal(modal, consulta) {
@@ -133,10 +116,8 @@ export const Home = ({ navigation }) => {
         }
 
         setIdEncontrado(consulta)
-        //console.log(idEncontrado);
     }
 
-    //atualiza a pagina de acordo com o login
     useEffect(() => {
         profileLoad();
         loadUser()
@@ -144,7 +125,6 @@ export const Home = ({ navigation }) => {
 
     useEffect(() => {
         ListarConsulta();
-        //console.log("Consulta recebida na Home:", idEncontrado);
     }, [diaSelecionado])
 
     return (
@@ -189,17 +169,17 @@ export const Home = ({ navigation }) => {
                                 <ConsultationData
                                     situacao={item.situacao.situacao}
                                     nome={profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.nome) : (item.paciente.idNavigation.nome)}
-                                    idade={profile.role == "Paciente" ? item.medicoClinica.medico.crm : moment((item.paciente.dataNascimento), "YYYYMMDD").fromNow().slice(0, 2)}
-                                    textIdade = {profile.role == "Paciente" ? "CRM" : "anos"}
+                                    idade={profile.role == "Paciente" ? (item.medicoClinica.medico.crm) : moment((item.paciente.dataNascimento), "YYYYMMDD").fromNow().slice(0, 2)}
+                                    textIdade={profile.role == "Paciente" ? "CRM" : "anos"}
                                     hora={(item.dataConsulta).slice(11, 16)}
                                     foto={profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.foto) : (item.paciente.idNavigation.foto)}
                                     tipoConsulta={item.prioridade.prioridade}
                                     onPressCancel={() => MostrarModal("cancelar", item)}
                                     onPressCard={() => {
-                                        profile.role === "Paciente" ? (
-                                            MostrarModal("local", item)
+                                        profile.role == "Paciente" ? (
+                                            MostrarModal("local",item)
                                         ) : (
-                                            MostrarModal("local", item) //provisorio
+                                            RealizarConsulta(item)
                                         )
                                     }}
                                 />
@@ -217,7 +197,7 @@ export const Home = ({ navigation }) => {
                                     // nome={"Rubens"}
                                     nome={profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.nome) : (item.paciente.idNavigation.nome)}
                                     idade={profile.role == "Paciente" ? item.medicoClinica.medico.crm : moment((item.paciente.dataNascimento), "YYYYMMDD").fromNow().slice(0, 2)}
-                                    textIdade = {profile.role == "Paciente" ? "CRM" : "anos"}
+                                    textIdade={profile.role == "Paciente" ? "CRM" : "anos"}
                                     foto={profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.foto) : (item.paciente.idNavigation.foto)}
                                     hora={(item.dataConsulta).slice(11, 16)}
                                     tipoConsulta={item.prioridade.prioridade}
@@ -243,7 +223,7 @@ export const Home = ({ navigation }) => {
                                     situacao={item.situacao.situacao}
                                     nome={profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.nome) : (item.paciente.idNavigation.nome)}
                                     idade={profile.role == "Paciente" ? item.medicoClinica.medico.crm : moment((item.paciente.dataNascimento), "YYYYMMDD").fromNow().slice(0, 2)}
-                                    textIdade = {profile.role == "Paciente" ? "CRM" : "anos"}
+                                    textIdade={profile.role == "Paciente" ? "CRM" : "anos"}
                                     foto={profile.role == "Paciente" ? (item.medicoClinica.medico.idNavigation.foto) : (item.paciente.idNavigation.foto)}
                                     hora={(item.dataConsulta).slice(11, 16)}
                                     tipoConsulta={item.prioridade.prioridade}
@@ -278,9 +258,12 @@ export const Home = ({ navigation }) => {
             <DoctorModal
                 visible={modalDoctor}
                 onRequestClose={() => setModalDoctor(false)}
-                doctorName={idEncontrado.Nome}
                 navigation={navigation}
                 consulta={idEncontrado}
+                nome={idEncontrado && idEncontrado.medicoClinica ? idEncontrado.medicoClinica.medico.idNavigation.nome : ""}
+                crm={idEncontrado && idEncontrado.medicoClinica ? idEncontrado.medicoClinica.medico.crm : ""}
+                especialidade={idEncontrado && idEncontrado.medicoClinica ? idEncontrado.medicoClinica.medico.especialidade.especialidade1 : ""}
+                foto={idEncontrado && idEncontrado.medicoClinica ? idEncontrado.medicoClinica.medico.idNavigation.foto : ""}
             />
             <NewConsulModal
                 visible={modalNewConsul}
@@ -293,10 +276,10 @@ export const Home = ({ navigation }) => {
                 onRequestClose={() => { setModalPromptuary(false) }}
                 navigation={navigation}
                 consulta={idEncontrado.id}
-                idade={idEncontrado ? idEncontrado.paciente.dataNascimento : ""}
-                nome={idEncontrado ? idEncontrado.paciente.idNavigation.nome : ""}
-                email={idEncontrado ? idEncontrado.paciente.idNavigation.email : ""}
-                foto={idEncontrado ? idEncontrado.paciente.idNavigation.foto : ""}
+                idade={idEncontrado && idEncontrado.paciente && idEncontrado.paciente.dataNascimento ? idEncontrado.paciente.dataNascimento : ""}
+                nome={idEncontrado && idEncontrado.paciente ? idEncontrado.paciente.idNavigation.nome : ""}
+                email={idEncontrado && idEncontrado.paciente ? idEncontrado.paciente.idNavigation.email : ""}
+                foto={idEncontrado && idEncontrado.paciente ? idEncontrado.paciente.idNavigation.foto : ""}
             />
         </>
     )

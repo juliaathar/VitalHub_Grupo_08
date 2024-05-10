@@ -4,68 +4,49 @@ import { TouchableOpacity } from "react-native"
 import { Paragraph } from "../Paragraph/Style"
 import { LinkMedium } from "../Links/Style"
 import { useEffect, useState } from "react"
-import api from "../../service/service"
 import { Title } from "../Title/Style"
-import { userDecodeToken } from "../../utils/Auth"
 
 export const DoctorModal = ({
     onRequestClose,
     visible,
     navigation,
-
     consulta,
-    role,
+    nome ="",
+    crm ="",
+    especialidade ="",
+    foto
 }) => {
-    const [nome, setNome] = useState()
-    const [crm, setCrm] = useState()
-    const [confirm, setConfirm] = useState(false)
 
-    async function medicoInfo() {
-        setNome(consulta.medicoClinica.medico.idNavigation.nome)
-        setCrm(consulta.medicoClinica.medico.crm)
-    }
 
     async function LocalMapTela(consulta) {
-        console.log("consulta modal prescricao");
         navigation.navigate('LocalMap', { clinicaId: consulta.medicoClinica.clinicaId })
     }
 
-    useEffect(() => {
-        if (consulta) {
-            medicoInfo();
-            setConfirm(true)
-        }
-    }, [consulta])
-
     return (
-        <>
-            {confirm ? (
-                <BodyModal
-                    isVisible={visible}
-                    animationOutTiming={0}
-                >
-                    <Center>
-                        <DocImg source={{ uri: "https://github.com/LeonKene-hub.png" }} />
+        <BodyModal
+            isVisible={visible}
+            animationOutTiming={0}
+        >
+            <Center>
+                <DocImg source={foto != "" ? {uri: foto} : { uri: "https://github.com/LeonKene-hub.png" }} />
 
-                        <Title style={{ marginTop: 15 }}>{nome}</Title>
+                <Title style={{ marginTop: 15 }}>{nome}</Title>
 
-                        <Line>
-                            <Paragraph>{"especialidade"}</Paragraph>
-                            <Paragraph>{crm}</Paragraph>
-                        </Line>
+                <Line>
+                    <Paragraph>{especialidade}</Paragraph>
+                    <Paragraph>{crm}</Paragraph>
+                </Line>
 
-                        <NormalButton
-                            title={"ver local da consulta"}
-                            fieldWidth={90}
-                            onPress={() => (LocalMapTela(consulta))}
-                        />
+                <NormalButton
+                    title={"ver local da consulta"}
+                    fieldWidth={90}
+                    onPress={() => (LocalMapTela(consulta))}
+                />
 
-                        <TouchableOpacity onPress={onRequestClose} style={{ marginBottom: 15 }}>
-                            <LinkMedium>Cancelar</LinkMedium>
-                        </TouchableOpacity>
-                    </Center>
-                </BodyModal>
-            ) : (null)}
-        </>
+                <TouchableOpacity onPress={onRequestClose} style={{ marginBottom: 15 }}>
+                    <LinkMedium>Cancelar</LinkMedium>
+                </TouchableOpacity>
+            </Center>
+        </BodyModal>
     )
 }

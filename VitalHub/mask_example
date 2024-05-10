@@ -1,17 +1,17 @@
-import { Masks, useMaskedInputProps } from 'react-native-mask-input';
+// import { Masks, useMaskedInputProps } from 'react-native-mask-input';
 
-const dataMasked = useMaskedInputProps({
-        value: dtNasc,
-        onChangeText: setDtNasc,
-        mask: Masks.DATE_DDMMYYYY
-    });
+// const dataMasked = useMaskedInputProps({
+//         value: dtNasc,
+//         onChangeText: setDtNasc,
+//         mask: Masks.DATE_DDMMYYYY
+//     });
 
-    const cpfMasked = useMaskedInputProps({
-        value: cpf,
-        onChangeText: setCpf,
-        mask: Masks.BRL_CPF
-    })
+//     const cpfMasked = useMaskedInputProps({
+//         value: cpf,
+//         onChangeText: setCpf,
+//         mask: Masks.BRL_CPF
+//     })
 
 
-<Input {...cpfMasked} keyboardType="numeric" />
-<Input {...dataMasked} />
+// <Input {...cpfMasked} keyboardType="numeric" />
+// <Input {...dataMasked} />

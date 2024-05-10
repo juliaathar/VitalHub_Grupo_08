@@ -7,7 +7,7 @@ import api from "../../service/service";
 export const ConsultationData = ({
     situacao = "",
     nome = "Beta Tester",
-    idade = 20,
+    idade = "sem data",
     foto,
     textIdade,
     tipoConsulta = "Rotina",
