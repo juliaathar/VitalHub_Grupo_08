@@ -31,17 +31,16 @@ export const LocalMap = ({ navigation, route }) => {
   const [finalPosition, setFinalPosition] = useState(null)
 
   const [endereco, setEndereco] = useState({})
+  const [nomeClinica, setNomeClinica] = useState()
   const mapReference = useRef(null)
 
   async function BuscarClinica() {
     const response = await api.get(`/Clinica/BuscarPorId?id=${clinicaId}`)
     console.log("=============== Funcao de trazer dados da clinica: ===============");
-
-    //{cep, clinicas[],id,latitude,logradouro,longitude,medicos[],numero,pacientes[]}
     
+    setNomeClinica(response.data.nomeFantasia)
     setFinalPosition({ latitude: response.data.endereco.latitude, longitude: response.data.endereco.longitude })
     setEndereco(response.data.endereco)
-    console.log(endereco);
 
     //setFinalPosition({latitude: -23.8007, longitude: -46.0209,}) //--provisorio para testes-- //
     console.log(finalPosition.latitude);
@@ -63,7 +62,6 @@ export const LocalMap = ({ navigation, route }) => {
         pitch: 60,
         center: responde.coords
       })
-      // console.log(responde)
     })
   }, [1500])
 
@@ -156,8 +154,8 @@ export const LocalMap = ({ navigation, route }) => {
         )}
       </MapContainer>
       <InfoBody>
-        <Title>Clínica Natureh</Title>
-        <Paragraph>São Paulo, SP</Paragraph>
+        <Title>{nomeClinica}</Title>
+        <Paragraph>{endereco.cidade}</Paragraph>
 
         <FormField
           labelText="Endereço"

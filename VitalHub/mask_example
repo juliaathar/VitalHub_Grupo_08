@@ -12,6 +12,5 @@
 //         mask: Masks.BRL_CPF
 //     })
 
-
 // <Input {...cpfMasked} keyboardType="numeric" />
 // <Input {...dataMasked} />

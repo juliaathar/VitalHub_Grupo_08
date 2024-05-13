@@ -1,81 +1,17 @@
 {
-  "dataConsulta": "2024-05-09T13:00:00",
-  "descricao": "O Paciente se queixou de congestão nasal e forte dores de cabeça",
-  "diagnostico": "Sinusite",
-  "exames": [],
-  "id": "45a8b1b5-caaf-4045-ab3e-ec82af9e594a",
-  "medicoClinica": {
-    "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
-    "consulta": [
-      [Object
-      ],
-      [Object
-      ],
-      [Object
-      ],
-      [Object
-      ]
-    ],
-    "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
-    "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07"
+  "endereco": {
+    "cep": "05652900",
+    "cidade": "São Paulo",
+    "clinicas": [],
+    "id": "783b3757-a82f-40ba-8dc3-43a4c519be57",
+    "latitude": -23.599833,
+    "logradouro": "Av. Albert Einstein",
+    "longitude": -46.7155,
+    "medicos": [],
+    "numero": 627,
+    "pacientes": []
   },
-  "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
-  "paciente": {
-    "consulta": [
-      [Object
-      ],
-      [Object
-      ],
-      [Object
-      ]
-    ],
-    "cpf": "91138857111",
-    "dataNascimento": "2001-05-08T00:00:00",
-    "enderecoId": "ad29af4c-b6c7-464c-b189-44ee0ebdabf0",
-    "id": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
-    "idNavigation": {
-      "email": "paulo@gmail.com",
-      "foto": "https://blobvitalhub08.blob.core.windows.net/blobvitalhubcontainer/000a667c37c64e5aabbb7934d7f35c6d.jpeg",
-      "id": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
-      "nome": "Paulo Gonçalves",
-      "senha": "$2a$11$faxW8mYjLain9R4UtN16HuLIekb8uLadZPOa4GK2FpnCq6d8dbpIm",
-      "tipoUsuarioId": "5ff2df57-1b92-49d0-a516-f2b1172a0edc"
-    },
-    "rg": "368651265"
-  },
-  "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
-  "prioridade": {
-    "consulta": [
-      [Object
-      ],
-      [Object
-      ],
-      [Object
-      ],
-      [Object
-      ]
-    ],
-    "id": "add341be-8e85-40f1-bca3-71c72a1585d3",
-    "prioridade": 1
-  },
-  "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
-  "receita": {
-    "consulta": [
-      [Object
-      ],
-      [Object
-      ],
-      [Object
-      ]
-    ],
-    "id": "59abe443-903a-4f4c-a134-4b9161de9426",
-    "medicamento": "Oximetazolina"
-  },
-  "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
-  "situacao": {
-    "consulta": [],
-    "id": "62b453de-2709-4243-b249-e57863ccecbe",
-    "situacao": "Realizado"
-  },
-  "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe"
+  "id": "4b4aaadf-daad-4ec0-8934-40e511824f91",
+  "medicosClinicas": [],
+  "nomeFantasia": "VitalHub"
 }
