@@ -1,35 +1,77 @@
-import { ContentAccount, TextAccountLink } from "../../components/ContentAccount/Style"
-import { BackgroundOption, ContainerLogo } from "../../components/ContainerLogo/Style"
-import { CheckCode, CheckCodeBox } from "../../components/CheckCode/Style"
-import { NormalButton } from "../../components/Button/Buttons"
-import { Container } from "../../components/Container/Style"
-import { Paragraph } from "../../components/Paragraph/Style"
-import { Title } from "../../components/Title/Style"
-import { useEffect, useRef, useState } from "react"
-import { Logo } from "../../components/Logo/Style"
+import React, { useEffect, useRef, useState } from "react";
+import { ContentAccount, TextAccountLink } from "../../components/ContentAccount/Style";
+import { BackgroundOption, ContainerLogo } from "../../components/ContainerLogo/Style";
+import { CheckCode, CheckCodeBox } from "../../components/CheckCode/Style";
+import { GoogleButton, NormalButton } from "../../components/Button/Buttons";
+import { Container, ContainerInitial } from "../../components/Container/Style";
+import { Paragraph } from "../../components/Paragraph/Style";
+import { Title } from "../../components/Title/Style";
+import { Logo } from "../../components/Logo/Style";
 import { AntDesign } from '@expo/vector-icons';
-import api from "../../service/service"
-import * as yup from 'yup'; 
-import { TextErrorForm } from "../../components/TextErrorForm/TextErrorForm"
+import api from "../../service/service";
+import * as yup from 'yup';
+import { TextErrorForm } from "../../components/TextErrorForm/TextErrorForm";
+
+
+
 
 export const VerificarEmail = ({ navigation, route }) => {
-    const inputs = [useRef(null), useRef(null), useRef(null), useRef(null)]
-    const [codigo, setCodigo] = useState(["", "", "", ""])
-    const [errors, setErrors] = useState({}); 
+    const inputs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+    const [codigo, setCodigo] = useState(["", "", "", ""]);
+    const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [loadingCode, setLoadingCode] = useState(false);
 
     function focusNextInput(index) {
         if (index < inputs.length - 1) {
-            inputs[index + 1].current.focus()
-        }
-    }
-    
-    function focusPrevInput(index) {
-        if (index > 0) {
-            inputs[index - 1].current.focus()
+            inputs[index + 1].current.focus();
         }
     }
 
+    function focusPrevInput(index) {
+        if (index > 0) {
+            inputs[index - 1].current.focus();
+        }
+    }
+
+    async function EnviarEmail(email) {
+        setLoading(true)
+        try {
+            const schema = yup.object().shape({
+                email: yup.string().required("Campo obrigatório").email("E-mail inválido")
+            });
+
+            await schema.validate({ email }, { abortEarly: false });
+
+            await api.post(`/RecuperarSenha?email=${email}`)
+                .then(response => {
+                    console.log(response.status);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        } catch (error) {
+            if (error instanceof yup.ValidationError) {
+                let validationErrors = {};
+                error.inner.forEach(err => {
+                    validationErrors[err.path] = err.message;
+                });
+                setErrors(validationErrors);
+            } else {
+                console.error('Erro ao recuperar senha:', error);
+            }
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const reenviarCodigo = () => {
+        EnviarEmail(route.params.emailRecuperacao);
+    };
+
+
     async function ValidarCodigo() {
+        setLoadingCode(true)
         try {
             const schema = yup.object().shape({
                 codigo1: yup.string().required("Campo obrigatório").matches(/^\d{1}$/, "O código deve ter 4 dígitos"),
@@ -49,12 +91,12 @@ export const VerificarEmail = ({ navigation, route }) => {
             console.log(codigoPreenchido);
 
             await api.post(`/RecuperarSenha/ValidarCodigoRecuperarSenha?email=${route.params.emailRecuperacao}&codigo=${codigoPreenchido}`)
-            .then( () => {
-                navigation.replace("RedefinirSenha", {emailRecuperacao : route.params.emailRecuperacao});
-            }).catch(error => {
-                console.log(error);
-                setErrors({ codigoInvalido: "Código inválido" });
-            });
+                .then(() => {
+                    navigation.replace("RedefinirSenha", { emailRecuperacao: route.params.emailRecuperacao });
+                }).catch(error => {
+                    console.log(error);
+                    setErrors({ codigoInvalido: "Código inválido" });
+                });
         } catch (error) {
             if (error instanceof yup.ValidationError) {
                 let validationErrors = {};
@@ -65,19 +107,21 @@ export const VerificarEmail = ({ navigation, route }) => {
             } else {
                 console.error('Erro ao validar código:', error);
             }
+        } finally {
+            setLoadingCode(false)
         }
     }
 
     useEffect(() => {
         inputs[0].current.focus();
-    },[])
+    }, []);
 
     return (
-        <Container>
+        <ContainerInitial>
             <ContainerLogo>
-                <BackgroundOption onPress={() => navigation.goBack()}> {/* Adicionei onPress */}
-                    <AntDesign name="close" size={24} color="#34898F" />
-                </BackgroundOption>
+                {/* <BackgroundOption onPress={() => navigation.goBack()}>
+                        <AntDesign name="close" size={24} color="#34898F" />
+                    </BackgroundOption> */}
 
                 <Logo source={require("../../assets/VitalHub_Logo1.png")} />
             </ContainerLogo>
@@ -98,16 +142,14 @@ export const VerificarEmail = ({ navigation, route }) => {
                             caretHidden={true}
                             value={codigo[index]}
                             onChangeText={(text) => {
-                                // Verificar se o texto não é vazio (pra voltar ao campo anterior)
                                 if (text == "") {
-                                    focusPrevInput(index)
+                                    focusPrevInput(index);
                                 } else {
-                                    const novoCodigo = [...codigo] // Copia o array
-                                    novoCodigo[index] = text // Atualiza o valor no índice atual
-                                    setCodigo(novoCodigo) // Atualiza o estado
-                                    focusNextInput(index)
+                                    const novoCodigo = [...codigo];
+                                    novoCodigo[index] = text;
+                                    setCodigo(novoCodigo);
+                                    focusNextInput(index);
                                 }
-                                // Verificar se o campo tem 1 caracter (passa pro próximo campo)
                             }}
                         />
                     ))
@@ -117,14 +159,17 @@ export const VerificarEmail = ({ navigation, route }) => {
             {errors.codigoInvalido && <TextErrorForm style={{ color: '#C81D25', textAlign: 'center' }}>{errors.codigoInvalido}</TextErrorForm>}
 
             <NormalButton
-                title={"Enviar"}
+            disabled={loadingCode}
+                title={"Verificar"}
                 fieldWidth={90}
                 onPress={() => ValidarCodigo()}
             />
 
-            <ContentAccount>
-                <TextAccountLink>Reenviar Código</TextAccountLink>
+            <GoogleButton disabled={loading} title={"Reenviar código"} fieldWidth={90} onPress={reenviarCodigo} />
+
+            <ContentAccount disabled={loading} onPress={() => navigation.goBack()}>
+                <TextAccountLink>Cancelar</TextAccountLink>
             </ContentAccount>
-        </Container>
-    )
-}
+        </ContainerInitial>
+    );
+};
