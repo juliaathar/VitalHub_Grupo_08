@@ -1,4 +1,5 @@
-import { GoogleButton, NormalButton } from "../../components/Button/Buttons"
+import { GoogleButton, NormalButton } from "../../components/Button/Buttons";
+import { Masks, useMaskedInputProps } from 'react-native-mask-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FormField } from "../../components/FormField/FormField"
 import { ScrollForm } from "../../components/ScrollForm/Style"
@@ -32,6 +33,25 @@ export const Perfil = ({ navigation, route }) => {
     const [numeroEndereco, setNumeroEndereco] = useState()
     const [cep, setCep] = useState()
     const [cidade, setCidade] = useState()
+
+    //mascaras
+    const dataMasked = useMaskedInputProps({
+        value: dataNascimento,
+        onChangeText: setDataNascimento,
+        mask: Masks.DATE_DDMMYYYY
+    });
+
+    const cpfMasked = useMaskedInputProps({
+        value: cpf,
+        onChangeText: setCpf,
+        mask: Masks.BRL_CPF
+    })
+
+    const maskedCEP = useMaskedInputProps({
+        value: cep,
+        onChangeText: setCep,
+        mask: Masks.ZIP_CODE
+    })
 
     async function loadProfile() {
         try {
@@ -187,16 +207,16 @@ export const Perfil = ({ navigation, route }) => {
                                 fieldWidth={90}
                                 editable={formEdit}
                                 labelText="Data de nascimento"
-                                fieldValue={dataNascimento}
+                                fieldValue={dataMasked.value}
                                 onChangeText={(data) => { setDataNascimento(data) }}
+                                KeyType="numeric"
                             />
                             <FormField
                                 fieldWidth={90}
                                 editable={formEdit}
                                 labelText="CPF"
-                                fieldValue={cpf}
-                                onChangeText={(c) => { setCpf(c) }}
-                                maxLength={11}
+                                fieldValue={cpfMasked.value}
+                                onChangeText={(c) => { setCpf(c)}}
                                 KeyType="numeric"
                             />
                         </>
@@ -252,7 +272,7 @@ export const Perfil = ({ navigation, route }) => {
                             fieldWidth={45}
                             editable={formEdit}
                             labelText="Cep"
-                            fieldValue={cep}
+                            fieldValue={maskedCEP.value}
                             onChangeText={(c) => { setCep(c) }}
                             maxLength={8}
                             KeyType="numeric"

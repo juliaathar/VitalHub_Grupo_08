@@ -11,7 +11,7 @@ export const MedCard = ({
             onPress={onPress}
         >
             <ContainerMed>
-                <MedImg source={{ uri: "https://github.com/LeonKene-hub.png" }} />
+                <MedImg source={medicos.idNavigation.foto ? {uri: medicos.idNavigation.foto} : { uri: "https://github.com/LeonKene-hub.png" }} />
 
                 <CenterMed>
                     <LineMed>

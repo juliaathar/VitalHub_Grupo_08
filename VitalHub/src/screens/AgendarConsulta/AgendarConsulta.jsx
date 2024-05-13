@@ -80,7 +80,7 @@ export const AgendarConsulta = ({ navigation, route }) => {
             localidade: localidade
         }
         await setDados(dadosInserir)
-        console.log(dados);
+        //console.log(dados);
         // console.log(medicoSelected.id + " id de medico");
         // console.log(profile.user + " id do paciente");
         //console.log(dados);
