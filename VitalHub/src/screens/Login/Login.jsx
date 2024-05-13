@@ -83,7 +83,7 @@ export const Login = ({ navigation }) => {
         <LinkMedium>Esqueceu sua senha?</LinkMedium>
       </TouchableOpacity>
       <NormalButton title={"Entrar"} fieldWidth={90} onPress={handleLogin} disabled={desativado || loading} />
-      <GoogleButton disabled={desativado || loading}  title={"Entrar com Google"} fieldWidth={90} onPress={() => console.log('Entrar com Google')} />
+      <GoogleButton title={"Entrar com Google"} fieldWidth={90} onPress={() => console.log('Entrar com Google')} />
       <ContentAccount disabled={desativado || loading} onPress={() => navigation.navigate('CriarConta')}>
         <TextAccount>Não tem conta? <TextAccountLink>Crie uma conta agora!</TextAccountLink></TextAccount>
       </ContentAccount>

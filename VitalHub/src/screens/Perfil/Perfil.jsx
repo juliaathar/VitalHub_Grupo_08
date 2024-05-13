@@ -15,12 +15,15 @@ import moment from "moment"
 
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { ButtonCamera, ProfileContainer } from "./Style";
+import { ContentAccount, TextAccountLink } from "../../components/ContentAccount/Style";
 
 export const Perfil = ({ navigation, route }) => {
 
     const { photoUri } = route.params || {};
     const [formEdit, setFormEdit] = useState(false);
     const [user, setUser] = useState();
+    // const [loading, setLoading] = useState(false);
+
     const [tokenUser, setTokenUser] = useState();
 
     //Dados do formulario
@@ -86,7 +89,7 @@ export const Perfil = ({ navigation, route }) => {
         setNumeroEndereco(user ? `${user.endereco.numero}` : "")
         setCidade(user && user.endereco ? user.endereco.cidade : '')
     }
-    
+
     async function handleLogout() {
         try {
             if (tokenUser) {
@@ -207,7 +210,7 @@ export const Perfil = ({ navigation, route }) => {
                                 fieldWidth={90}
                                 editable={formEdit}
                                 labelText="Data de nascimento"
-                                fieldValue={dataMasked.value}
+                                fieldValue={dataMasked.value ? dataMasked.value : "Insira sua data de nascimento"}
                                 onChangeText={(data) => { setDataNascimento(data) }}
                                 KeyType="numeric"
                             />
@@ -215,8 +218,8 @@ export const Perfil = ({ navigation, route }) => {
                                 fieldWidth={90}
                                 editable={formEdit}
                                 labelText="CPF"
-                                fieldValue={cpfMasked.value}
-                                onChangeText={(c) => { setCpf(c)}}
+                                fieldValue={cpfMasked.value ? cpfMasked.value : "Informe seu CPF"}
+                                onChangeText={(c) => { setCpf(c) }}
                                 KeyType="numeric"
                             />
                         </>
@@ -244,7 +247,7 @@ export const Perfil = ({ navigation, route }) => {
                             fieldWidth={90}
                             editable={formEdit}
                             labelText="Endereco"
-                            fieldValue={user ? `${user.endereco.logradouro} ${user.endereco.numero}` : ""}
+                            fieldValue={user && user.endereco.logradouro && user.endereco.numero ? `${user.endereco.logradouro} ${user.endereco.numero}` : "Informe seu endereço"}
                         />
                     ) : (
                         <View style={{ width: "90%", justifyContent: "space-between", flexDirection: "row" }}>
@@ -272,7 +275,7 @@ export const Perfil = ({ navigation, route }) => {
                             fieldWidth={45}
                             editable={formEdit}
                             labelText="Cep"
-                            fieldValue={maskedCEP.value}
+                            fieldValue={maskedCEP.value ? maskedCEP.value : "00000-000"}
                             onChangeText={(c) => { setCep(c) }}
                             maxLength={8}
                             KeyType="numeric"
@@ -281,7 +284,7 @@ export const Perfil = ({ navigation, route }) => {
                             fieldWidth={45}
                             editable={formEdit}
                             labelText="Cidade"
-                            fieldValue={cidade}
+                            fieldValue={cidade ? cidade : "Informe sua cidade"}
                             onChangeText={(c) => { setCidade(c) }}
                         />
                     </View>
@@ -294,8 +297,19 @@ export const Perfil = ({ navigation, route }) => {
                             fieldWidth={90} />
                     )}
 
-                    <GoogleButton title={"Sair do app"} onPress={handleLogout}
-                        fieldWidth={90} />
+                    {formEdit ? (
+                        <GoogleButton title={"Cancelar"} onPress={() => setFormEdit(false)}
+                            fieldWidth={90} />
+                    ) : (
+
+                        // <GoogleButton title={"Sair do app"} onPress={handleLogout}
+                        // fieldWidth={90} />
+                        <ContentAccount onPress={handleLogout}>
+                            <TextAccountLink>Sair</TextAccountLink>
+                        </ContentAccount>
+                    )}
+
+
 
                 </View>
             </ScrollForm>
