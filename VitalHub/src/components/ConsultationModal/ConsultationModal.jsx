@@ -1,9 +1,9 @@
+import { BoxData, BoxText, BoxTitle, ModalBody, ModalForm, ModalHeader } from "./Style"
 import { TouchableOpacity, View } from "react-native"
 import { NormalButton } from "../Button/Buttons"
-import { BoxData, BoxText, BoxTitle, ModalBody, ModalForm, ModalHeader } from "./Style"
+import { Paragraph } from "../Paragraph/Style"
 import { LinkMedium } from "../Links/Style"
 import { Title } from "../Title/Style"
-import { Paragraph } from "../Paragraph/Style"
 import moment from "moment"
 
 export const ConsultationModal = ({

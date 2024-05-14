@@ -1,7 +1,6 @@
-import moment from "moment";
-import { StyleSheet } from "react-native";
 import { StyledCalendarStrip } from "./Style";
-import { useState } from "react";
+import { StyleSheet } from "react-native";
+import moment from "moment";
 
 export const CalendarHome = ({
   setDiaSelecionado

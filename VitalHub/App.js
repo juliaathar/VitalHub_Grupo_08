@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { LogBox } from 'react-native';
 
 //Paginas
 import { AgendarConsulta } from './src/screens/AgendarConsulta/AgendarConsulta';
@@ -90,11 +91,10 @@ export default function App() {
     })
   }
 
+  LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+  LogBox.ignoreAllLogs();//Ignore all log notifications
+
   return (
-    //Navegacao
-    //Container
-    //StackNavigation
-    //StackScreen
 
     <NavigationContainer>
       {/* Componente para navegacao */}
@@ -181,7 +181,7 @@ export default function App() {
         <Stack.Screen
           name='NotificacoesConfig'
           component={NotificacoesConfig}
-          options={{title: 'NotificacoesConfig'}}
+          options={{ title: 'NotificacoesConfig' }}
         />
 
       </Stack.Navigator>

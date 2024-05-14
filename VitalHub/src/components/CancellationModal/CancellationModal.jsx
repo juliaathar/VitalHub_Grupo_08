@@ -1,9 +1,9 @@
-import { Paragraph } from "../Paragraph/Style"
-import { Title } from "../Title/Style"
-import { NormalButton } from "../Button/Buttons"
-import { LinkMedium } from "../Links/Style"
-import { TouchableOpacity } from "react-native"
 import { CenteredView, ModalBody, ModalContainer } from "./Style"
+import { NormalButton } from "../Button/Buttons"
+import { TouchableOpacity } from "react-native"
+import { Paragraph } from "../Paragraph/Style"
+import { LinkMedium } from "../Links/Style"
+import { Title } from "../Title/Style"
 
 
 export const CancellationModal = ({

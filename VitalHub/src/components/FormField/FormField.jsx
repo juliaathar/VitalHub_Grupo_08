@@ -25,7 +25,9 @@ export const FormField = ({
             )}
 
             <InputContent
-                multiline={true}
+                blurOnSubmit
+                autoCorrect
+                multiline
                 keyboardType={KeyType}
                 value={fieldValue}
                 editable={editable}

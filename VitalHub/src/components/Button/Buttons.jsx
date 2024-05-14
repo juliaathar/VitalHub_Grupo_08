@@ -1,6 +1,6 @@
-import React from 'react';
-import { ActivityIndicator, TouchableOpacity } from 'react-native';
 import { Button, ButtonTitle, ButtonGoogle, ButtonGoogleTitle } from './Style';
+import { ActivityIndicator, TouchableOpacity } from 'react-native';
+import React from 'react';
 
 export const NormalButton = ({ title, fieldWidth = 100, onPress, disabled = false }) => {
   return (

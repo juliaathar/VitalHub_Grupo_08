@@ -285,8 +285,9 @@ export const Perfil = ({ navigation, route }) => {
                             fieldWidth={45}
                             editable={formEdit}
                             labelText="Cidade"
-                            fieldValue={cidade ? cidade : "Informe sua cidade"}
+                            fieldValue={cidade}
                             onChangeText={(c) => { setCidade(c) }}
+                            placeholder={"informe sua cidade"}
                         />
                     </View>
 
