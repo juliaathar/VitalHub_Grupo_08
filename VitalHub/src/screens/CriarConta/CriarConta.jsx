@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ContentAccount, TextAccountLink } from "../../components/ContentAccount/Style";
 import { NormalButton } from "../../components/Button/Buttons";
 import { Paragraph } from "../../components/Paragraph/Style";
-import { Container } from "../../components/Container/Style";
+import { Container, ContainerInitial } from "../../components/Container/Style";
 import { Title } from "../../components/Title/Style";
 import { Input } from "../../components/Input/Style";
 import { Logo } from "../../components/Logo/Style";
@@ -17,15 +17,18 @@ export const CriarConta = ({ navigation }) => {
     const [senha, setSenha] = useState("");
     const [confirm, setConfirm] = useState("");
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
 
     const cadastrarUsuario = async () => {
+        setLoading(true);
+
         try {
             const schema = yup.object().shape({
                 nome: yup.string().required("Campo obrigatório").matches(/^[^\s]+(\s+[^\s]+)+$/, "Nome e sobrenome necessários"),
                 email: yup.string().email("Digite um e-mail válido").required("Campo obrigatório").matches(/@gmail.com$/, "O e-mail deve ser do Gmail"),
                 senha: yup.string().min(8, "A senha deve ter pelo menos 8 caracteres").required("Campo obrigatório")
-                    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()-_+=])[A-Za-z\d!@#$%^&*()-_+=]{8,}$/, 
-                    "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número, um caractere especial e ter no mínimo 8 caracteres"),
+                    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()-_+=])[A-Za-z\d!@#$%^&*()-_+=]{8,}$/,
+                        "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número, um caractere especial e ter no mínimo 8 caracteres"),
                 confirm: yup.string().oneOf([senha], "As senhas precisam ser iguais").required("Confirme a senha")
             });
 
@@ -37,15 +40,12 @@ export const CriarConta = ({ navigation }) => {
             formData.append("email", email);
             formData.append("idTipoUsuario", '5FF2DF57-1B92-49D0-A516-F2B1172A0EDC');
 
-            console.log(formData);
-
             const response = await api.post("/Pacientes", formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
 
-            console.log(response.status);
             if (response.status === 200) {
                 console.log("deu certo");
                 navigation.navigate('Login');
@@ -60,11 +60,13 @@ export const CriarConta = ({ navigation }) => {
             } else {
                 console.log("Erro ao cadastrar:", error);
             }
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <Container>
+        <ContainerInitial>
             <Logo source={require("../../assets/VitalHub_Logo1.png")} />
 
             <Title>Criar conta</Title>
@@ -72,6 +74,7 @@ export const CriarConta = ({ navigation }) => {
             <Paragraph>Insira seus dados para realizar o cadastro.</Paragraph>
 
             <Input
+                disabled={loading}
                 placeholder="Nome"
                 value={nome}
                 onChangeText={(text) => setNome(text)}
@@ -80,6 +83,7 @@ export const CriarConta = ({ navigation }) => {
             {errors.nome && <TextErrorForm style={{ color: '#C81D25' }}>{errors.nome}</TextErrorForm>}
 
             <Input
+                disabled={loading}
                 placeholder="E-mail"
                 value={email}
                 onChangeText={(text) => setEmail(text)}
@@ -88,6 +92,8 @@ export const CriarConta = ({ navigation }) => {
             {errors.email && <TextErrorForm style={{ color: '#C81D25' }}>{errors.email}</TextErrorForm>}
 
             <Input
+                disabled={loading}
+
                 placeholder="Senha"
                 value={senha}
                 onChangeText={(text) => setSenha(text)}
@@ -97,6 +103,7 @@ export const CriarConta = ({ navigation }) => {
             {errors.senha && <TextErrorForm style={{ color: '#C81D25' }}>{errors.senha}</TextErrorForm>}
 
             <Input
+                disabled={loading}
                 placeholder="Confirmar Senha"
                 value={confirm}
                 onChangeText={(text) => setConfirm(text)}
@@ -105,11 +112,11 @@ export const CriarConta = ({ navigation }) => {
             />
             {errors.confirm && <TextErrorForm style={{ color: '#C81D25' }}>{errors.confirm}</TextErrorForm>}
 
-            <NormalButton title="Cadastrar" fieldWidth={90} onPress={cadastrarUsuario} />
+            <NormalButton disabled={loading} title="Cadastrar" fieldWidth={90} onPress={cadastrarUsuario} />
 
-            <ContentAccount onPress={() => navigation.navigate('Login')}>
+            <ContentAccount disabled={loading} onPress={() => navigation.navigate('Login')}>
                 <TextAccountLink>Cancelar</TextAccountLink>
             </ContentAccount>
-        </Container>
+        </ContainerInitial>
     );
 };

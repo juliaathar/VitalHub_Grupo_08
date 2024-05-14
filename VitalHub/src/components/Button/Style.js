@@ -3,8 +3,8 @@ import styled from 'styled-components/native';
 export const Button = styled.TouchableOpacity`
   width: ${props => `${props.fieldWidth}%`};
   height: 53px;
-  background-color: ${({ disabled }) => (disabled ? 'gray' : '#496BBA')};
-  border: 1px solid ${({ disabled }) => (disabled ? 'gray' : '#496BBA')};
+  background-color: ${({ disabled }) => (disabled ? '#496BBA' : '#496BBA')};
+  border: 1px solid ${({ disabled }) => (disabled ? '#496BBA' : '#496BBA')};
   align-items: center;
   justify-content: center;
   border-radius: 5px;

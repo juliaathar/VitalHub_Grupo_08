@@ -1,21 +1,23 @@
 import { BackgroundOption, ContainerLogo } from "../../components/ContainerLogo/Style"
 import { NormalButton } from "../../components/Button/Buttons"
 import { Paragraph } from "../../components/Paragraph/Style"
-import { Container } from "../../components/Container/Style"
+import { Container, ContainerInitial } from "../../components/Container/Style"
 import { Title } from "../../components/Title/Style"
 import { Input } from "../../components/Input/Style"
 import { Logo } from "../../components/Logo/Style"
-import { AntDesign } from '@expo/vector-icons';
 import { useState } from "react"
 import api from "../../service/service"
-import * as yup from 'yup'; 
+import * as yup from 'yup';
 import { TextErrorForm } from "../../components/TextErrorForm/TextErrorForm"
+import { ContentAccount, TextAccountLink } from "../../components/ContentAccount/Style"
 
 export const RecuperarSenha = ({ navigation }) => {
     const [email, setEmail] = useState("");
-    const [errors, setErrors] = useState({}); 
+    const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState({});
 
     async function EnviarEmail() {
+        setLoading(true);
         try {
             const schema = yup.object().shape({
                 email: yup.string().required("Campo obrigatório").email("E-mail inválido")
@@ -41,15 +43,17 @@ export const RecuperarSenha = ({ navigation }) => {
             } else {
                 console.error('Erro ao recuperar senha:', error);
             }
+        } finally {
+            setLoading(false);
         }
     }
 
     return (
-        <Container >
+        <ContainerInitial  >
             <ContainerLogo>
-                <BackgroundOption onPress={() => navigation.goBack()}> 
+                {/* <BackgroundOption onPress={() => navigation.goBack()}> 
                     <AntDesign name="arrowleft" size={24} color="#34898F" />
-                </BackgroundOption>
+                </BackgroundOption> */}
 
                 <Logo source={require("../../assets/VitalHub_Logo1.png")} />
             </ContainerLogo>
@@ -59,19 +63,24 @@ export const RecuperarSenha = ({ navigation }) => {
             <Paragraph>Digite abaixo o seu e-mail cadastrado que enviaremos um link para recuperação de senha</Paragraph>
 
             <Input
+                disabled={loading}
                 placeholder={'E-mail'}
                 value={email}
                 onChangeText={(text) => { setEmail(text) }}
-                style={{ borderColor: errors.email ? '#C81D25' : '#49B3BA' }} 
+                style={{ borderColor: errors.email ? '#C81D25' : '#49B3BA' }}
             />
-            {errors.email && <TextErrorForm style={{ color: '#C81D25' }}>{errors.email}</TextErrorForm>} 
+            {errors.email && <TextErrorForm style={{ color: '#C81D25' }}>{errors.email}</TextErrorForm>}
 
             <NormalButton
                 title={"Continuar"}
                 fieldWidth={90}
                 onPress={() => EnviarEmail()}
-    
+                disabled={loading}
+
             />
-        </Container>
+            <ContentAccount disabled={loading} onPress={() => navigation.goBack()}>
+                <TextAccountLink>Cancelar</TextAccountLink>
+            </ContentAccount>
+        </ContainerInitial>
     )
 }

@@ -24,8 +24,6 @@ namespace WebAPI.Repositories
 
                 if (medicoBuscado == null) return null!;
 
-                //if (medico.Foto != null)
-                //    medicoBuscado.IdNavigation.Foto = medico.Foto;
 
 
                 if (medico.Logradouro != null)
@@ -58,7 +56,8 @@ namespace WebAPI.Repositories
                 return ctx.Consultas
                      .Include(x => x.Situacao)
                      .Include(x => x.Prioridade)
-                     .Include(x => x.MedicoClinica)
+                     .Include(x => x.MedicoClinica!.Medico.IdNavigation)
+                     .Include(x => x.MedicoClinica!.Medico.Especialidade)
                      .Include(x => x.Paciente!.IdNavigation)
                  .Include(x => x.MedicoClinica!.Consulta)
                  .Include(x => x.Receita)

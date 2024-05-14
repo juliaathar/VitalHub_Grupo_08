@@ -10,10 +10,10 @@ export const NormalButton = ({ title, fieldWidth = 100, onPress, disabled = fals
   );
 };
 
-export const GoogleButton = ({ title, fieldWidth, onPress }) => {
+export const GoogleButton = ({ title, fieldWidth, onPress, disabled = false }) => {
   return (
-    <ButtonGoogle fieldWidth={fieldWidth} onPress={onPress}>
-      <ButtonGoogleTitle>{title}</ButtonGoogleTitle>
+    <ButtonGoogle fieldWidth={fieldWidth} onPress={onPress} disabled={disabled}>
+      {disabled ? <ActivityIndicator color="#496BBA" /> : <ButtonGoogleTitle>{title}</ButtonGoogleTitle>}
     </ButtonGoogle>
   );
 };
