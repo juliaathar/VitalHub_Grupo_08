@@ -67,7 +67,7 @@ export const Home = ({ navigation }) => {
             //console.log("Dados do usuário:", resp.data);
             setUser(resp.data);
         } catch (error) {
-            console.log(`Erro usuário: ${error}`);
+            //console.log(`Erro usuário: ${error}`);
         }
     };
 
@@ -79,17 +79,18 @@ export const Home = ({ navigation }) => {
             .then(async response => {
                 await setConsultas(response.data);
                 //console.log(diaSelecionado);
-                console.log(response.data.dataConsulta);
+                //console.log(response.data);
 
             }).catch(error => {
-                console.log(error);
+                //console.log(error);
             })
+        ChecarDataConsulta()
     }
 
     async function CancelarConsulta(item) {
         await api.patch(`/Consultas/Status?idConsulta=${item.id}&status=Cancelado`)
             .then(response => {
-                //console.log(response.status);
+                console.log(response.status);
             })
             .catch(error => {
                 console.log(`Erro em cancelar a consulta! : ${error}`);
@@ -98,23 +99,32 @@ export const Home = ({ navigation }) => {
         //ListarConsulta()
     }
 
-    async function RealizarConsulta(item) {
-        consultas.forEach(consulta => {
-           console.log( consulta.dataConsulta)
+    async function ChecarDataConsulta() {
+        const dataAtual = moment().format('YYYY-MM-DD')
 
-           if (consulta.dataConsulta) {
-            
-           }
+        consultas.forEach(consulta => {
+            //console.log( consulta.dataConsulta)
+            const data = consulta.dataConsulta.split("T");
+
+             console.log("Data e horario da consulta " + data[0], data[1]);
+            // console.log("data e hora atual " + dataAtual, horaAtual);
+
+            if (data[0] < dataAtual && consulta.situacao.situacao === "Pendente") {
+                RealizarPorData(consulta)
+            }
         });
-        // await api.patch(`/Consultas/Status?idConsulta=${item.id}&status=Realizado`)
-        //     .then(response => {
-        //         console.log(response.status);
-        //     })
-        //     .catch(error => {
-        //         console.log(`Erro em realizar a consulta! : ${error}`);
-        //     })
-        // setModalCancel(false)
-        // ListarConsulta()
+    }
+
+    async function RealizarPorData(consulta) {
+        console.log("================================entrou===================================");
+        await api.patch(`/Consultas/Status?idConsulta=${consulta.id}&status=Realizado`)
+            .then(response => {
+                console.log(response.status);
+            })
+            .catch(error => {
+                console.log(`Erro em realizar a consulta! : ${error}`);
+            })
+        ListarConsulta()
     }
 
     function MostrarModal(modal, consulta) {
@@ -204,7 +214,7 @@ export const Home = ({ navigation }) => {
                                         profile.role == "Paciente" ? (
                                             MostrarModal("local", item)
                                         ) : (
-                                            RealizarConsulta()
+                                            null
                                         )
                                     }}
                                 />
