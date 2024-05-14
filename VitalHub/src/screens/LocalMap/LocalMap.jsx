@@ -22,9 +22,10 @@ import {
 export const LocalMap = ({ navigation, route }) => {
   //rota
   const { clinicaId } = route.params || {};
+
   useEffect(() => {
     BuscarClinica();
-  }, [route.params])
+  }, [])
 
   //mapa
   const [initialPosition, setInitialPosition] = useState(null)
@@ -37,14 +38,11 @@ export const LocalMap = ({ navigation, route }) => {
   async function BuscarClinica() {
     const response = await api.get(`/Clinica/BuscarPorId?id=${clinicaId}`)
     console.log("=============== Funcao de trazer dados da clinica: ===============");
-    
+    console.log(response.data);
+
     setNomeClinica(response.data.nomeFantasia)
     setFinalPosition({ latitude: response.data.endereco.latitude, longitude: response.data.endereco.longitude })
     setEndereco(response.data.endereco)
-
-    //setFinalPosition({latitude: -23.8007, longitude: -46.0209,}) //--provisorio para testes-- //
-    console.log(finalPosition.latitude);
-    console.log(finalPosition.longitude);
   }
 
   //captura a posicao e salva as coordenadas

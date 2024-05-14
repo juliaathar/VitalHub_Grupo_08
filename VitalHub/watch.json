@@ -1,46 +1,17 @@
-[
-  {
-    "dataConsulta": "2024-05-15T12:00:00",
-    "descricao": "",
-    "diagnostico": "",
-    "exames": [],
-    "id": "ccd72450-048c-4bc2-a721-9ff76ef5ecf5",
-    "medicoClinica": {
-      "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
-      "consulta": [Array
-      ],
-      "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
-      "medico": [Object
-      ],
-      "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07"
-    },
-    "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
-    "paciente": {
-      "consulta": [Array
-      ],
-      "cpf": "900.800.70060",
-      "dataNascimento": "2003-11-12T00:00:00",
-      "enderecoId": "ad29af4c-b6c7-464c-b189-44ee0ebdabf0",
-      "id": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
-      "idNavigation": [Object
-      ],
-      "rg": "368651265"
-    },
-    "pacienteId": "b0fcdd4a-d880-441e-845b-5ba2bc258ba6",
-    "prioridade": {
-      "consulta": [Array
-      ],
-      "id": "add341be-8e85-40f1-bca3-71c72a1585d3",
-      "prioridade": 1
-    },
-    "prioridadeId": "add341be-8e85-40f1-bca3-71c72a1585d3",
-    "receitaId": "59abe443-903a-4f4c-a134-4b9161de9426",
-    "situacao": {
-      "consulta": [Array
-      ],
-      "id": "791b5f13-eeca-4229-b751-712e702d8837",
-      "situacao": "Pendente"
-    },
-    "situacaoId": "791b5f13-eeca-4229-b751-712e702d8837"
-  }
-]
+{
+  "endereco": {
+    "cep": "05652900",
+    "cidade": "São Paulo",
+    "clinicas": [],
+    "id": "783b3757-a82f-40ba-8dc3-43a4c519be57",
+    "latitude": -23.599833,
+    "logradouro": "Av. Albert Einstein",
+    "longitude": -46.7155,
+    "medicos": [],
+    "numero": 627,
+    "pacientes": []
+  },
+  "id": "b43cbcc9-73dd-4b0c-ae15-500b9e86ef27",
+  "medicosClinicas": [],
+  "nomeFantasia": "VitalHub"
+}

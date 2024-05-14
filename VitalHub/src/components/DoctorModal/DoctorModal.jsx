@@ -19,7 +19,7 @@ export const DoctorModal = ({
 
 
     async function LocalMapTela(consulta) {
-        navigation.navigate('LocalMap', { clinicaId: consulta.medicoClinica.clinicaId })
+        navigation.navigate('LocalMap', { clinicaId: consulta })
     }
 
     return (

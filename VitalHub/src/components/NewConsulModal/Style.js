@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Modal from "react-native-modal";
 
 export const ModalConsul = styled(Modal)`
-    height: 70%;
+    height: 60%;
     width: 100%;
     background-color: #FBFBFB;
     border-radius: 10px 10px 0px 0px;

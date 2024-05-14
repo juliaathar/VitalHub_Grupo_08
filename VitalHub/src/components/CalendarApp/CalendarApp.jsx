@@ -1,12 +1,10 @@
 import { Calendar, LocaleConfig } from "react-native-calendars";
 import { ActivityIndicator, StyleSheet } from "react-native-web";
+import SelectDropdown from 'react-native-select-dropdown'
+import { SelectBox, SelectBoxTitle } from "./Style";
 import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useState } from "react";
-import { SelectBox, SelectBoxTitle } from "./Style";
-import SelectDropdown from 'react-native-select-dropdown'
 import moment from "moment";
-import { ActivityType } from "expo-location";
-
 
 export const CalendarApp = ({
     setDiaSelected,
@@ -25,13 +23,11 @@ export const CalendarApp = ({
     const [arrayOptions, setArrayOptions] = useState('');
     const [selected, setSelected] = useState('');
 
-    const horarios = [
-        "11:00",
-        "12:00",
-        "13:00",
-        "14:00",
-        "15:00"
-    ]
+    //instância da data atual
+    const currentDate = new Date();
+
+    //define a data final como sendo o último dia do mês
+    const endingDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
 
     function CarregarOpcoes() {
         //conferir quantas horas faltam, ate a 24h
@@ -42,7 +38,7 @@ export const CalendarApp = ({
         const options = Array.from({ length: horasRestantes }, (_, index) => {
             let valor = new Date().getHours() + (index + 1)
 
-            return(`${valor}:00`)
+            return (`${valor}:00`)
 
         })
 
@@ -61,6 +57,8 @@ export const CalendarApp = ({
                     setSelected(day.dateString);
                     setDiaSelected(day.dateString);
                 }}
+                minDate={currentDate.toUTCString()}
+                maxDate={endingDate.dateString}
                 markedDates={{
                     [selected]: { selected: true, disableTouchEvent: true, selectedDotColor: 'orange' }
                 }}
@@ -94,8 +92,8 @@ export const CalendarApp = ({
                         rowTextStyle={styles.dropdown1RowTxtStyle}
                     />
                 </SelectBox>
-            ) 
-            : <ActivityIndicator />}
+            )
+                : <ActivityIndicator />}
         </>
     )
 
@@ -119,7 +117,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 12,
-      },
+    },
     dropdown1BtnTxtStyle: { color: '#34898F', textAlign: 'left', fontFamily: 'MontserratAlternates_600SemiBold', fontSize: 14 },
     dropdown1DropdownStyle: { backgroundColor: '#EFEFEF' },
     dropdown1RowStyle: { backgroundColor: '#EFEFEF', borderBottomColor: '#60BFC5' },

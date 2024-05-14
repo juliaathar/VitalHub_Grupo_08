@@ -190,7 +190,6 @@ export const Perfil = ({ navigation, route }) => {
         <Container>
             <ScrollForm>
                 <ProfileContainer>
-                    {/* <ProfilePic source={user.idNavigation.foto ? { uri: photoUri } : require("../../assets/profile.png")} /> */}
                     <ProfilePic source={getUserPhoto()} />
 
                     <ButtonCamera onPress={() => navigation.navigate('CameraScreen', { SetMediaLabrary: true, Tela: "Main" })}>
@@ -210,17 +209,19 @@ export const Perfil = ({ navigation, route }) => {
                                 fieldWidth={90}
                                 editable={formEdit}
                                 labelText="Data de nascimento"
-                                fieldValue={dataMasked.value ? dataMasked.value : "Insira sua data de nascimento"}
+                                fieldValue={dataMasked.value}
                                 onChangeText={(data) => { setDataNascimento(data) }}
                                 KeyType="numeric"
+                                placeholder={"Insira sua data de nascimento"}
                             />
                             <FormField
                                 fieldWidth={90}
                                 editable={formEdit}
                                 labelText="CPF"
-                                fieldValue={cpfMasked.value ? cpfMasked.value : "Informe seu CPF"}
+                                fieldValue={cpfMasked.value}
                                 onChangeText={(c) => { setCpf(c) }}
                                 KeyType="numeric"
+                                placeholder={"Informe seu CPF"}
                             />
                         </>
                     )}
@@ -267,7 +268,6 @@ export const Perfil = ({ navigation, route }) => {
                                 KeyType="numeric"
                             />
                         </View>
-
                     )}
 
                     <View style={{ width: "90%", justifyContent: "space-between", flexDirection: "row" }}>
@@ -275,10 +275,11 @@ export const Perfil = ({ navigation, route }) => {
                             fieldWidth={45}
                             editable={formEdit}
                             labelText="Cep"
-                            fieldValue={maskedCEP.value ? maskedCEP.value : "00000-000"}
+                            fieldValue={maskedCEP.value}
                             onChangeText={(c) => { setCep(c) }}
                             maxLength={8}
                             KeyType="numeric"
+                            placeholder={"informe seu CEP"}
                         />
                         <FormField
                             fieldWidth={45}

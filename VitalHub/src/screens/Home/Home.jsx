@@ -43,6 +43,7 @@ export const Home = ({ navigation }) => {
     const [diaSelecionado, setDiaSelecionado] = useState(moment().format("YYYY-DD-MM"))
 
     const [modalCancel, setModalCancel] = useState(false);
+    const [modalConfirm, setModalConfirm] = useState(false);
     const [modalNewConsul, setModalNewConsul] = useState(false);
     const [modalDoctor, setModalDoctor] = useState(false);
     const [modalPromptuary, setModalPromptuary] = useState(false);
@@ -106,8 +107,8 @@ export const Home = ({ navigation }) => {
             //console.log( consulta.dataConsulta)
             const data = consulta.dataConsulta.split("T");
 
-             console.log("Data e horario da consulta " + data[0], data[1]);
-            // console.log("data e hora atual " + dataAtual, horaAtual);
+            //console.log("Data e horario da consulta " + data[0], data[1]);
+            //console.log("data e hora atual " + dataAtual, horaAtual);
 
             if (data[0] < dataAtual && consulta.situacao.situacao === "Pendente") {
                 RealizarPorData(consulta)
@@ -127,12 +128,19 @@ export const Home = ({ navigation }) => {
         ListarConsulta()
     }
 
+    async function RealizarConsulta(consulta) {
+        await api.patch(`/Consultas/Status?idConsulta=${consulta.id}&status=Realizado`)
+            .then(response => {
+                console.log(response.status);
+            })
+            .catch(error => {
+                console.log(`Erro em realizar a consulta! : ${error}`);
+            })
+        setModalConfirm(false)
+    }
+
     function MostrarModal(modal, consulta) {
         setIdEncontrado(consulta)
-        // profile.role == "Paciente" ? 
-        // setIdEncontrado()
-        // :
-        // setIdEncontrado()
 
         if (modal == "cancelar") {
             setModalCancel(true)
@@ -140,8 +148,9 @@ export const Home = ({ navigation }) => {
             setModalPromptuary(true)
         } else if (modal == "local") {
             setModalDoctor(true)
+        } else if (modal == "realizar") {
+            setModalConfirm(true)
         }
-        //console.log(consulta);
     }
 
     const emptyComponent = () => {
@@ -214,7 +223,7 @@ export const Home = ({ navigation }) => {
                                         profile.role == "Paciente" ? (
                                             MostrarModal("local", item)
                                         ) : (
-                                            null
+                                            MostrarModal("realizar", item)
                                         )
                                     }}
                                 />
@@ -281,6 +290,7 @@ export const Home = ({ navigation }) => {
 
             </Container>
 
+            {/* cancelar */}
             <CancellationModal
                 visible={modalCancel}
                 onRequestClose={() => { setModalCancel(false) }}
@@ -290,12 +300,22 @@ export const Home = ({ navigation }) => {
                 paragraph={"Ao cancelar essa consulta, abrirá uma possível disponibilidade no seu horário, deseja mesmo cancelar essa consulta?"}
             />
 
+            {/* realizar */}
+            <CancellationModal
+                visible={modalConfirm}
+                onRequestClose={() => { setModalConfirm(false) }}
+                onPress={() => RealizarConsulta(idEncontrado)}
+                tranparent={true}
+                title={"Realizar consulta"}
+                paragraph={"Ao confirma essa consulta, a consulta sera encerrada e um campo de prontuario sera disponivel, deseja mesmo realizar essa consulta?"}
+            />
+
             {profile.role === "Paciente" ?
                 <DoctorModal
                     visible={modalDoctor}
                     onRequestClose={() => setModalDoctor(false)}
                     navigation={navigation}
-                    consulta={idEncontrado}
+                    consulta={idEncontrado && idEncontrado.medicoClinica ? idEncontrado.medicoClinica.clinicaId : ""}
                     nome={idEncontrado && idEncontrado.medicoClinica ? idEncontrado.medicoClinica.medico.idNavigation.nome : ""}
                     crm={idEncontrado && idEncontrado.medicoClinica ? idEncontrado.medicoClinica.medico.crm : ""}
                     especialidade={idEncontrado && idEncontrado.medicoClinica ? idEncontrado.medicoClinica.medico.especialidade.especialidade1 : ""}
@@ -313,7 +333,6 @@ export const Home = ({ navigation }) => {
                     foto={idEncontrado ? idEncontrado.paciente.idNavigation.foto : ""}
                 />
             }
-
 
             <NewConsulModal
                 visible={modalNewConsul}
