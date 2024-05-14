@@ -101,7 +101,6 @@ export const Home = ({ navigation }) => {
 
     async function ChecarDataConsulta() {
         const dataAtual = moment().format('YYYY-MM-DD')
-        const horaAtual = moment().format('h:mm:ss')
 
         consultas.forEach(consulta => {
             //console.log( consulta.dataConsulta)
@@ -110,7 +109,7 @@ export const Home = ({ navigation }) => {
              console.log("Data e horario da consulta " + data[0], data[1]);
             // console.log("data e hora atual " + dataAtual, horaAtual);
 
-            if (data[0] < dataAtual) {
+            if (data[0] < dataAtual && consulta.situacao.situacao === "Pendente") {
                 RealizarPorData(consulta)
             }
         });
