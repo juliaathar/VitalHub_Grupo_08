@@ -61,12 +61,7 @@ export const Prontuario = ({ navigation, route }) => {
     useEffect(() => {
         console.log("asasasas merfa do kro");
         ConsultaGet();
-    },[])
-
-    useEffect(() => {
-        console.log("asasasas merfa do kro 2");
-        ConsultaGet();
-    },[])
+    },[consulta])
 
     return (
         <Container>

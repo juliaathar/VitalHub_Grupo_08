@@ -2,17 +2,17 @@ import { ConsultationModal } from "../../components/ConsultationModal/Consultati
 import { CalendarApp } from "../../components/CalendarApp/CalendarApp";
 import { ClinicCard } from "../../components/ClinicCard/ClinicCard"
 import { NormalButton } from "../../components/Button/Buttons"
+import { Paragraph } from "../../components/Paragraph/Style";
 import { Container } from "../../components/Container/Style"
 import { MedCard } from "../../components/MedCard/MedCard"
 import { LinkMedium } from "../../components/Links/Style"
 import { Title } from "../../components/Title/Style"
+import { userDecodeToken } from "../../utils/Auth"
+import { CardList, Nothing } from "../Home/Style"
 import { TouchableOpacity } from "react-native"
 import { Body, RenderInside } from "./Style"
 import { useEffect, useState } from "react"
-import { CardList, Nothing } from "../Home/Style"
 import api from "../../service/service"
-import { userDecodeToken } from "../../utils/Auth"
-import { Paragraph } from "../../components/Paragraph/Style";
 
 
 export const AgendarConsulta = ({ navigation, route }) => {
@@ -29,11 +29,11 @@ export const AgendarConsulta = ({ navigation, route }) => {
     //front-end
     const [medicoSelected, setMedicoSelected] = useState(""); //id do medico selecionado
     const [clinicaSelected, setClinicaSelected] = useState(""); //id da clinica selecionada
-    const [negado, setNegado] = useState(false);
+    const [negado, setNegado] = useState(true) //validação do botão
 
     //calendario e select
     const [diaSelected, setDiaSelected] = useState(""); //id do dia selecionada
-    const [horaSelected, setHoraSelected] = useState("");
+    const [horaSelected, setHoraSelected] = useState(""); // dia selecionado no calendario
     const [consulModal, setConsulModal] = useState(false); //mudar modal final de cadastro
 
     //traz os medicos da api
@@ -82,10 +82,6 @@ export const AgendarConsulta = ({ navigation, route }) => {
             localidade: localidade
         }
         await setDados(dadosInserir)
-        //console.log(dados);
-        // console.log(medicoSelected.id + " id de medico");
-        // console.log(profile.user + " id do paciente");
-        //console.log(dados);
     }
 
     async function CadastrarConsulta() {
@@ -115,11 +111,35 @@ export const AgendarConsulta = ({ navigation, route }) => {
         )
     }
 
+    function validarButton() {
+        switch (status) {
+            case "clínica":
+                clinicaSelected === "" ? setNegado(true) : setNegado(false)
+                break;
+
+            case "médico":
+                medicoSelected === "" ? setNegado(true) : setNegado(false)
+                break;
+
+            case "data":
+                diaSelected && horaSelected ? setNegado(true) : setNegado(false)
+                break;
+
+            default:
+                break;
+        }
+    }
+
     //atualiza as chamadas
     useEffect(() => {
         ListarClinicas()
         ProfileLoad()
     }, [])
+
+    //atualizar o botão
+    useEffect(() => {
+        validarButton()
+    }, [status, clinicaSelected, medicoSelected, horaSelected])
 
     return (
         <>
@@ -170,10 +190,7 @@ export const AgendarConsulta = ({ navigation, route }) => {
 
                     <NormalButton
                         title={"Continuar"}
-                        denied={
-                            status == "clínica" && clinicaSelected === "" ? true :
-                            status == "médico" && medicoSelected === "" ? true : false
-                        }
+                        denied={negado}
 
                         onPress={() => {
                             switch (status) {
