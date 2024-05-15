@@ -1,17 +1,76 @@
 {
-  "endereco": {
-    "cep": "05652900",
-    "cidade": "São Paulo",
-    "clinicas": [],
-    "id": "783b3757-a82f-40ba-8dc3-43a4c519be57",
-    "latitude": -23.599833,
-    "logradouro": "Av. Albert Einstein",
-    "longitude": -46.7155,
-    "medicos": [],
-    "numero": 627,
-    "pacientes": []
+  "dataConsulta": "2024-05-21T16:00:00",
+  "descricao": "",
+  "diagnostico": "",
+  "exames": [
+    {
+      "consultaId": "328eebe0-3fb6-4c03-8d2f-74b1beb09530",
+      "descricao": "Erro ao reconhecer o textoOperation returned an invalid status code 'BadRequest'",
+      "id": "48d131b1-ddcc-4b5a-a393-0228f94e14d9"
+    },
+    {
+      "consultaId": "328eebe0-3fb6-4c03-8d2f-74b1beb09530",
+      "descricao": "Erro ao reconhecer o textoOperation returned an invalid status code 'BadRequest'",
+      "id": "3ac18de0-62a5-4091-9bed-46f8bf6c0aa0"
+    },
+    {
+      "consultaId": "328eebe0-3fb6-4c03-8d2f-74b1beb09530",
+      "descricao": "Erro ao reconhecer o textoOperation returned an invalid status code 'BadRequest'",
+      "id": "6df56e65-87c3-46be-8fcf-66fbfeec0c0b"
+    },
+    {
+      "consultaId": "328eebe0-3fb6-4c03-8d2f-74b1beb09530",
+      "descricao": "NOTE8-S211",
+      "id": "f909dc96-6c6e-4477-a4a0-d80d53e15c37"
+    },
+    {
+      "consultaId": "328eebe0-3fb6-4c03-8d2f-74b1beb09530",
+      "descricao": "wrndli@uiCoriDfios15: 58",
+      "id": "d33d1dda-b7e9-4ee3-b0d4-ec545a3b69ac"
+    }
+  ],
+  "id": "328eebe0-3fb6-4c03-8d2f-74b1beb09530",
+  "medicoClinica": {
+    "clinicaId": "4b4aaadf-daad-4ec0-8934-40e511824f91",
+    "consulta": [],
+    "id": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+    "medico": {
+      "crm": "12345-SP",
+      "enderecoId": "085598ed-3703-49ba-bbd6-7d8e27258d0b",
+      "especialidade": [Object],
+      "especialidadeId": "f737e0b7-3936-4346-a83b-94edaa3f7992",
+      "id": "5b1cebb1-924c-422f-aac6-3c1fde480f07",
+      "idNavigation": [Object],
+      "medicosClinicas": [Array]
+    },
+    "medicoId": "5b1cebb1-924c-422f-aac6-3c1fde480f07"
   },
-  "id": "b43cbcc9-73dd-4b0c-ae15-500b9e86ef27",
-  "medicosClinicas": [],
-  "nomeFantasia": "VitalHub"
+  "medicoClinicaId": "71e8c6a0-bdab-4505-832a-b9a5d2f5b6e1",
+  "paciente": {
+    "consulta": [],
+    "cpf": "123.456.789-01",
+    "dataNascimento": "2001-03-02T00: 00: 00",
+    "enderecoId": "5b65c726-d07c-4090-b630-66273bba08be",
+    "id": "574d4a3d-5f8e-4dd6-83f4-86d2498c04d0",
+    "idNavigation": {
+      "email": "lucassilveira586@gmail.com",
+      "foto": "https: //blobvitalhub08.blob.core.windows.net/blobvitalhubcontainer/9b77c2d32dcb4c518ba58b35d429308e.jpg",
+      "id": "574d4a3d-5f8e-4dd6-",
+      "senha": "$2a$11$wMR0/XXS55wXqRKfsRzQte0C7/3Ttes.gyrPSKqIF1.8m8Ni2sGBe",
+      "tipoUsuarioId": "5ff2df57-1b92-49d0-a516-f2b1172a0edc"
+    }
+  },
+  "pacienteId": "574d4a3d-5f8e-4dd6-83f4-86d2498c04d0",
+  "prioridade": {
+    "consulta": [],
+    "id": "34065edc-cb48-4045-82fb-949dae435dc9",
+    "prioridade": 3
+  },
+  "prioridadeId": "34065edc-cb48-4045-82fb-949dae435dc9",
+  "situacao": {
+    "consulta": [],
+    "id": "62b453de-2709-4243-b249-e57863ccecbe",
+    "situacao": "Realizado"
+  },
+  "situacaoId": "62b453de-2709-4243-b249-e57863ccecbe"
 }

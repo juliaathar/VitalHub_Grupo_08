@@ -37,8 +37,8 @@ export const LocalMap = ({ navigation, route }) => {
 
   async function BuscarClinica() {
     const response = await api.get(`/Clinica/BuscarPorId?id=${clinicaId}`)
-    console.log("=============== Funcao de trazer dados da clinica: ===============");
-    console.log(response.data);
+    //console.log("=============== Funcao de trazer dados da clinica: ===============");
+    //console.log(response.data);
 
     setNomeClinica(response.data.nomeFantasia)
     setFinalPosition({ latitude: response.data.endereco.latitude, longitude: response.data.endereco.longitude })

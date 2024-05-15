@@ -86,7 +86,7 @@ export const Perfil = ({ navigation, route }) => {
 
         setCep(user && user.endereco ? user.endereco.cep : '')
         setLogradouro(user ? user.endereco.logradouro : "")
-        setNumeroEndereco(user ? `${user.endereco.numero}` : "")
+        setNumeroEndereco(user ? user.endereco.numero : "")
         setCidade(user && user.endereco ? user.endereco.cidade : '')
     }
 
@@ -218,7 +218,7 @@ export const Perfil = ({ navigation, route }) => {
                                 fieldWidth={90}
                                 editable={formEdit}
                                 labelText="CPF"
-                                fieldValue={cpfMasked.value}
+                                fieldValue={cpfMasked.value == "" && !formEdit ? "Informe seu CPF" : cpfMasked.value}
                                 onChangeText={(c) => { setCpf(c) }}
                                 KeyType="numeric"
                                 placeholder={"Informe seu CPF"}
@@ -248,7 +248,7 @@ export const Perfil = ({ navigation, route }) => {
                             fieldWidth={90}
                             editable={formEdit}
                             labelText="Endereco"
-                            fieldValue={user && user.endereco.logradouro && user.endereco.numero ? `${user.endereco.logradouro} ${user.endereco.numero}` : "Informe seu endereço"}
+                            fieldValue={user && user.endereco.logradouro && user.endereco.numero ? `${logradouro} ${numeroEndereco}` : "Informe seu endereço"}
                         />
                     ) : (
                         <View style={{ width: "90%", justifyContent: "space-between", flexDirection: "row" }}>
@@ -258,14 +258,16 @@ export const Perfil = ({ navigation, route }) => {
                                 labelText="Logradouro"
                                 fieldValue={logradouro}
                                 onChangeText={(l) => { setLogradouro(l) }}
+                                placeholder={"informe seu logradouro"}
                             />
                             <FormField
                                 fieldWidth={30}
                                 editable={formEdit}
-                                labelText="Numero"
+                                labelText="Número"
                                 fieldValue={numeroEndereco}
                                 onChangeText={(n) => { setNumeroEndereco(n) }}
                                 KeyType="numeric"
+                                placeholder={"informe o numero"}
                             />
                         </View>
                     )}
@@ -274,8 +276,8 @@ export const Perfil = ({ navigation, route }) => {
                         <FormField
                             fieldWidth={45}
                             editable={formEdit}
-                            labelText="Cep"
-                            fieldValue={maskedCEP.value}
+                            labelText="CEP"
+                            fieldValue={maskedCEP.value == "" && !formEdit ? "Informe" : maskedCEP.value}
                             onChangeText={(c) => { setCep(c) }}
                             maxLength={8}
                             KeyType="numeric"
@@ -285,9 +287,9 @@ export const Perfil = ({ navigation, route }) => {
                             fieldWidth={45}
                             editable={formEdit}
                             labelText="Cidade"
-                            fieldValue={cidade}
+                            fieldValue={cidade == "" && !formEdit ? "Informe" : cidade}
                             onChangeText={(c) => { setCidade(c) }}
-                            placeholder={"informe sua cidade"}
+                            placeholder={"informe a cidade"}
                         />
                     </View>
 

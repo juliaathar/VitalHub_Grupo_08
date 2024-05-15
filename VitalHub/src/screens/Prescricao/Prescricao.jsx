@@ -38,16 +38,6 @@ export const Prescricao = ({ navigation, route }) => {
             .catch(error => {
                 console.log(`Erro em ConsultaGet: ${error}`);
             })
-
-        // await api.get(`/Exame/BuscarPorIdConsulta?id=${id}`)
-        // .then(async response => {
-        //     console.log("exames------------------------------------------------------------------------------- " + JSON.stringify(response.data))
-        //     await setNovoExame(response.data)
-        //     console.log(novoExame);
-        // })
-        // .catch(error => {
-        //     console.log(error);
-        // })
     }
 
     const getUserPhoto = () => {
@@ -107,10 +97,10 @@ export const Prescricao = ({ navigation, route }) => {
     }, [photoUri]);
 
     function arrayOCR() {
-        const exames = novoProntuario ? novoProntuario.exames : []
+        const exames = novoProntuario ? novoProntuario.exames.descricao : []
 
         exames.map((item, index) => {
-            setLista(`${lista} \n ${item.descricao}`);
+            setLista(`${lista} \n ${item}`);
         })
     }
 

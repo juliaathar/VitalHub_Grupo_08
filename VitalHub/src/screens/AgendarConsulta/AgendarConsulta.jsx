@@ -9,14 +9,15 @@ import { Title } from "../../components/Title/Style"
 import { TouchableOpacity } from "react-native"
 import { Body, RenderInside } from "./Style"
 import { useEffect, useState } from "react"
-import { CardList } from "../Home/Style"
+import { CardList, Nothing } from "../Home/Style"
 import api from "../../service/service"
 import { userDecodeToken } from "../../utils/Auth"
+import { Paragraph } from "../../components/Paragraph/Style";
 
 
 export const AgendarConsulta = ({ navigation, route }) => {
     //status da pagina
-    const {nivel, localidade} = route.params || {};
+    const { nivel, localidade } = route.params || {};
     const [profile, setProfile] = useState("");
     const [status, setStatus] = useState("clínica"); //status define o titulo e tambem o conteudo da tela
 
@@ -28,6 +29,7 @@ export const AgendarConsulta = ({ navigation, route }) => {
     //front-end
     const [medicoSelected, setMedicoSelected] = useState(""); //id do medico selecionado
     const [clinicaSelected, setClinicaSelected] = useState(""); //id da clinica selecionada
+    const [negado, setNegado] = useState(false);
 
     //calendario e select
     const [diaSelected, setDiaSelected] = useState(""); //id do dia selecionada
@@ -88,23 +90,30 @@ export const AgendarConsulta = ({ navigation, route }) => {
 
     async function CadastrarConsulta() {
         await api.post('/Consultas/Cadastrar', {
-            pacienteId : profile.user,
-            situacaoId : "791B5F13-EECA-4229-B751-712E702D8837",
-            medicoClinicaId : dados.medicoClinica,
-            prioridadeId : dados.prioridadeId,
-            dataConsulta : dados.dataConsulta,
-            descricao : "",
-            diagnostico : ""
+            pacienteId: profile.user,
+            situacaoId: "791B5F13-EECA-4229-B751-712E702D8837",
+            medicoClinicaId: dados.medicoClinica,
+            prioridadeId: dados.prioridadeId,
+            dataConsulta: dados.dataConsulta,
+            descricao: "",
+            diagnostico: ""
         })
-        .then( (response) => {
-            console.log(`Cadastro de consulta feita: ${response.status}`);
-            //console.log(response.data);
-            navigation.replace("Main")
-        }).catch(error => {
-            console.log(`Erro no cadastro de consulta: ${error}`);
-        })
+            .then((response) => {
+                console.log(`Cadastro de consulta feita: ${response.status}`);
+                //console.log(response.data);
+                navigation.replace("Main")
+            }).catch(error => {
+                console.log(`Erro no cadastro de consulta: ${error}`);
+            })
     }
 
+    const emptyComponent = () => {
+        return (
+            <Nothing>
+                <Paragraph>Ops! Nenhuma encontrada em {localidade}</Paragraph>
+            </Nothing>
+        )
+    }
 
     //atualiza as chamadas
     useEffect(() => {
@@ -123,6 +132,7 @@ export const AgendarConsulta = ({ navigation, route }) => {
                             (
                                 <CardList
                                     data={clinicasLista}
+                                    ListEmptyComponent={emptyComponent}
                                     keyExtractor={(item) => item.id}
                                     renderItem={({ item }) =>
                                         <ClinicCard
@@ -150,8 +160,8 @@ export const AgendarConsulta = ({ navigation, route }) => {
                                     }
                                 />
                             ) : (
-                                <CalendarApp 
-                                    setDiaSelected = {setDiaSelected}
+                                <CalendarApp
+                                    setDiaSelected={setDiaSelected}
                                     setHoraSelected={setHoraSelected}
                                 />
                             )
@@ -160,18 +170,21 @@ export const AgendarConsulta = ({ navigation, route }) => {
 
                     <NormalButton
                         title={"Continuar"}
+                        denied={
+                            status == "clínica" && clinicaSelected === "" ? true :
+                            status == "médico" && medicoSelected === "" ? true : false
+                        }
+
                         onPress={() => {
                             switch (status) {
                                 case "":
                                     setStatus("clínica")
                                     break;
                                 case "clínica":
-                                    clinicaSelected === "" ? setStatus("clínica") :
-                                        (setStatus("médico"), ListarMedicos())
+                                    clinicaSelected === "" ? setStatus("clínica") : (setStatus("médico"), ListarMedicos())
                                     break;
                                 case "médico":
-                                    medicoSelected === "" ? setStatus("médico") :
-                                        setStatus("data")
+                                    medicoSelected === "" ? setStatus("médico") : setStatus("data")
                                     break;
                                 case "data":
                                     diaSelected && horaSelected ? (setConsulModal(true), CompilarDados()) : ""

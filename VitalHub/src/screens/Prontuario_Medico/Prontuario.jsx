@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import { FormField } from "../../components/FormField/FormField"
 import { ScrollForm } from "../../components/ScrollForm/Style"
 import { NormalButton } from "../../components/Button/Buttons"
@@ -7,7 +8,6 @@ import { ProfilePic } from "../../components/Profile/Style"
 import { LinkMedium } from "../../components/Links/Style"
 import { TouchableOpacity, View } from "react-native"
 import { Title } from "../../components/Title/Style"
-import { useEffect, useState } from "react"
 import api from "../../service/service"
 
 export const Prontuario = ({ navigation, route }) => {
@@ -22,19 +22,19 @@ export const Prontuario = ({ navigation, route }) => {
     const [formEdit, setFormEdit] = useState(false);
     const [novoProntuario, setNovoProntuario] = useState({});
 
-    async function GetConsulta() {
+    async function ConsultaGet() {
         try {
-            api.get(`/Consultas/BuscarPorId?id=${consulta}`)
+            api.get(`/Consultas/BuscarPorId?id=${consulta.id}`)
             .then( (response) => {
                 setNovoProntuario(response.data)
-                console.log(novoProntuario);
-
-                setNome(novoProntuario.paciente.idNavigation.nome)
-                setEmail(novoProntuario.paciente.idNavigation.email)
-                setDescricao(novoProntuario.descricao)
-                setDiagnostico(novoProntuario.diagnostico)
+                
+                setNome(response.data.paciente.idNavigation.nome)
+                setEmail(response.data.paciente.idNavigation.email)
+                setDescricao(response.data.descricao)
+                setDiagnostico(response.data.diagnostico)
                 setPrescricao("vazio")
-
+                
+                console.log(novoProntuario);
             })
             .catch(error => {
                 console.log(error);
@@ -46,26 +46,27 @@ export const Prontuario = ({ navigation, route }) => {
 
     async function AtualizarProntuario() {
         try {
-            const response = await api.put(`/Consultas/Prontuario/${novoProntuario.id}`, novoProntuario);
-            console.log(`nao entrou no if!`);
-
+            const response = await api.put(`/Consultas/Prontuario/`,  { Id: consulta.id, descricao: descricao, diagnostico: diagnostico });
 
             if (response.status === 200) {
                 console.log(`Prontuário atualizado com sucesso!`);
             } else {
-                console.log(`Erro ao atualizar prontuário: ${response.statusText}`);
+                console.log(`Erro ao atualizar prontuário: ${response.status}`);
             }
         } catch (error) {
             console.log(`Erro ao atualizar prontuário: ${error.message}`);
         }
     }
-    
 
     useEffect(() => {
-        console.log('Consulta recebida:', consulta);
-        GetConsulta()
-    }, []);
-    
+        console.log("asasasas merfa do kro");
+        ConsultaGet();
+    },[])
+
+    useEffect(() => {
+        console.log("asasasas merfa do kro 2");
+        ConsultaGet();
+    },[])
 
     return (
         <Container>
@@ -125,7 +126,7 @@ export const Prontuario = ({ navigation, route }) => {
                         />
                     )}
 
-                    <TouchableOpacity onPress={() => navigation.replace('Home')}>
+                    <TouchableOpacity onPress={() => navigation.replace('Main')}>
                         <LinkMedium>Cancelar</LinkMedium>
                     </TouchableOpacity>
                 </View>

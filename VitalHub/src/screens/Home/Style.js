@@ -13,7 +13,6 @@ export const CardList = styled.FlatList`
     height: 50%;
     gap: 10px;
 `
-
 export const NewConsul = styled.TouchableOpacity`
     background-color: #49B3BA;
     border-radius: 10px;
@@ -24,8 +23,10 @@ export const NewConsul = styled.TouchableOpacity`
     position: absolute;
     bottom: 20px;
     right: 20px;
-`
+    `
 
 export const Nothing = styled.View`
     flex: 1;
+    align-self: center;
+    //border: 1px
 `
