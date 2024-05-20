@@ -5,6 +5,9 @@ export const ContainerLogo = styled.View`
     height: auto;
     flex-direction: row;
     margin-top: 35px;
+    align-self:center;
+    align-items:center;
+    justify-content:center;
 `
 
 export const BackgroundOption = styled.TouchableOpacity`

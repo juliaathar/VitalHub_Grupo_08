@@ -1,24 +1,25 @@
-import { TouchableOpacity } from "react-native";
 import { BoxUser, DataUser, ImageUser, Line, LinearContainer, UserName, Wellcome } from "./Style"
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { TouchableOpacity } from "react-native";
 
-export const Header = ({ navigation }) => {
+export const Header = ({ navigation, name, foto }) => {
+
     return (
         <LinearContainer>
             <Line>
                 <BoxUser
                     onPress={() => navigation.navigate('Perfil')}
                 >
-                    <ImageUser source={{ uri: "https://github.com/LeonKene-hub.png" }} />
+                    <ImageUser source={{ uri: foto}} />
 
                     <DataUser>
                         <Wellcome>Bem Vindo</Wellcome>
-                        <UserName>Beta Tester</UserName>
+                        <UserName>{name}</UserName>
                     </DataUser>
 
                 </BoxUser>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("NotificacoesConfig")}>
                     <MaterialCommunityIcons name="bell" size={25} color="white" />
                 </TouchableOpacity>
             </Line>

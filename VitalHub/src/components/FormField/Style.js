@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export const ContentBox = styled.View`
     width: ${props => `${props.fieldWidth}%`};
-    margin-top: 20px;
+    margin-top: 10px;
 `
 
 export const Label = styled.Text`

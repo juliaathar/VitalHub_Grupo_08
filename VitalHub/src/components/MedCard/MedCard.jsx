@@ -1,8 +1,7 @@
 import { CenterMed, ContainerMed, MedBody, MedImg, LineMed, Name, Specialty } from "./Style"
 
 export const MedCard = ({
-    nome = "Dra Alessandra",
-    especialidade = "Demartologa, Esteticista",
+    medicos,
     actived,
     onPress
 }) => {
@@ -12,14 +11,14 @@ export const MedCard = ({
             onPress={onPress}
         >
             <ContainerMed>
-                <MedImg source={{ uri: "https://github.com/LeonKene-hub.png" }} />
+                <MedImg source={medicos.idNavigation.foto ? {uri: medicos.idNavigation.foto} : { uri: "https://github.com/LeonKene-hub.png" }} />
 
                 <CenterMed>
                     <LineMed>
-                        <Name>{nome}</Name>
+                        <Name>{medicos.idNavigation.nome}</Name>
                     </LineMed>
                     <LineMed>
-                        <Specialty>{especialidade}</Specialty>
+                        <Specialty>{medicos.especialidade.especialidade1}</Specialty>
                     </LineMed>
                 </CenterMed>
             </ContainerMed>

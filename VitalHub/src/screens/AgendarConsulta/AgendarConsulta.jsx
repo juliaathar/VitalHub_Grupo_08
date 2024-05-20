@@ -1,38 +1,116 @@
+import { ConsultationModal } from "../../components/ConsultationModal/ConsultationModal"
+import { CalendarApp } from "../../components/CalendarApp/CalendarApp";
 import { ClinicCard } from "../../components/ClinicCard/ClinicCard"
 import { NormalButton } from "../../components/Button/Buttons"
 import { Container } from "../../components/Container/Style"
 import { MedCard } from "../../components/MedCard/MedCard"
 import { LinkMedium } from "../../components/Links/Style"
 import { Title } from "../../components/Title/Style"
-import { CardList } from "../Home/Style"
 import { TouchableOpacity } from "react-native"
 import { Body, RenderInside } from "./Style"
-import { useState } from "react"
-import { CalendarApp } from "../../components/CalendarApp/CalendarApp"
-import { ConsultationModal } from "../../components/ConsultationModal/ConsultationModal"
+import { useEffect, useState } from "react"
+import { CardList } from "../Home/Style"
+import api from "../../service/service"
+import { userDecodeToken } from "../../utils/Auth"
 
-export const AgendarConsulta = ({ navigation }) => {
 
-    const [status, setStatus] = useState("clínica");
+export const AgendarConsulta = ({ navigation, route }) => {
+    //status da pagina
+    const {nivel, localidade} = route.params || {};
+    const [profile, setProfile] = useState("");
+    const [status, setStatus] = useState("clínica"); //status define o titulo e tambem o conteudo da tela
 
-    const [clinicaSelected, setClinicaSelected] = useState("");
-    const [medicoSelected, setMedicoSelected] = useState("");
+    //chamados pela API
+    const [medicosLista, setMedicosLista] = useState(null); //lista de medicos
+    const [clinicasLista, setClinicasLista] = useState(null); //lista de clinicas
+    const [dados, setDados] = useState([]) //dados que serao usados para o cadastro
 
-    const [consulModal, setConsulModal] = useState(false); //mudar para false
+    //front-end
+    const [medicoSelected, setMedicoSelected] = useState(""); //id do medico selecionado
+    const [clinicaSelected, setClinicaSelected] = useState(""); //id da clinica selecionada
 
-    const clinicas = [
-        { id: 1, nomeClinica: "Clínica Natureh", endereco: "São Paulo, SP", nota: "4,5", dias: "Seg-Sex" },
-        { id: 2, nomeClinica: "Diamond Pró-Mulher", endereco: "São Paulo, SP", nota: "4,8", dias: "Seg-Sex" },
-        { id: 3, nomeClinica: "Clinica Villa Lobos", endereco: "Taboão, SP", nota: "4,2", dias: "Seg-Sab" },
-        { id: 4, nomeClinica: "SP Oncologia Clínica", endereco: "Taboão, SP", nota: "4,2", dias: "Seg-Sab" }
-    ]
+    //calendario e select
+    const [diaSelected, setDiaSelected] = useState(""); //id do dia selecionada
+    const [horaSelected, setHoraSelected] = useState("");
+    const [consulModal, setConsulModal] = useState(false); //mudar modal final de cadastro
 
-    const medicos = [
-        { id: 1, nomeMedico: "Dra Alessandra", especialidade: "Demartologa, Esteticista" },
-        { id: 2, nomeMedico: "Dr Kumushiro", especialidade: "Cirurgião, Cardiologista" },
-        { id: 3, nomeMedico: "Dr Rodrigo Santos", especialidade: "Clínico, Pediatra" },
-        { id: 4, nomeMedico: "Dr Jerfesson", especialidade: "Fisioterapia" }
-    ]
+    //traz os medicos da api
+    async function ListarMedicos() {
+        //Instanciar
+        await api.get(`/Medicos/BuscarPorIdClinica?id=${clinicaSelected.id}`)
+            .then(async (response) => {
+                setMedicosLista(response.data)
+            }).catch(error => {
+                console.log(error)
+            })
+    }
+
+    //traz as clinicas da api
+    async function ListarClinicas() {
+        await api.get(`/Clinica/BuscarPorCidade?cidade=${localidade}`)
+            .then(async (response) => {
+                setClinicasLista(response.data)
+            }).catch(error => {
+                console.log(error);
+            })
+    }
+
+    async function ProfileLoad() {
+        const token = await userDecodeToken();
+
+        if (token) {
+            setProfile(token)
+        }
+    }
+
+    //Reuni todos os dados para realizar a requisicao
+    async function CompilarDados() {
+        const dataConsulta = `${diaSelected} ${horaSelected}`
+        console.clear()
+        const dadosInserir = {
+            dataConsulta: dataConsulta,
+            medicoId: medicoSelected.id,
+            nomeMedico: medicoSelected.idNavigation.nome,
+            especialidade: medicoSelected.especialidade.especialidade1,
+            medicoClinica: medicoSelected.id,
+            clinicaId: clinicaSelected.id,
+            clinicaNome: clinicaSelected.nomeFantasia,
+            prioridadeId: nivel.id,
+            prioridadeLabel: nivel.prioridade,
+            localidade: localidade
+        }
+        await setDados(dadosInserir)
+        //console.log(dados);
+        // console.log(medicoSelected.id + " id de medico");
+        // console.log(profile.user + " id do paciente");
+        //console.log(dados);
+    }
+
+    async function CadastrarConsulta() {
+        await api.post('/Consultas/Cadastrar', {
+            pacienteId : profile.user,
+            situacaoId : "791B5F13-EECA-4229-B751-712E702D8837",
+            medicoClinicaId : dados.medicoClinica,
+            prioridadeId : dados.prioridadeId,
+            dataConsulta : dados.dataConsulta,
+            descricao : "",
+            diagnostico : ""
+        })
+        .then( (response) => {
+            console.log(`Cadastro de consulta feita: ${response.status}`);
+            //console.log(response.data);
+            navigation.replace("Main")
+        }).catch(error => {
+            console.log(`Erro no cadastro de consulta: ${error}`);
+        })
+    }
+
+
+    //atualiza as chamadas
+    useEffect(() => {
+        ListarClinicas()
+        ProfileLoad()
+    }, [])
 
     return (
         <>
@@ -44,48 +122,40 @@ export const AgendarConsulta = ({ navigation }) => {
                         {status === "clínica" ?
                             (
                                 <CardList
-                                    data={clinicas}
+                                    data={clinicasLista}
                                     keyExtractor={(item) => item.id}
                                     renderItem={({ item }) =>
                                         <ClinicCard
-                                            nomeClinica={item.nomeClinica}
-                                            nota={item.nota}
-                                            dias={item.dias}
-                                            local={item.endereco}
+                                            nomeClinica={item.nomeFantasia}
+                                            nota={""}
+                                            dias={""}
+                                            local={item.endereco.logradouro}
                                             //funções
-                                            actived={clinicaSelected == item.id}
-                                            onPress={() => clinicaSelected == item.id ? setClinicaSelected(item.id) : setClinicaSelected(item.id)}
-                                        />}
+                                            actived={clinicaSelected.id == item.id}
+                                            onPress={() => setClinicaSelected(item)}
+                                        />
+                                    }
                                 />
                             ) : status === "médico" ? (
                                 <CardList
-                                    data={medicos}
+                                    data={medicosLista}
                                     keyExtractor={(item) => item.id}
                                     renderItem={({ item }) =>
                                         <MedCard
-                                            nome={item.nomeMedico}
-                                            especialidade={item.especialidade}
+                                            medicos={item}
                                             //funções
-                                            actived={medicoSelected == item.id}
-                                            onPress={() => medicoSelected == item.id ? setMedicoSelected(item.id) : setMedicoSelected(item.id)}
-                                        />}
+                                            actived={medicoSelected.id == item.id}
+                                            onPress={() => setMedicoSelected(item)}
+                                        />
+                                    }
                                 />
                             ) : (
-                                <CalendarApp />
-
+                                <CalendarApp 
+                                    setDiaSelected = {setDiaSelected}
+                                    setHoraSelected={setHoraSelected}
+                                />
                             )
                         }
-
-                        {/* <ClinicCard
-                        actived={clinicaSelected}
-                        onPress={() => clinicaSelected ? setClinicaSelected(false) : setClinicaSelected(true)}
-                    /> */}
-
-                        {/* <MedCard
-                        actived={medicoSelected}
-                        onPress={() => medicoSelected ? setMedicoSelected(false) : setMedicoSelected(true)}
-                    /> */}
-
                     </RenderInside>
 
                     <NormalButton
@@ -96,13 +166,15 @@ export const AgendarConsulta = ({ navigation }) => {
                                     setStatus("clínica")
                                     break;
                                 case "clínica":
-                                    setStatus("médico")
+                                    clinicaSelected === "" ? setStatus("clínica") :
+                                        (setStatus("médico"), ListarMedicos())
                                     break;
                                 case "médico":
-                                    setStatus("data")
+                                    medicoSelected === "" ? setStatus("médico") :
+                                        setStatus("data")
                                     break;
                                 case "data":
-                                    setConsulModal(true)
+                                    diaSelected && horaSelected ? (setConsulModal(true), CompilarDados()) : ""
                                     break;
                                 default:
                                     setStatus("data")
@@ -122,7 +194,7 @@ export const AgendarConsulta = ({ navigation }) => {
                                     setStatus("clínica")
                                     break;
                                 case "clínica":
-                                    {navigation.replace('Home')}
+                                    { navigation.replace('Main') }
                                     break;
                                 default:
                                     setStatus("clínica")
@@ -134,11 +206,13 @@ export const AgendarConsulta = ({ navigation }) => {
                     </TouchableOpacity>
                 </Body>
             </Container>
-            
+
             <ConsultationModal
                 visible={consulModal}
-                onRequestClose={() => setConsulModal(false)}
+                onRequestClose={() => (setConsulModal(false))}
                 navigation={navigation}
+                dados={dados}
+                onPress={() => CadastrarConsulta()}
             />
         </>
     )

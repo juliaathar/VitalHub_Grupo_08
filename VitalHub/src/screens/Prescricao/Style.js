@@ -37,13 +37,14 @@ export const CancelarLink = styled.Text`
 export const FormPhoto = styled.View`
     width: 90%;
     margin-top: 20px;
-    height: 140px;
+    height: max-content;
 `
 export const PhotoField = styled.View`
     border-radius: 5px;
     margin-top: 10px;
     background-color: #F5F3F3;
-    height: 110px;
+    //height: 110px;
+    height: max-content;
     align-items: center;
     justify-content: center;
 `
@@ -51,4 +52,23 @@ export const DecorLine = styled.View`
     border: 2px solid #8C8A97;
     width: 90%;
     margin: 30px 0px 10px 0px;
+`
+
+export const ImageTaked = styled.Image`
+    width: 100%;
+    height: 120px;
+`
+
+export const ImageTouch = styled.TouchableOpacity`
+    width: 50%;
+    height: 120px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+`
+
+export const PhotosList = styled.FlatList`
+    width: 100%;
+    gap: 10px;
+    //padding: 10px;
+    height: fit-content;
 `

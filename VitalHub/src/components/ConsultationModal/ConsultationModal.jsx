@@ -4,11 +4,14 @@ import { BoxData, BoxText, BoxTitle, ModalBody, ModalForm, ModalHeader } from ".
 import { LinkMedium } from "../Links/Style"
 import { Title } from "../Title/Style"
 import { Paragraph } from "../Paragraph/Style"
+import moment from "moment"
 
 export const ConsultationModal = ({
     onRequestClose,
     visible,
-    navigation
+    navigation,
+    dados,
+    onPress
 }) => {
     return (
         <ModalForm
@@ -23,27 +26,28 @@ export const ConsultationModal = ({
             <ModalBody>
                 <BoxData>
                     <BoxTitle>Data da consulta</BoxTitle>
-                    <BoxText>1 de Novembro de 2023</BoxText>
+                    <BoxText>{dados.dataConsulta ? moment(dados.dataConsulta).format("DD/MM/YYYY hh:mm") : "selecione uma data"}</BoxText>
                 </BoxData>
                 <BoxData>
                     <BoxTitle>Médico(a) da consulta</BoxTitle>
-                    <BoxText>Dra Alessandra</BoxText>
-                    <BoxText>Demartologa, Esteticista</BoxText>
+                    <BoxText>{dados.nomeMedico ? dados.nomeMedico : ""}</BoxText>
+                    <BoxText>{dados.especialidade ? dados.especialidade : ""}</BoxText>
                 </BoxData>
                 <BoxData>
                     <BoxTitle>Local da consulta</BoxTitle>
-                    <BoxText>São Paulo, SP</BoxText>
+                    <BoxText>Clinica {dados.clinicaNome ? dados.clinicaNome : ""}</BoxText>
+                    <BoxText>{dados.localidade ? dados.localidade : ""}</BoxText>
                 </BoxData>
                 <BoxData>
                     <BoxTitle>Tipo da consulta</BoxTitle>
-                    <BoxText>Rotina</BoxText>
+                    <BoxText>{dados.prioridadeLabel ? dados.prioridadeLabel : ""}</BoxText>
                 </BoxData>
             </ModalBody>
 
             <NormalButton
                 title={"Confirmar"}
                 fieldWidth={80}
-                onPress={() => navigation.replace("Main")}
+                onPress={onPress}
             />
             <TouchableOpacity onPress={onRequestClose} style={{ marginBottom: 25 }}>
                 <LinkMedium>Cancelar</LinkMedium>

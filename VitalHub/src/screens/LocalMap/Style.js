@@ -1,10 +1,15 @@
 import MapView from "react-native-maps";
 import styled from "styled-components";
 
-
 export const Map = styled(MapView)`
     width: 100%;
+    height: 100%;
+`
+export const MapContainer = styled.View`
+    width: 100%;
     height: 50%;
+    align-items: center;
+    justify-content: center;
 `
 
 export const InfoBody = styled.View`
