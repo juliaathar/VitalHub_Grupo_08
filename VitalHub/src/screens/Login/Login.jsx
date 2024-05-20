@@ -13,8 +13,8 @@ import * as yup from 'yup';
 import { TextErrorForm } from '../../components/TextErrorForm/TextErrorForm';
 
 export const Login = ({ navigation }) => {
-  const [email, setEmail] = useState('julia@gmail.com');
-  const [senha, setSenha] = useState('julia');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
   const [desativado, setDesativado] = useState(false);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);

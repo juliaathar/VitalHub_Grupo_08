@@ -18,55 +18,70 @@ export const Prontuario = ({ navigation, route }) => {
     const [descricao, setDescricao] = useState('');
     const [diagnostico, setDiagnostico] = useState('');
     const [prescricao, setPrescricao] = useState('');
+    const [foto, setFoto] = useState('');
 
     const [formEdit, setFormEdit] = useState(false);
-    const [novoProntuario, setNovoProntuario] = useState({});
 
     async function ConsultaGet() {
         try {
             api.get(`/Consultas/BuscarPorId?id=${consulta.id}`)
-            .then( (response) => {
-                setNovoProntuario(response.data)
-                
-                setNome(response.data.paciente.idNavigation.nome)
-                setEmail(response.data.paciente.idNavigation.email)
-                setDescricao(response.data.descricao)
-                setDiagnostico(response.data.diagnostico)
-                setPrescricao("vazio")
-                
-                console.log(novoProntuario);
-            })
-            .catch(error => {
-                console.log(error);
-            })
+                .then((response) => {
+
+                    setEmail(response.data.paciente.idNavigation.email)
+                    setNome(response.data.paciente.idNavigation.nome)
+                    setFoto(response.data.paciente.idNavigation.foto)
+                    setPrescricao(response.data.receita.medicamento)
+                    setDiagnostico(response.data.diagnostico)
+                    setDescricao(response.data.descricao)
+
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
         } catch (error) {
             console.log(`Erro ao buscar prontuário: ${error.message}`);
         }
     }
 
     async function AtualizarProntuario() {
-        try {
-            const response = await api.put(`/Consultas/Prontuario/`,  { Id: consulta.id, descricao: descricao, diagnostico: diagnostico });
-
-            if (response.status === 200) {
-                console.log(`Prontuário atualizado com sucesso!`);
-            } else {
-                console.log(`Erro ao atualizar prontuário: ${response.status}`);
+        console.log("OIIIIIIIIIIIII")
+        console.log({
+            id: consulta.id,
+            consultaId: consulta.id,
+            descricao: descricao,
+            diagnostico: diagnostico,
+            receita: {
+                medicamento: prescricao
             }
+        })
+        try {
+            const response = await api.put(`/Consultas/Prontuario`, {
+                id : consulta.id,
+                consultaId: consulta.id,
+                descricao: descricao,
+                diagnostico: diagnostico,
+                receita: {
+                    medicamento: prescricao
+                }
+            });
+
+            //console.log(consulta.id);
+            console.log(response.status);
         } catch (error) {
             console.log(`Erro ao atualizar prontuário: ${error.message}`);
         }
     }
 
     useEffect(() => {
-        console.log("asasasas merfa do kro");
         ConsultaGet();
-    },[consulta])
+        //console.log(consulta.id);
+    }, [consulta])
 
     return (
         <Container>
             <ScrollForm>
-                <ProfilePic source={require("../../assets/profile.png")} />
+                <ProfilePic source={foto != "" ? { uri: foto } : require("../../assets/profile.png")} />
                 <View style={{ alignItems: "center" }}>
 
                     <Title> {nome} </Title>
@@ -101,14 +116,7 @@ export const Prontuario = ({ navigation, route }) => {
                         <NormalButton
                             title={"editar"}
                             fieldWidth={90}
-                            onPress={() => {
-                                setNovoProntuario({
-                                    descricao: descricao,
-                                    diagnostico: diagnostico,
-                                    prescricao: prescricao
-                                })
-                                setFormEdit(true)
-                            }}
+                            onPress={() => { setFormEdit(true) }}
                         />
                     ) : (
                         <NormalButton

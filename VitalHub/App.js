@@ -1,5 +1,5 @@
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
 import { LogBox } from 'react-native';
 
 //Paginas
@@ -8,14 +8,14 @@ import { RecuperarSenha } from './src/screens/RecuperarSenha/RecuperarSenha';
 import { VerificarEmail } from './src/screens/VerificarEmail/VerificarEmail';
 import { RedefinirSenha } from './src/screens/RedefinirSenha/RedefinirSenha';
 import { Prontuario } from './src/screens/Prontuario_Medico/Prontuario'
+import { CameraScreen } from './src/screens/CameraScreen/CameraScreen';
 import { CriarConta } from './src/screens/CriarConta/CriarConta';
-import { Home } from './src/screens/Home/Home';
 import { Prescricao } from './src/screens/Prescricao/Prescricao';
+import { LocalMap } from './src/screens/LocalMap/LocalMap';
 import { Perfil } from './src/screens/Perfil/Perfil';
 import { Login } from './src/screens/Login/Login';
-import { LocalMap } from './src/screens/LocalMap/LocalMap';
-import { CameraScreen } from './src/screens/CameraScreen/CameraScreen';
 import { Main } from './src/screens/Main/Main';
+import { Home } from './src/screens/Home/Home';
 
 //notificacoes
 //importa a notificacao

@@ -125,7 +125,6 @@ export const Home = ({ navigation }) => {
             .catch(error => {
                 console.log(`Erro em realizar a consulta! : ${error}`);
             })
-        ListarConsulta()
     }
 
     async function RealizarConsulta(consulta) {

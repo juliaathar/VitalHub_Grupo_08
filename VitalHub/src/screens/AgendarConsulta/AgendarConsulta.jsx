@@ -122,7 +122,7 @@ export const AgendarConsulta = ({ navigation, route }) => {
                 break;
 
             case "data":
-                diaSelected && horaSelected ? setNegado(true) : setNegado(false)
+                diaSelected && horaSelected ? setNegado(false) : setNegado(true)
                 break;
 
             default:
