@@ -53,11 +53,14 @@ namespace WebAPI.Repositories
                 if (buscada.ReceitaId != null)
                 {
                     buscada.Receita = consulta.Receita;
-
                 }
                 else
                 {
-                    ctx.Add(consulta.Receita);
+                    //ctx.Add(consulta.Receita);
+                    buscada.Receita = new Receita()
+                    {
+                        Medicamento = consulta.Receita.Medicamento
+                    };
                 }
 
                 ctx.Update(buscada);

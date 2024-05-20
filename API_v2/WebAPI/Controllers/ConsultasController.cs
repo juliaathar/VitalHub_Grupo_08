@@ -54,7 +54,7 @@ namespace WebAPI.Controllers
             return Ok();
         }
 
-        [HttpPatch("Prontuario")]
+        [HttpPut("Prontuario")]
         public IActionResult EditarProntuario(Consulta consulta)
         {
             consultaRepository.EditarProntuario(consulta);
